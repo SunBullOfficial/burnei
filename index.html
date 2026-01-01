@@ -13,51 +13,79 @@
         body { font-family: 'Inter', sans-serif; background-color: #000; color: #fff; overflow-x: hidden; }
         .bg-grid { background-image: radial-gradient(#222 1px, transparent 1px); background-size: 30px 30px; }
         
-        .hero-glow { filter: drop-shadow(0 0 60px rgba(243, 186, 47, 0.6)); }
+        .hero-glow { filter: drop-shadow(0 0 60px rgba(243, 186, 47, 0.7)); }
         .gold-text { background: linear-gradient(to bottom, #F3BA2F, #FFD700); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
         
-        .btn-action { transition: 0.3s; display: flex; align-items: center; justify-content: center; border-radius: 9999px; }
-        .btn-action:hover { transform: scale(1.1); background: #F3BA2F; color: #000; border-color: #F3BA2F; }
+        /* Botões Estilo Tier 1 */
+        .btn-glow { 
+            background: #F3BA2F; color: #000; font-weight: 900;
+            box-shadow: 0 0 25px rgba(243, 186, 47, 0.5);
+            transition: 0.3s all ease;
+        }
+        .btn-glow:hover { transform: scale(1.1); box-shadow: 0 0 40px rgba(243, 186, 47, 0.8); background: #fff; }
 
-        .vault-card { border: 1px solid rgba(243, 186, 47, 0.2); background: rgba(10,10,10,0.8); backdrop-blur: md; }
-        
-        .blur-mystery { filter: blur(15px); opacity: 0.2; user-select: none; transition: 0.5s; }
-        .lock-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 20; background: rgba(0,0,0,0.4); }
+        .btn-social { 
+            border: 2px solid rgba(255,255,255,0.2); 
+            transition: 0.3s; color: #fff;
+        }
+        .btn-social:hover { border-color: #F3BA2F; color: #F3BA2F; box-shadow: 0 0 20px rgba(243, 186, 47, 0.3); }
 
-        @keyframes pulse-red { 0%, 100% { box-shadow: 0 0 10px rgba(255, 69, 0, 0.2); } 50% { box-shadow: 0 0 30px rgba(255, 69, 0, 0.6); } }
-        .burn-active { animation: pulse-red 2s infinite; border-color: #FF4500; }
+        .roadmap-card {
+            border: 1px solid rgba(243, 186, 47, 0.15);
+            background: rgba(15,15,15,0.9);
+            transition: 0.4s;
+        }
+        .roadmap-card:hover { border-color: #F3BA2F; transform: translateY(-10px); }
+
+        .blur-mystery { filter: blur(15px); opacity: 0.2; user-select: none; }
     </style>
 </head>
 <body class="bg-grid">
 
-    <div class="fixed top-6 right-6 z-[60] flex gap-2 font-black text-[11px] bg-black/80 backdrop-blur-md p-3 rounded-full border border-white/20">
-        <button onclick="changeLang('en')" class="hover:text-yellow-500 transition">EN</button>
-        <span class="opacity-20">|</span>
-        <button onclick="changeLang('cn')" class="hover:text-yellow-500 transition">中文</button>
-    </div>
+    <nav class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-lg border-b border-white/10 p-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="logo-nav.png" alt="Logo" class="w-10 h-10 object-contain block">
+                <span class="font-black text-2xl tracking-tighter gold-text">$BURNIE</span>
+            </div>
+            <div class="flex items-center gap-6">
+                <div class="flex gap-2 bg-white/5 p-1 rounded-full border border-white/10 text-[10px] font-black">
+                    <button onclick="changeLang('en')" class="px-3 py-1 hover:text-yellow-500 transition">EN</button>
+                    <button onclick="changeLang('cn')" class="px-3 py-1 hover:text-yellow-500 transition">中文</button>
+                </div>
+                <a href="#" class="btn-glow px-6 py-2 rounded-full text-xs uppercase tracking-widest">Buy $BURNIE</a>
+            </div>
+        </div>
+    </nav>
 
-    <div class="pt-12 text-center select-none">
-        <h1 class="text-[18vw] font-[950] leading-none tracking-tighter opacity-10">$BURNIE</h1>
-    </div>
-
-    <main class="flex flex-col items-center justify-center px-6 -mt-[10vw]">
-        <img src="hero-burnie.png" alt="Burnie" class="w-80 md:w-[500px] hero-glow relative z-10">
+    <main class="min-h-screen flex flex-col items-center justify-center pt-20 px-6 text-center">
+        <h1 class="absolute top-[15%] text-[20vw] font-[950] opacity-5 select-none z-0">$BURNIE</h1>
         
-        <div class="text-center mt-6 z-20">
-            <h2 id="h-title" class="text-5xl md:text-[100px] font-[950] tracking-tighter uppercase leading-[0.8] mb-8">
+        <div class="relative z-10 flex flex-col items-center">
+            <img src="hero-burnie.png" alt="Burnie Architect" class="w-72 md:w-[500px] hero-glow mb-8 animate-pulse">
+            
+            <h2 id="h-title" class="text-5xl md:text-[110px] font-[950] tracking-tighter leading-[0.85] uppercase mb-6">
                 THE NEXT <br> <span class="gold-text">BNB LEGEND</span>
             </h2>
 
-            <div class="flex flex-wrap justify-center gap-4 mb-10">
-                <a href="#" class="btn-action w-14 h-14 border border-white/20" title="DexScreener"><i data-lucide="bar-chart-3"></i></a>
-                <a href="#" class="btn-action w-14 h-14 border border-white/20" title="DexTools"><i data-lucide="line-chart"></i></a>
-                <a href="#" class="btn-action w-14 h-14 border border-white/20" title="Telegram"><i data-lucide="send"></i></a>
-                <a href="#" class="btn-action w-14 h-14 border border-white/20" title="Twitter"><i data-lucide="twitter"></i></a>
-            </div>
-
-            <p id="h-motto" class="text-2xl md:text-3xl font-black italic gold-text tracking-tighter mb-12">
+            <p id="h-motto" class="text-2xl md:text-4xl font-black italic mb-12 tracking-tight">
                 "KEEP THE FIRE $BURNIE!"
             </p>
+
+            <div class="flex flex-wrap justify-center gap-6">
+                <a href="#" class="btn-social w-16 h-16 rounded-2xl flex items-center justify-center bg-black" title="Telegram">
+                    <i data-lucide="send" class="w-8 h-8"></i>
+                </a>
+                <a href="#" class="btn-social w-16 h-16 rounded-2xl flex items-center justify-center bg-black" title="X (Twitter)">
+                    <i data-lucide="twitter" class="w-8 h-8"></i>
+                </a>
+                <a href="#" class="btn-social w-16 h-16 rounded-2xl flex items-center justify-center bg-black" title="DexScreener">
+                    <i data-lucide="bar-chart-3" class="w-8 h-8"></i>
+                </a>
+                <a href="#" class="btn-social w-16 h-16 rounded-2xl flex items-center justify-center bg-black" title="DexTools">
+                    <i data-lucide="line-chart" class="w-8 h-8"></i>
+                </a>
+            </div>
         </div>
     </main>
 
@@ -71,62 +99,73 @@
         </div>
     </section>
 
-    <section class="max-w-4xl mx-auto mb-20 px-6">
-        <div class="vault-card p-8 rounded-3xl border-dashed border-2 text-center">
-            <h3 class="text-yellow-500 font-black tracking-widest uppercase text-sm mb-4">The Architect's Vault</h3>
-            <p class="text-3xl md:text-5xl font-black mb-4 italic">40,000,000 $BURNIE</p>
-            <p class="text-white/50 font-bold uppercase text-xs tracking-widest">Reserved for Strategic Burns, Marketing & Tier-1 Listings.</p>
-            <p class="mt-6 text-[10px] opacity-20 italic">Is there a hidden coffer? The blueprint doesn't say... yet.</p>
+    <section class="max-w-4xl mx-auto py-20 px-6">
+        <div class="p-10 rounded-[40px] border-2 border-dashed border-yellow-500/30 bg-yellow-500/5 text-center relative overflow-hidden">
+            <h3 class="text-yellow-500 font-black tracking-[0.3em] uppercase text-sm mb-6 italic">The Architect's Vault</h3>
+            <p class="text-4xl md:text-7xl font-black gold-text mb-4 tracking-tighter">40,000,000 $BURNIE</p>
+            <p id="v-desc" class="text-white/70 font-bold text-lg max-w-2xl mx-auto">
+                Destined for strategic burns, heavy marketing, and the ultimate T1 listings. 
+                But the blueprint suggests... there might be a <span class="text-white underline italic">hidden coffer</span> yet to be revealed.
+            </p>
         </div>
     </section>
 
     <section class="max-w-7xl mx-auto py-20 px-6">
-        <div class="mb-12 border-l-4 border-yellow-500 pl-6">
-            <h4 id="b-title" class="text-4xl md:text-6xl font-[950] uppercase italic tracking-tighter">Ignition Roadmap: <span class="gold-text">Phase 1</span></h4>
-            <p class="font-bold opacity-40 uppercase tracking-widest">Unlocking the supply destruction</p>
+        <div class="text-center mb-16">
+            <h4 id="b-title" class="text-5xl md:text-7xl font-black italic uppercase gold-text leading-none">THE IGNITION ROADMAP</h4>
+            <p class="text-white/40 font-black tracking-[0.5em] mt-4 uppercase">Phase 1: The First Flames</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="roadmap-card p-8 rounded-2xl burn-active">
-                <span class="text-yellow-500 font-black text-[10px]">$24K MC</span>
-                <h5 class="text-xl font-black uppercase mt-1">The Spark</h5>
-                <p class="text-2xl font-black gold-text mt-4 italic">2M BURN</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="roadmap-card p-6 rounded-3xl">
+                <span class="text-yellow-500 font-black text-xs">$24k - King's Hill</span>
+                <h5 class="text-xl font-black uppercase">The Spark</h5>
+                <p class="text-2xl font-black mt-2 italic text-orange-500">2M BURNED</p>
             </div>
-            <div class="roadmap-card p-8 rounded-2xl opacity-80">
-                <span class="text-white/40 font-black text-[10px]">$100K MC</span>
-                <h5 class="text-xl font-black uppercase mt-1">The Feeding</h5>
-                <p class="text-2xl font-black mt-4 italic text-white/60">2M BURN</p>
+            <div class="roadmap-card p-6 rounded-3xl">
+                <span class="text-yellow-500 font-black text-xs">$50k - PancakeSwap</span>
+                <h5 class="text-xl font-black uppercase">Reinforcement</h5>
+                <p class="text-2xl font-black mt-2 italic text-orange-500">2M BURNED</p>
             </div>
-            <div class="roadmap-card p-8 rounded-2xl opacity-60">
-                <span class="text-white/40 font-black text-[10px]">$500K MC</span>
-                <h5 class="text-xl font-black uppercase mt-1">Structure</h5>
-                <p class="text-2xl font-black mt-4 italic text-white/40">3M BURN</p>
+            <div class="roadmap-card p-6 rounded-3xl">
+                <span class="text-yellow-500 font-black text-xs">$100k</span>
+                <h5 class="text-xl font-black uppercase">The Feeding</h5>
+                <p class="text-2xl font-black mt-2 italic text-orange-500">2M BURNED</p>
             </div>
-            <div class="roadmap-card p-8 rounded-2xl border-2 border-yellow-500 shadow-xl">
-                <span class="text-yellow-500 font-black text-[10px]">$1M MC</span>
-                <h5 class="text-xl font-black uppercase mt-1">Monument</h5>
-                <p class="text-2xl font-black gold-text mt-4 italic underline">4M BURN</p>
+            <div class="roadmap-card p-6 rounded-3xl">
+                <span class="text-yellow-500 font-black text-xs">$250k</span>
+                <h5 class="text-xl font-black uppercase">The Pillars</h5>
+                <p class="text-2xl font-black mt-2 italic text-orange-500">3M BURNED</p>
             </div>
-        </div>
-
-        <div class="mt-12 relative h-64 rounded-3xl overflow-hidden border border-white/10 group">
-            <div class="lock-overlay">
-                <i data-lucide="lock" class="w-12 h-12 mb-4 text-yellow-500 group-hover:scale-125 transition"></i>
-                <h5 class="text-3xl font-black italic uppercase tracking-tighter">Phase 2: The Eternal Flame</h5>
-                <p class="text-xs font-bold opacity-60 uppercase tracking-widest mt-2">Locked until $1M Market Cap</p>
+            <div class="roadmap-card p-6 rounded-3xl">
+                <span class="text-yellow-500 font-black text-xs">$500k</span>
+                <h5 class="text-xl font-black uppercase">The Structure</h5>
+                <p class="text-2xl font-black mt-2 italic text-orange-500">3M BURNED</p>
             </div>
-            <div class="blur-mystery grid grid-cols-4 p-8 gap-4 h-full">
-                <div class="bg-white/10 rounded-xl"></div>
-                <div class="bg-white/10 rounded-xl"></div>
-                <div class="bg-white/10 rounded-xl"></div>
-                <div class="bg-white/10 rounded-xl"></div>
+            <div class="roadmap-card p-6 rounded-3xl">
+                <span class="text-yellow-500 font-black text-xs">$750k</span>
+                <h5 class="text-xl font-black uppercase">The Inferno</h5>
+                <p class="text-2xl font-black mt-2 italic text-orange-500">4M BURNED</p>
+            </div>
+            <div class="roadmap-card p-6 rounded-3xl border-2 border-yellow-500 bg-yellow-500/10">
+                <span class="text-yellow-500 font-black text-xs">$1M Market Cap</span>
+                <h5 class="text-2xl font-[950] uppercase gold-text">The Monument</h5>
+                <p class="text-3xl font-black mt-2 italic">4M BURNED</p>
+            </div>
+            <div class="bg-white/5 rounded-3xl flex flex-col items-center justify-center p-6 border border-dashed border-white/20 opacity-40">
+                <i data-lucide="lock" class="mb-2"></i>
+                <p class="font-black italic uppercase text-xs tracking-widest">Phase 2 Loading...</p>
             </div>
         </div>
     </section>
 
-    <footer class="py-32 text-center bg-gradient-to-t from-yellow-500/10 to-transparent">
-        <h2 class="text-5xl md:text-[10vw] font-[950] italic tracking-tighter uppercase gold-text leading-none mb-10">KEEP THE FIRE $BURNIE!</h2>
-        <p class="opacity-20 text-[10px] font-bold tracking-[1em] uppercase mb-10">$BURNIE: The Next Big Thing 2026</p>
+    <footer class="py-32 text-center border-t border-white/5 bg-black">
+        <h2 class="text-6xl md:text-[12vw] font-[950] italic tracking-tighter uppercase gold-text leading-none mb-10">KEEP THE FIRE <br> $BURNIE!</h2>
+        <div class="flex justify-center gap-10 opacity-50 font-black uppercase text-[10px] tracking-[0.5em]">
+            <a href="#" class="hover:text-yellow-500 transition">Telegram</a>
+            <a href="#" class="hover:text-yellow-500 transition">Twitter</a>
+            <a href="#" class="hover:text-yellow-500 transition">DexScreener</a>
+        </div>
     </footer>
 
     <script>
@@ -135,18 +174,21 @@
             en: {
                 h_title: "THE NEXT <br> <span class='gold-text'>BNB LEGEND</span>",
                 m_text: "BNBChain is evolving, and the Architect is here to lead the NEW era. <br><br>We are not just a token!<br>We are a MONUMENT built by the community. <br><br><span class='gold-text'>Supply of 1,000,000,000 $BURNIE.</span><br>Constant burns. Infinite flame.🔥",
-                b_title: "Ignition Roadmap: <span class='gold-text'>Phase 1</span>"
+                v_desc: "Destined for strategic burns, heavy marketing, and the ultimate T1 listings. But the blueprint suggests... there might be a hidden coffer yet to be revealed.",
+                b_title: "THE IGNITION ROADMAP"
             },
             cn: {
                 h_title: "下一个 <br> <span class='gold-text'>BNB 传奇</span>",
                 m_text: "BNBChain 正在进化，架构师正引领新时代。<br><br>我们不只是一个代币！<br>我们是社区共同建造的丰碑。<br><br><span class='gold-text'>1,000,000,000 $BURNIE 总量。</span><br>持续销毁。无限烈焰。🔥",
-                b_title: "点火路线图：<span class='gold-text'>第一阶段</span>"
+                v_desc: "专用于战略销毁、强力营销和顶级交易所上市。但蓝图显示……可能还有一个隐藏的金库尚未揭晓。",
+                b_title: "点火路线图"
             }
         };
 
         function changeLang(lang) {
             document.getElementById('h-title').innerHTML = content[lang].h_title;
             document.getElementById('m-text').innerHTML = content[lang].m_text;
+            document.getElementById('v-desc').innerHTML = content[lang].v_desc;
             document.getElementById('b-title').innerHTML = content[lang].b_title;
         }
     </script>
