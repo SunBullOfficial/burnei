@@ -9,157 +9,193 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #000; color: #fff; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; background-color: #000; color: #fff; overflow-x: hidden; width: 100%; }
         .bg-grid { background-image: radial-gradient(#222 1px, transparent 1px); background-size: 40px 40px; }
-        .hero-glow { filter: drop-shadow(0 0 80px rgba(243, 186, 47, 0.8)); }
+        .hero-glow { filter: drop-shadow(0 0 50px rgba(243, 186, 47, 0.6)); }
         .gold-text { background: linear-gradient(to bottom, #F3BA2F, #FFD700); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
-        .btn-main { background: #F3BA2F; color: #000; font-weight: 900; box-shadow: 0 0 30px rgba(243, 186, 47, 0.6); transition: 0.4s all cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .btn-main:hover { transform: scale(1.1) rotate(-1deg); box-shadow: 0 0 50px rgba(243, 186, 47, 0.9); background: #fff; }
-        .btn-social-large { background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.1); transition: 0.3s; }
-        .btn-social-large:hover { border-color: #F3BA2F; color: #F3BA2F; transform: translateY(-5px); box-shadow: 0 10px 20px rgba(243, 186, 47, 0.2); }
-        .roadmap-card { border: 1px solid rgba(255,255,255,0.1); background: linear-gradient(180deg, rgba(20,20,20,1) 0%, rgba(5,5,5,1) 100%); transition: 0.4s; position: relative; }
-        .roadmap-card:hover { border-color: #F3BA2F; transform: translateY(-8px); z-index: 10; }
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-20px); } 100% { transform: translateY(0px); } }
+        
+        /* Gráfico de Pizza (Donut) em CSS */
+        .pie-chart {
+            width: 250px; height: 250px;
+            border-radius: 50%;
+            background: conic-gradient(#F3BA2F 0% 90%, #555 90% 96%, #888 96% 100%);
+            display: flex; align-items: center; justify-content: center;
+            position: relative; box-shadow: 0 0 30px rgba(243, 186, 47, 0.2);
+        }
+        .pie-chart::before {
+            content: ""; position: absolute; width: 170px; height: 170px;
+            background: #0a0a0a; border-radius: 50%; z-index: 1;
+        }
+        .pie-inner { z-index: 2; text-align: center; }
+
+        .btn-social-large { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
+        .btn-social-large:hover { border-color: #F3BA2F; color: #F3BA2F; transform: scale(1.05); }
+
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
         .animate-float { animation: float 6s ease-in-out infinite; }
+        
+        /* Previne que o texto gigante quebre o layout mobile */
+        .bg-text-fix { font-size: 15vw; pointer-events: none; white-space: nowrap; }
     </style>
 </head>
 <body class="bg-grid">
 
-    <nav class="fixed top-0 w-full z-50 bg-black/90 backdrop-blur-xl border-b border-white/5 p-4">
+    <nav class="fixed top-0 w-full z-50 bg-black/95 backdrop-blur-md border-b border-white/5 p-4">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-4">
-                <img src="logo-nav.png" alt="Logo" class="w-10 h-10 object-contain">
-                <span class="font-black text-2xl tracking-tighter gold-text">$BURNIE</span>
+            <div class="flex items-center gap-2">
+                <img src="logo-nav.png" alt="Logo" class="w-8 h-8 md:w-10 md:h-10 object-contain">
+                <span class="font-black text-xl md:text-2xl gold-text">$BURNIE</span>
             </div>
-            <div class="flex items-center gap-4 md:gap-8">
-                <div class="flex gap-2 bg-white/5 p-1 rounded-full border border-white/10 text-[10px] font-black uppercase">
-                    <button onclick="changeLang('en')" class="px-3 py-1 hover:text-yellow-500 transition">EN</button>
-                    <button onclick="changeLang('cn')" class="px-3 py-1 hover:text-yellow-500 transition">CN</button>
-                </div>
-                <a href="#" id="nav-buy" class="btn-main px-8 py-2.5 rounded-full text-xs uppercase tracking-tighter">Buy Now</a>
+            <div class="flex items-center gap-2 md:gap-4">
+                <button onclick="changeLang('en')" class="text-[10px] font-bold px-2 py-1 hover:text-yellow-500 transition">EN</button>
+                <button onclick="changeLang('cn')" class="text-[10px] font-bold px-2 py-1 hover:text-yellow-500 transition">CN</button>
+                <a href="#" id="nav-buy" class="bg-[#F3BA2F] text-black font-black px-4 py-2 rounded-full text-[10px] uppercase">Buy</a>
             </div>
         </div>
     </nav>
 
-    <main class="min-h-screen flex flex-col items-center justify-center pt-24 px-6 text-center relative">
-        <h1 id="bg-text" class="absolute top-[20%] text-[18vw] font-[950] opacity-5 select-none z-0 tracking-tighter italic uppercase">$BURNIE</h1>
+    <main class="relative min-h-screen flex flex-col items-center justify-center pt-32 pb-20 px-6 overflow-hidden">
+        <h1 class="bg-text-fix absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-5 font-[950] italic">$BURNIE</h1>
         
-        <div class="relative z-10 flex flex-col items-center">
-            <img src="hero-burnie.png" alt="Burnie" class="w-80 md:w-[550px] hero-glow mb-10 animate-float">
-            <h2 id="h-title" class="text-6xl md:text-[120px] font-[950] tracking-tighter leading-[0.8] uppercase mb-8">
+        <div class="relative z-10 w-full max-w-4xl flex flex-col items-center">
+            <img src="hero-burnie.png" alt="Burnie" class="w-64 md:w-[480px] hero-glow animate-float mb-8">
+            <h2 id="h-title" class="text-4xl md:text-8xl font-[950] tracking-tighter leading-none uppercase mb-6 text-center">
                 THE ARCHITECT <br> <span class="gold-text">OF BNBCHAIN!</span>
             </h2>
-            <p id="h-motto" class="text-2xl md:text-4xl font-black italic mb-14 tracking-tight text-white/90">"KEEP THE FIRE $BURNIE!"</p>
+            <p id="h-motto" class="text-xl md:text-3xl font-black italic mb-10 text-white/80 text-center">"KEEP THE FIRE $BURNIE!"</p>
             
-            <div class="flex flex-wrap justify-center gap-6">
-                <a href="#" class="btn-social-large w-20 h-20 rounded-3xl flex items-center justify-center group"><i data-lucide="send" class="w-10 h-10 group-hover:scale-110 transition"></i></a>
-                <a href="#" class="btn-social-large w-20 h-20 rounded-3xl flex items-center justify-center group"><i data-lucide="twitter" class="w-10 h-10 group-hover:scale-110 transition"></i></a>
-                <a href="#" class="btn-social-large w-20 h-20 rounded-3xl flex items-center justify-center group"><i data-lucide="bar-chart-3" class="w-10 h-10 group-hover:scale-110 transition"></i></a>
-                <a href="#" class="btn-social-large w-20 h-20 rounded-3xl flex items-center justify-center group"><i data-lucide="line-chart" class="w-10 h-10 group-hover:scale-110 transition"></i></a>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#" class="btn-social-large w-14 h-14 md:w-20 md:h-20 rounded-2xl flex items-center justify-center"><i data-lucide="send"></i></a>
+                <a href="#" class="btn-social-large w-14 h-14 md:w-20 md:h-20 rounded-2xl flex items-center justify-center"><i data-lucide="twitter"></i></a>
+                <a href="#" class="btn-social-large w-14 h-14 md:w-20 md:h-20 rounded-2xl flex items-center justify-center"><i data-lucide="bar-chart-3"></i></a>
             </div>
         </div>
     </main>
 
-    <section class="max-w-6xl mx-auto py-40 px-6 text-center">
-        <div id="m-text" class="text-2xl md:text-6xl font-black leading-none tracking-tighter text-white/95">
+    <section class="max-w-5xl mx-auto py-20 px-6 text-center">
+        <div id="m-text" class="text-xl md:text-4xl font-black leading-snug tracking-tighter">
             BNBChain is evolving, and the Architect is here to lead the <span class="gold-text italic">NEW</span> era. <br><br>
-            We are not just a token!<br>
-            We are a <span class="underline decoration-yellow-500">MONUMENT</span> built by the community. <br><br>
-            Supply of 1,000,000,000 $BURNIE.<br>
-            Constant burns. <span class="gold-text">Infinite flame.🔥</span>
+            We are not just a token! We are a <span class="underline decoration-yellow-500">MONUMENT</span> built by the community. <br><br>
+            Supply of 1,000,000,000 $BURNIE. Constant burns. <span class="gold-text">Infinite flame.🔥</span>
         </div>
     </section>
 
-    <section class="max-w-5xl mx-auto mb-32 px-6 text-center">
-        <div class="p-12 rounded-[50px] border-2 border-yellow-500/20 bg-gradient-to-br from-yellow-500/10 to-transparent backdrop-blur-sm">
-            <h3 id="v-title" class="text-yellow-500 font-black tracking-[0.5em] uppercase text-sm mb-8 italic">Architect's Security Protocol</h3>
-            <p class="text-5xl md:text-8xl font-black italic tracking-tighter mb-6">40,000,000 $BURNIE</p>
-            <p id="v-desc" class="text-xl md:text-2xl font-bold text-white/80 max-w-3xl mx-auto leading-relaxed">
-                Locked and ready. Destined for strategic burns, aggressive marketing, and Tier-1 dominance. The blueprint hints at a Hidden Coffer. Will you be there when it opens?
-            </p>
+    <section class="max-w-6xl mx-auto py-20 px-6">
+        <div class="text-center mb-16">
+            <h3 id="t-title" class="text-4xl md:text-6xl font-[950] gold-text italic">TOKENOMICS</h3>
+        </div>
+        <div class="flex flex-col md:flex-row items-center justify-center gap-12 lg:gap-24">
+            <div class="pie-chart">
+                <div class="pie-inner">
+                    <p class="text-xs font-bold opacity-50 uppercase">Total Supply</p>
+                    <p class="text-xl font-black">1 Billion</p>
+                </div>
+            </div>
+            <div class="space-y-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-4 h-4 rounded bg-[#F3BA2F]"></div>
+                    <div>
+                        <p id="tk-1-l" class="font-black text-xl italic uppercase">90% Community & Liquidity</p>
+                        <p id="tk-1-s" class="text-xs opacity-50 font-bold">FAIR LAUNCH AT KING'S HILL</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="w-4 h-4 rounded bg-[#888]"></div>
+                    <div>
+                        <p id="tk-2-l" class="font-black text-xl italic uppercase">4% Architect's Vault</p>
+                        <p id="tk-2-s" class="text-xs opacity-50 font-bold">40,000,000 $BURNIE FOR BURNS & MKT</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="w-4 h-4 rounded bg-[#555]"></div>
+                    <div>
+                        <p id="tk-3-l" class="font-black text-xl italic uppercase">6% Hidden Strategy</p>
+                        <p id="tk-3-s" class="text-xs opacity-50 font-bold">RESERVED FOR FUTURE PHASES</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <section class="max-w-7xl mx-auto py-20 px-6">
-        <div class="mb-20 text-center">
-            <h4 id="b-title" class="text-6xl md:text-9xl font-[950] italic tracking-tighter gold-text uppercase">IGNITION: PHASE 1</h4>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="roadmap-grid">
-            </div>
+        <h4 id="b-title" class="text-4xl md:text-7xl font-[950] italic text-center gold-text mb-16 uppercase leading-none">IGNITION: PHASE 1</h4>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="roadmap-grid"></div>
     </section>
 
-    <footer class="py-40 text-center border-t border-white/5">
-        <h2 id="f-title" class="text-6xl md:text-[12vw] font-[950] italic tracking-tighter uppercase gold-text leading-none mb-14">KEEP THE FIRE $BURNIE!</h2>
-        <p id="f-tag" class="text-[10px] font-bold opacity-10 uppercase tracking-[1.5em]">2026 Architect of BNBChain Protocol</p>
+    <footer class="py-20 text-center border-t border-white/5">
+        <h2 id="f-title" class="text-3xl md:text-7xl font-black italic gold-text uppercase mb-6">KEEP THE FIRE $BURNIE!</h2>
+        <p id="f-tag" class="text-[10px] font-bold opacity-20 uppercase tracking-[1em]">2026 Architect of BNBChain Protocol</p>
     </footer>
 
     <script>
         lucide.createIcons();
         const content = {
             en: {
-                nav_buy: "Buy Now", h_title: "THE ARCHITECT <br> <span class='gold-text'>OF BNBCHAIN!</span>",
-                h_motto: '"KEEP THE FIRE $BURNIE!"', b_title: "IGNITION: PHASE 1", v_title: "Architect's Security Protocol",
-                v_desc: "Locked and ready. Destined for strategic burns, aggressive marketing, and Tier-1 dominance. The blueprint hints at a Hidden Coffer. Will you be there when it opens?",
-                m_text: "BNBChain is evolving, and the Architect is here to lead the <span class='gold-text italic'>NEW</span> era. <br><br>We are not just a token!<br>We are a <span class='underline decoration-yellow-500'>MONUMENT</span> built by the community. <br><br>Supply of 1,000,000,000 $BURNIE.<br>Constant burns. <span class='gold-text'>Infinite flame.🔥</span>",
-                f_title: "KEEP THE FIRE <br> $BURNIE!", f_tag: "2026 Architect of BNBChain Protocol",
-                p2_lock: "Phase 2: Unlocks at $1M", p3_lock: "Phase 3: Unlocks at $11M",
+                h_title: "THE ARCHITECT <br> <span class='gold-text'>OF BNBCHAIN!</span>",
+                m_text: "BNBChain is evolving, and the Architect is here to lead the <span class='gold-text italic'>NEW</span> era. <br><br>We are not just a token! We are a <span class='underline decoration-yellow-500'>MONUMENT</span> built by the community. <br><br>Supply of 1,000,000,000 $BURNIE. Constant burns. <span class='gold-text'>Infinite flame.🔥</span>",
+                t_title: "TOKENOMICS",
+                tk_1_l: "90% Community & Liquidity", tk_1_s: "FAIR LAUNCH AT KING'S HILL",
+                tk_2_l: "4% Architect's Vault", tk_2_s: "40,000,000 $BURNIE FOR BURNS & MKT",
+                tk_3_l: "6% Hidden Strategy", tk_3_s: "RESERVED FOR FUTURE PHASES",
+                b_title: "IGNITION: PHASE 1",
+                f_title: "KEEP THE FIRE $BURNIE!",
+                p2: "Phase 2: Unlocks at $1M", p3: "Phase 3: Unlocks at $11M",
                 roadmap: [
-                    {mc: "$24k MC", t: "The Spark", d: "The first brick is laid. The fire ignites at King's Hill. No looking back.", b: "2M BURNED"},
-                    {mc: "$50k MC", t: "Reinforce", d: "PancakeSwap foundation solidified. The crew is growing larger.", b: "2M BURNED"},
-                    {mc: "$100k MC", t: "The Feeding", d: "The heat becomes undeniable. Community fuels the eternal flame.", b: "2M BURNED"},
-                    {mc: "$250k MC", t: "The Pillars", d: "Structural integrity achieved. We are building the skyline.", b: "3M BURNED"},
-                    {mc: "$500k MC", t: "The Skyline", d: "The silhouette of a legend is visible to all of BNBChain.", b: "3M BURNED"},
-                    {mc: "$750k MC", t: "The Inferno", d: "Total market dominance. The FOMO is now an unstoppable fire.", b: "4M BURNED"},
-                    {mc: "$1M MC", t: "The Monument", d: "Phase 1 Complete. Legend Status achieved. The world watches.", b: "4M BURNED", special: true}
+                    {mc: "$24k MC", t: "The Spark", b: "2M BURNED"},
+                    {mc: "$50k MC", t: "Reinforce", b: "2M BURNED"},
+                    {mc: "$100k MC", t: "The Feeding", b: "2M BURNED"},
+                    {mc: "$250k MC", t: "The Pillars", b: "3M BURNED"},
+                    {mc: "$500k MC", t: "The Skyline", b: "3M BURNED"},
+                    {mc: "$750k MC", t: "The Inferno", b: "4M BURNED"},
+                    {mc: "$1M MC", t: "The Monument", b: "4M BURNED", special: true}
                 ]
             },
             cn: {
-                nav_buy: "现在购买", h_title: "BNB链的 <br> <span class='gold-text'>架构师！</span>",
-                h_motto: '"保持烈火燃烧，$BURNIE！"', b_title: "点火：第一阶段", v_title: "架构师安全协议",
-                v_desc: "锁定就绪。专用于战略销毁、强力营销和顶级交易所统治。蓝图暗示了一个隐藏的金库。开启时你会在场吗？",
-                m_text: "BNBChain 正在进化，架构师正引领 <span class='gold-text italic'>新</span> 时代。<br><br>我们不仅是一个代币！<br>我们是社区共同建造的 <span class='underline decoration-yellow-500'>丰碑</span>。<br><br>1,000,000,000 $BURNIE 总量。<br>持续销毁。<span class='gold-text'>无限烈焰。🔥</span>",
-                f_title: "保持烈火燃烧 <br> $BURNIE!", f_tag: "2026 BNB链架构师协议",
-                p2_lock: "第二阶段：$1M 市值解锁", p3_lock: "第三阶段：$11M 市值解锁",
+                h_title: "BNB链的 <br> <span class='gold-text'>架构师！</span>",
+                m_text: "BNBChain 正在进化，架构师正引领 <span class='gold-text italic'>新</span> 时代。<br><br>我们不仅是一个代币！我们是社区共同建造的 <span class='underline decoration-yellow-500'>丰碑</span>。<br><br>1,000,000,000 $BURNIE 总量。持续销毁。<span class='gold-text'>无限烈焰。🔥</span>",
+                t_title: "代币经济学",
+                tk_1_l: "90% 社区与流动性", tk_1_s: "在 KING'S HILL 公平发射",
+                tk_2_l: "4% 架构师金库", tk_2_s: "40,000,000 $BURNIE 用于销毁与营销",
+                tk_3_l: "6% 隐藏策略", tk_3_s: "为未来阶段预留",
+                b_title: "点火：第一阶段",
+                f_title: "保持烈火燃烧 $BURNIE!",
+                p2: "第二阶段：$1M 市值解锁", p3: "第三阶段：$11M 市值解锁",
                 roadmap: [
-                    {mc: "$24k 市值", t: "火花", d: "铺就第一块砖。国王山之火已点燃。永不回头。", b: "销毁 200万"},
-                    {mc: "$50k 市值", t: "加固", d: "PancakeSwap 基础稳固。团队规模不断扩大。", b: "销毁 200万"},
-                    {mc: "$100k 市值", t: "喂养", d: "热度已不可阻挡。社区助长永恒之火。", b: "销毁 200万"},
-                    {mc: "$250k 市值", t: "支柱", d: "结构完整性达成。我们正在构建天际线。", b: "销毁 300万"},
-                    {mc: "$500k 市值", t: "天际线", d: "传奇的剪影已在整个 BNB 链上清晰可见。", b: "销毁 300万"},
-                    {mc: "$750k 市值", t: "地狱火", d: "全面市场统治。FOMO 现在是无法熄灭的烈火。", b: "销毁 400万"},
-                    {mc: "$1M 市值", t: "丰碑", d: "第一阶段完成。达成传奇地位。全球瞩目。", b: "销毁 400万", special: true}
+                    {mc: "$24k 市值", t: "火花", b: "销毁 200万"},
+                    {mc: "$50k 市值", t: "加固", b: "销毁 200万"},
+                    {mc: "$100k 市值", t: "喂养", b: "销毁 200万"},
+                    {mc: "$250k 市值", t: "支柱", b: "销毁 300万"},
+                    {mc: "$500k 市值", t: "天际线", b: "销毁 300万"},
+                    {mc: "$750k 市值", t: "地狱火", b: "销毁 400万"},
+                    {mc: "$1M 市值", t: "丰碑", b: "销毁 400万", special: true}
                 ]
             }
         };
 
         function changeLang(lang) {
-            const data = content[lang];
-            document.getElementById('nav-buy').innerText = data.nav_buy;
-            document.getElementById('h-title').innerHTML = data.h_title;
-            document.getElementById('h-motto').innerText = data.h_motto;
-            document.getElementById('m-text').innerHTML = data.m_text;
-            document.getElementById('v-title').innerText = data.v_title;
-            document.getElementById('v-desc').innerText = data.v_desc;
-            document.getElementById('b-title').innerText = data.b_title;
-            document.getElementById('f-title').innerHTML = data.f_title;
-            document.getElementById('f-tag').innerText = data.f_tag;
+            const d = content[lang];
+            document.getElementById('h-title').innerHTML = d.h_title;
+            document.getElementById('m-text').innerHTML = d.m_text;
+            document.getElementById('t-title').innerText = d.t_title;
+            document.getElementById('tk-1_l').innerText = d.tk_1_l; document.getElementById('tk-1_s').innerText = d.tk_1_s;
+            document.getElementById('tk-2_l').innerText = d.tk_2_l; document.getElementById('tk-2_s').innerText = d.tk_2_s;
+            document.getElementById('tk-3_l').innerText = d.tk_3_l; document.getElementById('tk-3_s').innerText = d.tk_3_s;
+            document.getElementById('b-title').innerText = d.b_title;
+            document.getElementById('f-title').innerText = d.f_title;
 
             const grid = document.getElementById('roadmap-grid');
-            grid.innerHTML = data.roadmap.map(s => `
-                <div class="roadmap-card p-10 rounded-[40px] ${s.special ? 'border-2 border-yellow-500 bg-yellow-500/5' : ''}">
-                    <span class="text-yellow-500 font-black text-xs uppercase tracking-widest">${s.mc}</span>
-                    <h5 class="text-3xl font-black uppercase mt-2 italic">${s.t}</h5>
-                    <p class="text-sm text-white/60 mt-4 leading-relaxed">${s.d}</p>
-                    <p class="text-3xl font-[950] mt-6 gold-text italic">${s.b}</p>
+            grid.innerHTML = d.roadmap.map(s => `
+                <div class="p-6 rounded-3xl border ${s.special ? 'border-yellow-500 bg-yellow-500/5' : 'border-white/10 bg-white/5'}">
+                    <p class="text-yellow-500 font-bold text-xs">${s.mc}</p>
+                    <p class="text-xl font-black italic uppercase mt-1">${s.t}</p>
+                    <p class="text-2xl font-black mt-4 gold-text">${s.b}</p>
                 </div>
             `).join('') + `
-                <div class="roadmap-card p-10 rounded-[40px] flex flex-col items-center justify-center opacity-40 border-dashed border-white/20">
-                    <i data-lucide="lock" class="w-12 h-12 mb-4 text-yellow-500"></i>
-                    <p class="text-xl font-black uppercase italic text-center">${data.p2_lock}</p>
+                <div class="p-6 rounded-3xl border border-dashed border-white/20 opacity-40 flex flex-col items-center justify-center text-center">
+                    <i data-lucide="lock" class="mb-2"></i><p class="text-xs font-bold uppercase">${d.p2}</p>
                 </div>
-                <div class="roadmap-card p-10 rounded-[40px] flex flex-col items-center justify-center opacity-20 border-dashed border-white/10 scale-95">
-                    <i data-lucide="shield-alert" class="w-12 h-12 mb-4"></i>
-                    <p class="text-xl font-black uppercase italic text-center">${data.p3_lock}</p>
+                <div class="p-6 rounded-3xl border border-dashed border-white/10 opacity-20 flex flex-col items-center justify-center text-center">
+                    <i data-lucide="lock" class="mb-2"></i><p class="text-xs font-bold uppercase">${d.p3}</p>
                 </div>
             `;
             lucide.createIcons();
