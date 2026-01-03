@@ -8,192 +8,200 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        :root { --brand: #F3BA2F; }
+        :root { --brand: #F3BA2F; --gold-grad: linear-gradient(135deg, #F3BA2F 0%, #FFD700 50%, #B8860B 100%); }
         body { font-family: 'Inter', sans-serif; background-color: #000; color: #fff; overflow-x: hidden; width: 100%; }
         
         .bg-grid { 
-            background-image: radial-gradient(circle, #333 1px, transparent 1px); 
-            background-size: 50px 50px;
-            animation: gridMove 30s linear infinite;
+            background-image: radial-gradient(circle, #222 1px, transparent 1px); 
+            background-size: 40px 40px;
+            animation: gridMove 40s linear infinite;
         }
-        @keyframes gridMove { from { background-position: 0 0; } to { background-position: 50px 50px; } }
+        @keyframes gridMove { from { background-position: 0 0; } to { background-position: 40px 40px; } }
 
-        .gold-text { 
-            background: linear-gradient(135deg, #F3BA2F 0%, #FFD700 50%, #B8860B 100%); 
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
-            font-weight: 900;
-        }
-
-        .hero-glow { filter: drop-shadow(0 0 50px rgba(243, 186, 47, 0.4)); }
+        .gold-text { background: var(--gold-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
+        .hero-glow { filter: drop-shadow(0 0 40px rgba(243, 186, 47, 0.4)); }
         
-        .btn-main {
+        .btn-burnie {
             background: var(--brand); color: #000; font-weight: 900;
-            padding: 1rem 2rem; border-radius: 99px; text-transform: uppercase;
-            box-shadow: 0 0 20px rgba(243, 186, 47, 0.3); transition: 0.3s;
+            padding: 1.2rem 2.5rem; border-radius: 99px; text-transform: uppercase;
+            box-shadow: 0 0 25px rgba(243, 186, 47, 0.4); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .btn-main:hover { transform: scale(1.05); box-shadow: 0 0 40px rgba(243, 186, 47, 0.6); }
+        .btn-burnie:hover { transform: scale(1.05) translateY(-3px); box-shadow: 0 0 50px rgba(243, 186, 47, 0.7); }
 
-        .phase-card { 
-            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);
-            padding: 2.5rem; border-radius: 40px; transition: 0.4s;
+        .card-glass { 
+            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(12px); border-radius: 40px; transition: 0.5s;
         }
-        .phase-card:hover { border-color: var(--brand); transform: translateY(-10px); }
+        .card-glass:hover { border-color: var(--brand); transform: translateY(-10px); background: rgba(243, 186, 47, 0.05); }
 
         .pie-chart {
-            width: 300px; height: 300px; border-radius: 50%;
+            width: 280px; height: 280px; border-radius: 50%;
             background: conic-gradient(var(--brand) 0% 76%, #DAA520 76% 96%, #444 96% 100%);
             display: flex; align-items: center; justify-content: center; position: relative;
         }
-        .pie-chart::after { content: ""; position: absolute; width: 220px; height: 220px; background: #000; border-radius: 50%; }
+        .pie-chart::after { content: ""; position: absolute; width: 210px; height: 210px; background: #000; border-radius: 50%; }
 
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-        .animate-float { animation: float 5s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-25px); } }
+        .animate-float { animation: float 6s ease-in-out infinite; }
 
-        .reveal { opacity: 0; transform: translateY(20px); transition: 0.8s ease-out; }
+        .reveal { opacity: 0; transform: translateY(40px); transition: 1.2s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body class="bg-grid">
 
-    <nav class="fixed top-0 w-full z-50 bg-black/90 backdrop-blur-md border-b border-white/10 p-4">
+    <nav class="fixed top-0 w-full z-50 bg-black/95 backdrop-blur-md border-b border-white/10 p-4">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-3">
                 <img src="logo-nav.png" alt="Logo" class="w-10 h-10">
-                <span class="font-[1000] text-2xl gold-text italic">$BURNIE</span>
+                <span class="font-[1000] text-3xl gold-text italic tracking-tighter">$BURNIE</span>
             </div>
-            <div class="flex gap-4 items-center">
-                <button onclick="changeLang('en')" class="text-[10px] font-black hover:text-yellow-500">EN</button>
-                <button onclick="changeLang('cn')" class="text-[10px] font-black hover:text-yellow-500">CN</button>
-                <a href="#buy" class="hidden md:block bg-yellow-500 text-black px-5 py-2 rounded-full font-black text-xs uppercase">Buy $BURNIE</a>
+            <div class="flex gap-6 items-center">
+                <div class="hidden md:flex gap-4 font-black text-[10px] uppercase opacity-40">
+                    <a href="#about" class="hover:text-yellow-500 transition">About</a>
+                    <a href="#roadmap" class="hover:text-yellow-500 transition">Roadmap</a>
+                    <a href="#buy" class="hover:text-yellow-500 transition">Buy</a>
+                </div>
+                <div class="flex gap-2 border-l border-white/10 pl-6">
+                    <button onclick="changeLang('en')" class="text-[10px] font-black hover:text-yellow-500">EN</button>
+                    <button onclick="changeLang('cn')" class="text-[10px] font-black hover:text-yellow-500">CN</button>
+                </div>
+                <a href="#buy" class="hidden sm:block bg-yellow-500 text-black px-6 py-2 rounded-full font-black text-[10px] uppercase">Buy Now</a>
             </div>
         </div>
     </nav>
 
-    <section class="min-h-screen flex flex-col items-center justify-center pt-20 px-6 text-center">
-        <h1 class="text-[15vw] md:text-[10vw] font-[1000] italic leading-none mb-[-2vw] z-10">BURNIE</h1>
-        <img src="hero-burnie.png" class="w-full max-w-[500px] hero-glow animate-float z-20">
-        <h2 id="h-title" class="text-4xl md:text-7xl font-[1000] uppercase mt-10 italic">THE ARCHITECT <span class="gold-text">OF BNBCHAIN!</span></h2>
-        <div class="flex flex-wrap justify-center gap-4 mt-10">
-            <a href="#buy" id="btn-buy" class="btn-main">Buy $BURNIE</a>
-            <div class="flex gap-2">
-                <a href="#" class="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-yellow-500 transition"><i data-lucide="send"></i></a>
-                <a href="#" class="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-yellow-500 transition"><i data-lucide="twitter"></i></a>
-                <a href="#" class="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-yellow-500 transition"><i data-lucide="bar-chart-3"></i></a>
+    <header class="min-h-screen flex flex-col items-center justify-center pt-32 px-6 text-center">
+        <h1 class="text-[18vw] md:text-[12vw] font-[1000] italic leading-none mb-[-3vw] z-10 opacity-90 tracking-tighter">BURNIE</h1>
+        <div class="relative group">
+            <img src="hero-burnie.png" class="w-full max-w-[550px] hero-glow animate-float z-20 relative transition-transform duration-700 group-hover:scale-110">
+        </div>
+        <h2 id="h-title" class="text-4xl md:text-8xl font-[1000] uppercase mt-12 italic leading-none">THE ARCHITECT <br> <span class="gold-text">OF BNBCHAIN!</span></h2>
+        <div class="flex flex-wrap justify-center gap-6 mt-12">
+            <a href="#buy" id="btn-buy-hero" class="btn-burnie">Buy $BURNIE</a>
+            <div class="flex gap-3">
+                <a href="#" class="w-16 h-16 rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center hover:border-yellow-500 transition group"><i data-lucide="send" class="group-hover:scale-110"></i></a>
+                <a href="#" class="w-16 h-16 rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center hover:border-yellow-500 transition group"><i data-lucide="twitter" class="group-hover:scale-110"></i></a>
+                <a href="#" class="w-16 h-16 rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center hover:border-yellow-500 transition group"><i data-lucide="bar-chart-3" class="group-hover:scale-110"></i></a>
             </div>
         </div>
-    </section>
+        <p class="mt-12 text-white/30 font-black italic tracking-widest uppercase text-xs">"Keep the fire $BURNIE!"</p>
+    </header>
 
-    <section id="about" class="max-w-5xl mx-auto py-32 px-6 reveal">
-        <div class="bg-white/5 rounded-[50px] p-10 md:p-20 border border-white/10 relative">
-            <h3 id="char-title" class="text-5xl md:text-7xl font-[1000] gold-text italic uppercase mb-8 text-center md:text-left">Meet $BURNIE</h3>
-            <p id="char-bio" class="text-xl md:text-3xl font-bold leading-relaxed text-white/80">
+    <section id="about" class="max-w-6xl mx-auto py-32 px-6 reveal">
+        <div class="card-glass p-10 md:p-24 relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 opacity-5 rotate-12"><i data-lucide="flame" size="300"></i></div>
+            <h3 id="char-title" class="text-6xl md:text-9xl font-[1000] gold-text italic uppercase mb-12">Meet $BURNIE</h3>
+            <p id="char-bio" class="text-2xl md:text-4xl font-bold leading-tight text-white/90">
                 </p>
         </div>
     </section>
 
-    <section class="max-w-6xl mx-auto py-20 px-6 text-center reveal">
-        <div id="m-text" class="text-3xl md:text-6xl font-black leading-tight tracking-tighter">
+    <section class="max-w-6xl mx-auto py-24 px-6 text-center reveal">
+        <div id="m-text" class="text-3xl md:text-7xl font-[1000] leading-none tracking-tighter uppercase italic">
             </div>
     </section>
 
     <section class="max-w-7xl mx-auto py-32 px-6 reveal">
-        <div class="flex flex-col lg:flex-row items-center justify-center gap-20">
-            <div class="pie-chart shadow-[0_0_80px_rgba(243,186,47,0.15)]">
-                <div class="z-10 text-center"><p class="text-[10px] font-bold opacity-30 uppercase tracking-widest">Supply</p><p class="text-3xl font-black">1,000,000,000</p></div>
+        <div class="flex flex-col lg:flex-row items-center justify-center gap-24">
+            <div class="pie-chart shadow-[0_0_100px_rgba(243,186,47,0.2)]">
+                <div class="z-10 text-center"><p class="text-[10px] font-black opacity-30 uppercase tracking-[0.5em]">Supply</p><p class="text-4xl font-black italic gold-text">1B</p></div>
             </div>
-            <div class="w-full max-w-xl space-y-6">
-                <h3 id="t-title" class="text-6xl font-[1000] italic gold-text uppercase mb-10">Tokenomics</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="p-6 bg-white/5 rounded-3xl border border-white/5"><p id="tk-1" class="text-xl font-black italic"></p><p id="tk-1-d" class="text-xs opacity-50"></p></div>
-                    <div class="p-6 bg-white/5 rounded-3xl border border-white/5"><p id="tk-2" class="text-xl font-black italic"></p><p id="tk-2-d" class="text-xs opacity-50"></p></div>
-                    <div class="p-6 bg-white/5 rounded-3xl border border-white/5"><p id="tk-3" class="text-xl font-black italic"></p><p id="tk-3-d" class="text-xs opacity-50"></p></div>
-                    <div class="p-6 bg-yellow-500/10 rounded-3xl border border-yellow-500/20"><p class="text-xl font-black gold-text italic">0% TAX</p><p id="tk-tax" class="text-xs opacity-50"></p></div>
+            <div class="w-full max-w-2xl space-y-10">
+                <h3 id="t-title" class="text-7xl font-[1000] italic gold-text uppercase">Tokenomics</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-8 card-glass"><p id="tk-1" class="text-2xl font-black italic"></p><p id="tk-1-d" class="text-xs opacity-50 uppercase tracking-widest mt-2"></p></div>
+                    <div class="p-8 card-glass"><p id="tk-2" class="text-2xl font-black italic"></p><p id="tk-2-d" class="text-xs opacity-50 uppercase tracking-widest mt-2"></p></div>
+                    <div class="p-8 card-glass"><p id="tk-3" class="text-2xl font-black italic"></p><p id="tk-3-d" class="text-xs opacity-50 uppercase tracking-widest mt-2"></p></div>
+                    <div class="p-8 card-glass border-yellow-500/30 bg-yellow-500/5"><p class="text-3xl font-black gold-text italic italic">0% TAX</p><p id="tk-tax" class="text-xs opacity-50 uppercase tracking-widest mt-2"></p></div>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="roadmap" class="max-w-7xl mx-auto py-32 px-6">
-        <div class="text-center mb-20 reveal">
-            <h4 id="b-title" class="text-7xl md:text-9xl font-[1000] italic gold-text uppercase">Roadmap</h4>
-            <p id="b-subtitle" class="text-2xl font-black uppercase mt-4 text-white/50"></p>
+        <div class="text-center mb-24 reveal">
+            <h4 id="b-title" class="text-8xl md:text-[11vw] font-[1000] italic gold-text uppercase leading-none">The Roadmap</h4>
+            <p id="b-subtitle" class="text-2xl md:text-4xl font-black uppercase mt-6 tracking-tighter italic"></p>
         </div>
-        <div id="roadmap-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10"></div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 reveal">
-            <div class="p-10 rounded-[40px] border border-dashed border-white/10 opacity-50 text-center">
-                <p id="p2-t" class="text-2xl font-black uppercase italic mb-2"></p>
-                <p id="p2-d" class="text-sm opacity-60"></p>
+        <div id="roadmap-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12"></div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal">
+            <div class="p-12 card-glass border-dashed opacity-50 text-center">
+                <p id="p2-t" class="text-3xl font-black uppercase italic mb-4"></p>
+                <p id="p2-d" class="font-bold opacity-60"></p>
             </div>
-            <div class="p-10 rounded-[40px] border border-dashed border-white/10 opacity-30 text-center">
-                <p id="p3-t" class="text-2xl font-black uppercase italic mb-2"></p>
-                <p id="p3-d" class="text-sm opacity-60"></p>
+            <div class="p-12 card-glass border-dashed opacity-30 text-center">
+                <p id="p3-t" class="text-3xl font-black uppercase italic mb-4"></p>
+                <p id="p3-d" class="font-bold opacity-60"></p>
             </div>
         </div>
     </section>
 
     <section id="buy" class="max-w-5xl mx-auto py-32 px-6 reveal">
-        <h3 id="buy-title" class="text-6xl md:text-8xl font-[1000] italic gold-text text-center mb-16 uppercase">How to Build</h3>
-        <div class="space-y-6">
-            <div class="p-8 bg-white/5 rounded-[30px] border-l-4 border-yellow-500"><h5 id="s1-t" class="text-2xl font-black uppercase"></h5><p id="s1-p" class="opacity-60 mt-2 font-bold"></p></div>
-            <div class="p-8 bg-white/5 rounded-[30px] border-l-4 border-yellow-500"><h5 id="s2-t" class="text-2xl font-black uppercase"></h5><p id="s2-p" class="opacity-60 mt-2 font-bold"></p></div>
-            <div class="p-8 bg-white/5 rounded-[30px] border-l-4 border-yellow-500"><h5 id="s3-t" class="text-2xl font-black uppercase"></h5><p id="s3-p" class="opacity-60 mt-2 font-bold"></p></div>
-            <div class="p-8 bg-white/5 rounded-[30px] border-l-4 border-white/10 opacity-40"><h5 id="s4-t" class="text-2xl font-black uppercase"></h5><p id="s4-p" class="opacity-60 mt-2 font-bold"></p></div>
+        <h3 id="buy-title" class="text-6xl md:text-[8vw] font-[1000] italic gold-text text-center mb-20 uppercase">How to Build</h3>
+        <div class="space-y-8">
+            <div class="p-10 card-glass border-l-8 border-yellow-500"><h5 id="s1-t" class="text-3xl font-black uppercase italic"></h5><p id="s1-p" class="opacity-70 mt-4 text-xl font-bold leading-relaxed"></p></div>
+            <div class="p-10 card-glass border-l-8 border-yellow-500"><h5 id="s2-t" class="text-3xl font-black uppercase italic"></h5><p id="s2-p" class="opacity-70 mt-4 text-xl font-bold leading-relaxed"></p></div>
+            <div class="p-10 card-glass border-l-8 border-yellow-500"><h5 id="s3-t" class="text-3xl font-black uppercase italic"></h5><p id="s3-p" class="opacity-70 mt-4 text-xl font-bold leading-relaxed"></p></div>
+            <div class="p-10 card-glass border-l-8 border-white/10 opacity-40"><h5 id="s4-t" class="text-3xl font-black uppercase italic"></h5><p id="s4-p" class="opacity-70 mt-4 text-xl font-bold leading-relaxed"></p></div>
         </div>
     </section>
 
-    <footer class="py-40 text-center">
-        <h2 class="text-[12vw] font-[1000] italic gold-text mb-10 uppercase leading-none">KEEP THE FIRE <br> $BURNIE!</h2>
-        <div class="flex justify-center gap-8 font-black uppercase text-[10px] tracking-widest opacity-40 mb-20">
-            <a href="#">Telegram</a> <a href="#">Twitter</a> <a href="#">DexScreener</a>
+    <footer class="py-40 text-center border-t border-white/5">
+        <h2 class="text-[12vw] font-[1000] italic gold-text mb-12 uppercase leading-none tracking-tighter">KEEP THE FIRE <br> $BURNIE!</h2>
+        <div class="flex justify-center flex-wrap gap-12 font-black uppercase text-xs tracking-[0.5em] mb-24 opacity-40">
+            <a href="#" class="hover:text-yellow-500 transition">Telegram</a> 
+            <a href="#" class="hover:text-yellow-500 transition">Twitter</a> 
+            <a href="#" class="hover:text-yellow-500 transition">DexScreener</a>
         </div>
-        <p class="text-[8px] font-bold opacity-10 uppercase tracking-[2em]">Architect Protocol 2026</p>
+        <p class="text-[10px] font-bold opacity-10 uppercase tracking-[2em]">Architect Protocol 2026</p>
     </footer>
 
     <script>
         lucide.createIcons();
         window.addEventListener('scroll', () => {
             document.querySelectorAll('.reveal').forEach(el => {
-                if(el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add('active');
+                if(el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('active');
             });
         });
 
         const content = {
             en: {
-                char_bio: "While others are building sandcastles, <span class='text-white underline decoration-yellow-500'>$BURNIE</span> is forging monuments in the fire of the BNBChain. He doesn't just hold; he executes. Armed with his golden blueprint and an infinite flame, he is here to build the most solid community-driven empire. <br><br> <span class='gold-text'>Pick up a brick, ignite the fuel, and let's burn our way to the top!</span>",
-                m_text: "BNBChain is evolving, and the Architect is here to lead the <span class='gold-text'>NEW</span> era. <br><br> We are not just a token! We are a <span class='underline decoration-yellow-500 uppercase italic'>Monument</span> built by the community. <br><br> 1,000,000,000 $BURNIE. <br> Constant burns. <span class='gold-text font-black italic'>Infinite flame.🔥</span>",
+                char_bio: "While others are building sandcastles, <span class='text-white underline decoration-yellow-500'>$BURNIE</span> is forging monuments in the fire of the BNBChain. He doesn't just hold; he executes. Armed with his golden blueprint and an infinite flame, he is here to build the most solid community-driven empire. <br><br> <span class='gold-text italic'>Pick up a brick, ignite the fuel, and let's burn our way to the top!</span>",
+                m_text: "BNBChain is evolving, and the Architect is here to lead the <span class='gold-text'>NEW</span> era. <br><br> We are not just a token! We are a <span class='underline decoration-yellow-500 italic'>Monument</span> built by the community. <br><br> 1,000,000,000 $BURNIE. <br> Constant burns. <span class='gold-text italic italic'>Infinite flame.🔥</span>",
                 tk_1: "76% Fair Launch", tk_1_d: "Released via four.meme protocol",
                 tk_2: "20% Liquidity Pool", tk_2_d: "Bonding curve and PancakeSwap LP",
                 tk_3: "4% Architect Vault", tk_3_d: "40M: Strategic Burns & Mkt",
-                tk_tax: "No fees on buy or sell",
-                b_subtitle: "Phase 1: 20M $BURNIE Burn Target",
-                p2_t: "Phase 2: Blueprints", p2_d: "Utility reveal and expansion.",
-                p3_t: "Phase 3: The Empire", p3_d: "Unlocks at $11M MCAP.",
-                s1_t: "1. Foundations", s1_p: "Setup MetaMask/Trust Wallet with BNB.",
-                s2_t: "2. The Blueprint", s2_p: "Connect to four.meme and search for $BURNIE.",
-                s3_t: "3. Ignite", s3_p: "Swap BNB for $BURNIE and fill the curve.",
-                s4_t: "4. Monument", s4_p: "Automated migration to PancakeSwap.",
+                tk_tax: "Zero transaction fees for buyers & sellers",
+                b_subtitle: "Phase 1: 20,000,000 $BURNIE Burn Target",
+                p2_t: "Phase 2: Blueprints", p2_d: "Utility reveal, ecosystem expansion and secret burns.",
+                p3_t: "Phase 3: The Empire", p3_d: "Unlocks at $11,000,000 Market Cap. Global Dominance.",
+                s1_t: "1. Foundation", s1_p: "Setup MetaMask or Trust Wallet. Fund with BNB (Smart Chain).",
+                s2_t: "2. The Search", s2_p: "Connect to four.meme and search for the official $BURNIE contract.",
+                s3_t: "3. Construction", s3_p: "Swap BNB for $BURNIE. As the curve fills, the monument grows.",
+                s4_t: "4. Migration", s4_p: "Automatic PancakeSwap migration after 100% curve completion.",
                 roadmap: [
                     {mc: "$24k MC", t: "The Spark", b: "2M BURNED"},
-                    {mc: "$100k MC", t: "Feeding", b: "4M BURNED"},
+                    {mc: "$100k MC", t: "The Feeding", b: "4M BURNED"},
                     {mc: "Curve Hit", t: "The Bridge", b: "2M BURNED"},
                     {mc: "$500k MC", t: "Skyline", b: "6M BURNED"},
                     {mc: "$1M MC", t: "Monument", b: "6M BURNED", sp: true}
                 ]
             },
             cn: {
-                char_bio: "当他人在沙滩建堡垒时，$BURNIE 在 BNBChain 的烈火中锻造丰碑。他不仅持有，更在执行。手握金色蓝图与无限烈焰，他致力于打造最坚实的社区帝国。<br><br> <span class='gold-text'>拿起砖块，点燃燃料，让我们一路燃烧至顶峰！</span>",
-                m_text: "BNBChain 正在进化，架构师正引领 <span class='gold-text'>新</span> 时代。<br><br> 我们不仅是一个代币！我们是社区共同建造的 <span class='underline decoration-yellow-500 uppercase italic'>丰碑</span>。<br><br> 1,000,000,000 $BURNIE 总量。<br> 持续销毁。<span class='gold-text font-black italic'>无限烈焰。🔥</span>",
+                char_bio: "当他人在沙滩建堡垒时，$BURNIE 在 BNBChain 的烈火中锻造丰碑。他不仅持有，更在执行。手握金色蓝图与无限烈焰，他致力于打造最坚实的社区帝国。<br><br> <span class='gold-text italic'>拿起砖块，点燃燃料，让我们一路燃烧至顶峰！</span>",
+                m_text: "BNBChain 正在进化，架构师正引领 <span class='gold-text'>新</span> 时代。<br><br> 我们不仅是一个代币！我们是社区共同建造的 <span class='underline decoration-yellow-500 italic'>丰碑</span>。<br><br> 1,000,000,000 $BURNIE。<br> 持续销毁。<span class='gold-text italic italic'>无限烈焰。🔥</span>",
                 tk_1: "76% 公平发射", tk_1_d: "通过 four.meme 协议发行",
                 tk_2: "20% 流动性池", tk_2_d: "联合曲线与 PancakeSwap LP",
                 tk_3: "4% 架构师金库", tk_3_d: "4000万：战略销毁与营销",
-                tk_tax: "买卖均无手续费",
-                b_subtitle: "第一阶段：2000万 $BURNIE 销毁目标",
-                p2_t: "第二阶段：蓝图", p2_d: "功能揭晓与生态扩张。",
-                p3_t: "第三阶段：帝国时代", p3_d: "在 1100万 美元市值时解锁。",
-                s1_t: "1. 基础", s1_p: "准备好带有 BNB 的 MetaMask 钱包。",
-                s2_t: "2. 蓝图", s2_p: "连接 four.meme 并搜索 $BURNIE。",
-                s3_t: "3. 点火", s3_p: "将 BNB 兑换为 $BURNIE 并填满曲线。",
-                s4_t: "4. 丰碑", s4_p: "自动迁移至 PancakeSwap。",
+                tk_tax: "买卖均无交易手续费",
+                b_subtitle: "第一阶段：20,000,000 $BURNIE 销毁目标",
+                p2_t: "第二阶段：蓝图", p2_d: "功能揭晓、生态扩张及秘密销毁。",
+                p3_t: "第三阶段：帝国时代", p3_d: "在 1100万 美元市值时解锁。全球主宰。",
+                s1_t: "1. 基础", s1_p: "准备好带有 BNB (Smart Chain) 的 MetaMask 钱包。",
+                s2_t: "2. 搜索", s2_p: "连接 four.meme 并搜索 $BURNIE 官方合约。",
+                s3_t: "3. 建造", s3_p: "将 BNB 兑换为 $BURNIE。见证曲线填满。",
+                s4_t: "4. 迁移", s4_p: "曲线 100% 后自动迁移至 PancakeSwap。",
                 roadmap: [
                     {mc: "$24k 市值", t: "火花", b: "销毁 200万"},
                     {mc: "$100k 市值", t: "喂养", b: "销毁 400万"},
@@ -221,16 +229,16 @@
             document.getElementById('s4-t').innerText = d.s4_t; document.getElementById('s4-p').innerText = d.s4_p;
             const g = document.getElementById('roadmap-grid');
             g.innerHTML = d.roadmap.map(s => `
-                <div class="phase-card ${s.sp ? 'border-yellow-500 bg-yellow-500/5' : ''}">
+                <div class="p-10 card-glass ${s.sp ? 'border-yellow-500 ring-2 ring-yellow-500/20' : ''}">
                     <p class="text-xs font-black text-yellow-500 uppercase tracking-widest">${s.mc}</p>
                     <p class="text-3xl font-[1000] italic mt-2 uppercase">${s.t}</p>
-                    <p class="text-4xl font-black mt-6 gold-text">${s.b}</p>
+                    <p class="text-5xl font-black mt-8 gold-text">${s.b}</p>
                 </div>
             `).join('');
             lucide.createIcons();
         }
         changeLang('en');
-        setTimeout(() => document.querySelector('.reveal').classList.add('active'), 200);
+        setTimeout(() => document.querySelectorAll('.reveal').forEach(e => e.classList.add('active')), 200);
     </script>
 </body>
 </html>
