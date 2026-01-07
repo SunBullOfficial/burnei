@@ -12,7 +12,6 @@
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
         body { font-family: 'Inter', sans-serif; background-color: #000; color: #fff; overflow-x: hidden; width: 100%; }
         
-        /* Grid dinâmica com ajuste de escala para mobile */
         .bg-grid { 
             background-image: radial-gradient(circle, #222 1px, transparent 1px); 
             background-size: clamp(20px, 5vw, 30px) clamp(20px, 5vw, 30px);
@@ -20,7 +19,6 @@
         }
         @keyframes gridMove { from { background-position: 0 0; } to { background-position: 60px 60px; } }
 
-        /* Partículas de fogo */
         .fire-particle {
             position: absolute; width: 2px; height: 2px; background: var(--brand);
             border-radius: 50%; filter: blur(1px); animation: rise 4s infinite ease-in; opacity: 0;
@@ -31,7 +29,6 @@
             100% { transform: translateY(-100vh) scale(0); opacity: 0; }
         }
 
-        /* Texto Dourado Animado */
         .gold-text { 
             background: linear-gradient(90deg, #F3BA2F, #FFF, #B8860B, #F3BA2F);
             background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
@@ -47,7 +44,7 @@
             padding: 0.8rem 1.5rem; border-radius: 99px; text-transform: uppercase;
             box-shadow: 0 0 20px rgba(243, 186, 47, 0.4); transition: 0.4s;
             display: inline-flex; align-items: center; justify-content: center;
-            font-size: clamp(0.7rem, 2vw, 1rem);
+            font-size: clamp(0.7rem, 2vw, 0.9rem);
         }
         .btn-burnie:hover { transform: scale(1.05); box-shadow: 0 0 40px var(--brand); }
 
@@ -63,8 +60,6 @@
 
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         .animate-float { animation: float 6s ease-in-out infinite; }
-
-        /* Ajuste de Texto para não cortar */
         .break-words { overflow-wrap: break-word; word-wrap: break-word; hyphens: auto; }
     </style>
 </head>
@@ -79,12 +74,12 @@
                 <span class="font-[1000] text-lg md:text-2xl gold-text italic tracking-tighter">$BURNIE</span>
             </div>
             <div class="flex gap-3 md:gap-6 items-center">
-                <button onclick="toggleWhitepaper()" class="text-[10px] font-black hover:text-yellow-500 transition uppercase">Whitepaper</button>
+                <button id="nav-bp" onclick="toggleBlueprint()" class="text-[9px] md:text-[10px] font-black hover:text-yellow-500 transition uppercase tracking-widest"></button>
                 <div class="flex gap-2">
                     <button onclick="changeLang('en')" class="text-[10px] font-black hover:text-yellow-500 transition">EN</button>
                     <button onclick="changeLang('cn')" class="text-[10px] font-black hover:text-yellow-500 transition">CN</button>
                 </div>
-                <a href="#buy" class="btn-burnie !py-2 !px-4 !text-[9px]">BUY NOW</a>
+                <a id="nav-buy" href="#buy" class="btn-burnie !py-2 !px-4 !text-[9px]"></a>
             </div>
         </div>
     </nav>
@@ -94,30 +89,30 @@
         <div class="relative w-full max-w-[300px] md:max-w-[500px]">
             <img src="hero-burnie.png" class="w-full hero-glow animate-float z-20 relative">
         </div>
-        <h2 id="h-title" class="text-3xl md:text-7xl font-[1000] uppercase mt-8 italic leading-tight reveal break-words">THE ARCHITECT <br> <span class="gold-text">OF BNBCHAIN!</span></h2>
+        <h2 id="h-title" class="text-3xl md:text-7xl font-[1000] uppercase mt-8 italic leading-tight reveal break-words"></h2>
         
-        <div class="flex flex-col sm:flex-row justify-center gap-4 mt-10 w-full max-w-lg reveal px-4">
-            <a href="#buy" class="btn-burnie text-lg w-full sm:w-auto">Ignite Your Trade</a>
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mt-10 w-full max-w-2xl reveal px-4">
+            <a id="btn-main" href="#buy" class="btn-burnie text-lg w-full sm:w-auto"></a>
             <div class="flex justify-center gap-3">
+                <a href="#" class="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:border-yellow-500 transition-all text-yellow-500" title="DexScreener"><i data-lucide="bar-chart-3" size="24"></i></a>
                 <a href="#" class="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:border-yellow-500 transition-all"><i data-lucide="send" size="20"></i></a>
                 <a href="#" class="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:border-yellow-500 transition-all"><i data-lucide="twitter" size="20"></i></a>
             </div>
         </div>
     </header>
 
-    <div id="whitepaper-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/90 backdrop-blur-md" onclick="toggleWhitepaper()"></div>
-        <div class="card-glass max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8 relative z-10 border-2 border-yellow-500/50">
-            <button onclick="toggleWhitepaper()" class="absolute top-4 right-4 text-white/50 hover:text-white"><i data-lucide="x"></i></button>
-            <h3 class="text-3xl font-[1000] gold-text italic mb-6 uppercase">The Architect's Manifesto</h3>
-            <div id="wp-content" class="space-y-4 text-sm md:text-base text-white/80 leading-relaxed font-bold">
-                </div>
+    <div id="blueprint-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/95 backdrop-blur-md" onclick="toggleBlueprint()"></div>
+        <div class="card-glass max-w-2xl w-full max-h-[85vh] overflow-y-auto p-8 md:p-12 relative z-10 border-2 border-yellow-500/50">
+            <button onclick="toggleBlueprint()" class="absolute top-6 right-6 text-white/50 hover:text-white"><i data-lucide="x"></i></button>
+            <h3 id="bp-title" class="text-3xl md:text-5xl font-[1000] gold-text italic mb-8 uppercase tracking-tighter"></h3>
+            <div id="bp-content" class="space-y-6 text-sm md:text-lg text-white/80 leading-relaxed font-bold"></div>
         </div>
     </div>
 
     <section id="about" class="max-w-6xl mx-auto py-20 px-4 reveal">
         <div class="card-glass p-8 md:p-20 border-t-2 border-yellow-500/30">
-            <h3 id="char-title" class="text-4xl md:text-7xl font-[1000] gold-text italic uppercase mb-6">Meet $BURNIE</h3>
+            <h3 id="char-title" class="text-4xl md:text-7xl font-[1000] gold-text italic uppercase mb-6 tracking-tighter"></h3>
             <p id="char-bio" class="text-lg md:text-3xl font-bold leading-relaxed text-white/90 break-words"></p>
         </div>
     </section>
@@ -130,13 +125,13 @@
         <div class="flex flex-col lg:flex-row items-center justify-center gap-12 md:gap-24">
             <div class="relative">
                 <div class="absolute inset-0 bg-yellow-500 blur-[60px] opacity-20 animate-pulse"></div>
-                <div class="w-56 h-56 md:w-72 md:h-72 rounded-full border-4 md:border-8 border-yellow-500/20 flex flex-col items-center justify-center p-6 text-center relative z-10 bg-black">
-                    <p class="text-[10px] font-black opacity-30 uppercase tracking-widest">Supply</p>
-                    <p class="text-3xl md:text-4xl font-black gold-text">1,000,000,000</p>
+                <div class="w-56 h-56 md:w-72 md:h-72 rounded-full border-4 border-yellow-500/20 flex flex-col items-center justify-center p-6 text-center relative z-10 bg-black">
+                    <p id="tk-supply-label" class="text-[10px] font-black opacity-30 uppercase tracking-widest"></p>
+                    <p class="text-3xl md:text-4xl font-black gold-text italic">1,000,000,000</p>
                 </div>
             </div>
             <div class="w-full max-w-2xl space-y-6">
-                <h3 id="t-title" class="text-5xl md:text-7xl font-[1000] italic gold-text uppercase">Tokenomics</h3>
+                <h3 id="t-title" class="text-5xl md:text-7xl font-[1000] italic gold-text uppercase"></h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="p-6 card-glass"><p id="tk-1" class="text-xl font-black italic gold-text"></p><p id="tk-1-d" class="text-[10px] opacity-50 uppercase mt-1"></p></div>
                     <div class="p-6 card-glass"><p id="tk-2" class="text-xl font-black italic gold-text"></p><p id="tk-2-d" class="text-[10px] opacity-50 uppercase mt-1"></p></div>
@@ -149,7 +144,7 @@
 
     <section id="roadmap" class="max-w-7xl mx-auto py-20 px-4">
         <div class="text-center mb-16 reveal">
-            <h4 id="b-title" class="text-6xl md:text-8xl font-[1000] italic gold-text uppercase">Roadmap</h4>
+            <h4 id="b-title" class="text-6xl md:text-8xl font-[1000] italic gold-text uppercase"></h4>
             <p id="b-subtitle" class="text-lg md:text-2xl font-black uppercase mt-4 italic opacity-50"></p>
         </div>
         <div id="roadmap-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"></div>
@@ -166,7 +161,7 @@
     </section>
 
     <section id="buy" class="max-w-5xl mx-auto py-20 px-4 reveal">
-        <h3 id="buy-title" class="text-4xl md:text-7xl font-[1000] italic gold-text text-center mb-16 uppercase">How to Build <br> With Us?</h3>
+        <h3 id="buy-title" class="text-4xl md:text-7xl font-[1000] italic gold-text text-center mb-16 uppercase"></h3>
         <div class="grid grid-cols-1 gap-6">
             <div class="p-8 card-glass border-l-[8px] border-yellow-500 flex gap-6 items-center">
                 <div class="text-4xl font-black opacity-20 italic">01</div>
@@ -188,14 +183,12 @@
     </section>
 
     <footer class="py-32 text-center px-4 relative">
-        <h2 class="text-4xl md:text-8xl font-[1000] italic gold-text mb-12 uppercase leading-none reveal">KEEP THE FIRE <br> $BURNIE!</h2>
+        <h2 id="footer-text" class="text-4xl md:text-8xl font-[1000] italic gold-text mb-12 uppercase leading-none reveal"></h2>
         <p class="text-[10px] font-bold opacity-10 uppercase tracking-[1em]">Architect Protocol 2026</p>
     </footer>
 
     <script>
         lucide.createIcons();
-
-        // Partículas
         const container = document.getElementById('fire-container');
         for(let i=0; i<20; i++) {
             const p = document.createElement('div');
@@ -205,88 +198,117 @@
             container.appendChild(p);
         }
 
-        // Observer para animações de scroll
         const obs = new IntersectionObserver((entries) => {
             entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-        function toggleWhitepaper() {
-            document.getElementById('whitepaper-modal').classList.toggle('hidden');
+        function toggleBlueprint() {
+            document.getElementById('blueprint-modal').classList.toggle('hidden');
         }
 
         const content = {
             en: {
-                wp: `<p>Most projects are built on fragile foundations. They fear the fire. We embrace it.</p>
-                     <p><strong>$BURNIE</strong> represents a new era of the BNBChain. A community-led fortress forged through strategic burns and absolute transparency.</p>
-                     <p class="italic text-yellow-500">"We don't wait for the future. We build it, brick by brick, burn by burn."</p>
-                     <p>Our 0% Tax structure ensures total freedom of movement, while our Phase 1 roadmap guarantees the scarcity of the supply. The Architect's vision is simple: <strong>Destroy the noise, build the monument.</strong></p>`,
-                char_bio: "While others are building sandcastles, <span class='text-white underline decoration-yellow-500'>$BURNIE</span> is forging monuments in the fire of the BNBChain. We don't just wait for the future; <span class='gold-text'>we build our own legacy, forged in the fire.</span> Pick up a brick and let's burn our way to the top!",
+                nav_bp: "The Blueprint", nav_buy: "Buy Now",
+                h_title: "The Architect <br> <span class='gold-text'>of BNBChain!</span>",
+                btn_main: "Ignite Your Trade",
+                bp_title: "The Golden Blueprint",
+                bp: `<p class="text-yellow-500 italic">"Sandcastles wash away. Monuments remain."</p>
+                     <p>Most projects in this space are built on fragile foundations. They fear the heat of the market. We embrace it. We are the architects of a new era on BNBChain.</p>
+                     <p><strong>$BURNIE</strong> is more than a token; it is a community-led fortress forged through strategic sacrifice. Every burn is a brick laid in our eternal monument.</p>
+                     <p>Our vision is absolute: <strong>Scarcity by design. Scrutiny by fire. Strength by community.</strong> We don't wait for the future. We build it, brick by brick, burn by burn. Welcome to the construction site of the decade.</p>`,
+                char_title: "Meet $BURNIE",
+                char_bio: "While others are building sandcastles, <span class='text-white underline decoration-yellow-500'>$BURNIE</span> is forging monuments in the fire of the BNBChain. We don't just wait for the future; <span class='gold-text'>we build our own legacy.</span> Pick up a brick and let's burn our way to the top!",
                 m_text: "BNBChain is evolving. <br> We are not just a token. <br> We are a <span class='underline decoration-yellow-500 italic'>Monument</span> built by the people.",
+                t_title: "Tokenomics", tk_supply_label: "Total Supply",
                 tk_1: "76% Fair Launch", tk_1_d: "Released via four.meme protocol",
                 tk_2: "20% Liquidity Pool", tk_2_d: "Bonding curve & PancakeSwap LP",
                 tk_3: "4% Architect Vault", tk_3_d: "40M: Strategic Burns & Marketing",
                 tk_tax: "No transaction fees for the community",
-                b_subtitle: "Phase 1: 20,000,000 $BURNIE Burn Target",
+                b_title: "Roadmap", b_subtitle: "Phase 1: 20,000,000 $BURNIE Burn Target",
                 p2_t: "Phase 2: Blueprints", p2_d: "Unlocked at 1M Market Cap. Utility reveals.",
                 p3_t: "Phase 3: The Empire", p3_d: "Unlocked at 11M Market Cap. Global Dominance.",
-                s1_t: "The Groundwork", s1_p: "Install MetaMask. Fund with BNB (Smart Chain) to fuel your build.",
+                buy_title: "How to Build <br> With Us?",
+                s1_t: "The Groundwork", s1_p: "Install MetaMask. Fund with BNB to fuel your build.",
                 s2_t: "The Search", s2_p: "Connect to four.meme. Find $BURNIE and verify the blueprint.",
                 s3_t: "Construction", s3_p: "Swap BNB for $BURNIE. As the curve fills, the monument grows.",
                 s4_t: "Eternal Legacy", s4_p: "100% curve hit triggers PancakeSwap migration and instant burn.",
+                footer_text: "Keep the fire <br> $BURNIE!",
+                sacrifice: "Sacrifice",
                 roadmap: [
-                    {mc: "IMMEDIATE", t: "The Ignition", b: "4,000,000", s: "CRITICAL: Immediately after Bonding Curve hits 100%, tokens are burned."},
+                    {mc: "IMMEDIATE", t: "The Ignition", b: "4,000,000", s: "Immediately after Bonding Curve hits 100%, tokens are sacrificed."},
                     {mc: "$100k MC", t: "The Spark", b: "2,000,000", s: "The heat rises as the community ignites growth."},
-                    {mc: "$250k MC", t: "The Pillars", b: "3,000,000", s: "Support structures are forged. The foundation is set."},
-                    {mc: "$500k MC", t: "The Skyline", b: "3,000,000", s: "$BURNIE begins to dominate the BNB horizon."},
+                    {mc: "$250k MC", t: "The Pillars", b: "3,000,000", s: "Support structures are forged. Foundation set."},
+                    {mc: "$500k MC", t: "The Skyline", b: "3,000,000", s: "$BURNIE begins to dominate the horizon."},
                     {mc: "$750k MC", t: "The Inferno", b: "4,000,000", s: "A roaring fire of community strength."},
-                    {mc: "$1M MC", t: "The Monument", b: "4,000,000", s: "20M Burned. Phase 1 complete. Phase 2 unlocks."}
+                    {mc: "$1M MC", t: "The Monument", b: "4,000,000", s: "20M BURNED. Phase 1 complete. Phase 2 unlocks."}
                 ]
             },
             cn: {
-                wp: `<p>大多数项目都建立在脆弱的基础上。他们害怕火焰，而我们拥抱火焰。</p>
-                     <p><strong>$BURNIE</strong> 代表了 BNB 链的新时代。这是一个通过战略销毁和绝对透明度打造的社区主导堡垒。</p>
-                     <p class="italic text-yellow-500">“我们不等待未来。我们一砖一瓦地建造它。”</p>`,
-                char_bio: "当他人在沙滩建堡垒时，$BURNIE 在 BNBChain 的烈火中锻造丰碑。我们不只是等待未来；<span class='gold-text'>我们在烈火中锻造属于自己的传奇。</span>",
-                m_text: "BNBChain 正在进化。<br> 我们不仅是一个代币。<br> 我们是人民建造的 <span class='underline decoration-yellow-500 italic'>丰碑</span>。",
+                nav_bp: "黄金蓝图", nav_buy: "立即购买",
+                h_title: "BNB链的 <br> <span class='gold-text'>首席架构师!</span>",
+                btn_main: "点燃你的交易",
+                bp_title: "黄金蓝图",
+                bp: `<p class="text-yellow-500 italic">“沙堡终将消逝，唯有丰碑永存。”</p>
+                     <p>在这个领域，大多数项目都建立在脆弱的基础上。他们畏惧市场的热度，而我们拥抱它。我们是 BNB 链新时代的架构师。</p>
+                     <p><strong>$BURNIE</strong> 不仅仅是一个代币；它是一个由社区主导、通过战略性牺牲铸就的堡垒。每一次销毁都是在我们永恒丰碑上铺就的一块砖。</p>
+                     <p>我们的愿景是绝对的：<strong>设计上的稀缺，烈火中的审视，社区铸就的力量。</strong> 我们不等待未来，我们一砖一瓦、一燃一烧地创造未来。欢迎来到这十年的宏伟工地。</p>`,
+                char_title: "认识 $BURNIE",
+                char_bio: "当他人在沙滩建堡垒时，<span class='text-white underline decoration-yellow-500'>$BURNIE</span> 正在 BNBChain 的烈火中锻造丰碑。我们不只是等待未来；<span class='gold-text'>我们在亲手书写传奇。</span> 拿起砖块，让我们一路燃烧至顶峰！",
+                m_text: "BNBChain 正在进化。<br> 我们不只是一个代币。<br> 我们是人民亲手建造的 <span class='underline decoration-yellow-500 italic'>丰碑</span>。",
+                t_title: "代币经济学", tk_supply_label: "发行总量",
                 tk_1: "76% 公平发射", tk_1_d: "通过 four.meme 协议发行",
                 tk_2: "20% 流动性池", tk_2_d: "联合曲线与 PancakeSwap LP",
                 tk_3: "4% 架构师金库", tk_3_d: "4000万：战略销毁与营销",
                 tk_tax: "社区交易零手续费",
-                b_subtitle: "第一阶段：20,000,000 $BURNIE 销毁目标",
-                p2_t: "第二阶段：蓝图", p2_d: "1M 市值解锁。功能揭晓。",
-                p3_t: "第三阶段：帝国", p3_d: "11M 市值解锁。全球主宰。",
-                s1_t: "准备地基", s1_p: "安装 MetaMask。充值 BNB 作为建设燃料。",
-                s2_t: "寻找蓝图", s2_p: "连接至 four.meme 寻找 $BURNIE 官方蓝图。",
-                s3_t: "开启建设", s3_p: "兑换 $BURNIE。见证联合曲线直冲云霄。",
+                b_title: "发展蓝图", b_subtitle: "第一阶段：20,000,000 $BURNIE 销毁目标",
+                p2_t: "第二阶段：蓝图解锁", p2_d: "1M 市值解锁。功能应用揭晓。",
+                p3_t: "第三阶段：帝国崛起", p3_d: "11M 市值解锁。开启全球主宰模式。",
+                buy_title: "如何参与 <br> 建设？",
+                s1_t: "地基准备", s1_p: "安装 MetaMask。充值 BNB 作为建设燃料。",
+                s2_t: "寻找图纸", s2_p: "连接至 four.meme 寻找 $BURNIE 官方蓝图。",
+                s3_t: "开启施工", s3_p: "兑换 $BURNIE。见证丰碑随联合曲线拔地而起。",
                 s4_t: "永恒传奇", s4_p: "曲线 100% 后自动迁移并立即触发首次销毁。",
+                footer_text: "保持热火 <br> $BURNIE!",
+                sacrifice: "建筑牺牲",
                 roadmap: [
-                    {mc: "立即执行", t: "点火仪式", b: "4,000,000", s: "关键：联合曲线 100% 完成后，400万代币将立即被焚毁。"},
-                    {mc: "$100k 市值", t: "火花", b: "2,000,000", s: "热度上升，社区点燃第一阶段的成长。"},
+                    {mc: "立即执行", t: "点火仪式", b: "4,000,000", s: "关键：联合曲线 100% 完成后，代币将立即被焚毁。"},
+                    {mc: "$100k 市值", t: "星火", b: "2,000,000", s: "热度上升，社区点燃第一阶段的成长。"},
                     {mc: "$250k 市值", t: "支柱", b: "3,000,000", s: "支撑结构铸就。地基变得不可动摇。"},
                     {mc: "$500k 市值", t: "天际线", b: "3,000,000", s: "$BURNIE 开始主宰 BNB 链的地平线。"},
-                    {mc: "$750k 市值", t: "地狱火", b: "4,000,000", s: "社区力量熊熊燃烧。"},
-                    {mc: "$1M 市值", t: "丰碑", b: "4,000,000", s: "累计销毁 2000万。第一阶段完成。"}
+                    {mc: "$750k 市值", t: "地狱火", b: "4,000,000", s: "社区力量熊熊燃烧，势不可挡。"},
+                    {mc: "$1M 市值", t: "丰碑落成", b: "4,000,000", s: "累计销毁 2000万。第一阶段完成，解锁第二阶段。"}
                 ]
             }
         };
 
         function changeLang(l) {
             const d = content[l];
+            document.getElementById('nav-bp').innerText = d.nav_bp;
+            document.getElementById('nav-buy').innerText = d.nav_buy;
+            document.getElementById('h-title').innerHTML = d.h_title;
+            document.getElementById('btn-main').innerText = d.btn_main;
+            document.getElementById('bp-title').innerText = d.bp_title;
+            document.getElementById('bp-content').innerHTML = d.bp;
+            document.getElementById('char-title').innerText = d.char_title;
             document.getElementById('char-bio').innerHTML = d.char_bio;
-            document.getElementById('wp-content').innerHTML = d.wp;
             document.getElementById('m-text').innerHTML = d.m_text;
+            document.getElementById('t-title').innerText = d.t_title;
+            document.getElementById('tk-supply-label').innerText = d.tk_supply_label;
             document.getElementById('tk-1').innerText = d.tk_1; document.getElementById('tk-1-d').innerText = d.tk_1_d;
             document.getElementById('tk-2').innerText = d.tk_2; document.getElementById('tk-2-d').innerText = d.tk_2_d;
             document.getElementById('tk-3').innerText = d.tk_3; document.getElementById('tk-3-d').innerText = d.tk_3_d;
             document.getElementById('tk-tax').innerText = d.tk_tax;
+            document.getElementById('b-title').innerText = d.b_title;
             document.getElementById('b-subtitle').innerText = d.b_subtitle;
             document.getElementById('p2-t').innerText = d.p2_t; document.getElementById('p2-d').innerText = d.p2_d;
             document.getElementById('p3-t').innerText = d.p3_t; document.getElementById('p3-d').innerText = d.p3_d;
+            document.getElementById('buy-title').innerHTML = d.buy_title;
             document.getElementById('s1-t').innerText = d.s1_t; document.getElementById('s1-p').innerText = d.s1_p;
             document.getElementById('s2-t').innerText = d.s2_t; document.getElementById('s2-p').innerText = d.s2_p;
             document.getElementById('s3-t').innerText = d.s3_t; document.getElementById('s3-p').innerText = d.s3_p;
             document.getElementById('s4-t').innerText = d.s4_t; document.getElementById('s4-p').innerText = d.s4_p;
+            document.getElementById('footer-text').innerHTML = d.footer_text;
 
             const grid = document.getElementById('roadmap-grid');
             grid.innerHTML = d.roadmap.map(s => `
@@ -295,8 +317,8 @@
                     <p class="text-2xl md:text-3xl font-[1000] italic mt-2 uppercase gold-text leading-none">${s.t}</p>
                     <p class="text-xs opacity-70 mt-4 font-bold leading-relaxed">${s.s}</p>
                     <div class="mt-6 pt-4 border-t border-white/10">
-                        <p class="text-[9px] font-black opacity-30 uppercase italic">Architectural Sacrifice</p>
-                        <p class="text-2xl md:text-3xl font-black gold-text">${s.b} <span class="text-sm">BURNED</span></p>
+                        <p class="text-[9px] font-black opacity-30 uppercase italic">${d.sacrifice}</p>
+                        <p class="text-2xl md:text-3xl font-black gold-text italic">${s.b} <span class="text-sm">BURNED</span></p>
                     </div>
                 </div>
             `).join('');
