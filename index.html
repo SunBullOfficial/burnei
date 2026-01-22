@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,6 +57,8 @@
         }
         .card-glass:hover { border-color: var(--brand); background: rgba(243, 186, 47, 0.05); }
 
+        .phase-locked { filter: grayscale(1); opacity: 0.5; border-style: dashed !important; border-width: 2px; }
+
         .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
@@ -72,7 +73,7 @@
 
     <nav class="fixed top-0 w-full z-[60] bg-black/80 backdrop-blur-xl border-b border-white/10 px-4 py-4">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-2 group cursor-pointer">
+            <div class="flex items-center gap-2 group cursor-pointer" onclick="window.scrollTo(0,0)">
                 <img src="logo-nav.png" alt="Logo" class="w-8 h-8 group-hover:rotate-12 transition">
                 <span class="font-[1000] text-lg md:text-2xl gold-text italic tracking-tighter">$BURNIE</span>
             </div>
@@ -80,7 +81,7 @@
                 <button id="nav-bp" onclick="toggleBlueprint()" class="text-[9px] md:text-[10px] font-black hover:text-yellow-500 transition uppercase tracking-widest"></button>
                 <div class="flex gap-2">
                     <button onclick="changeLang('en')" class="text-[10px] font-black hover:text-yellow-500 transition">EN</button>
-                    <button onclick="changeLang('cn')" class="text-[10px] font-black hover:text-yellow-500 transition">CN</button>
+                    <button id="btn-lang-cn" onclick="changeLang('cn')" class="text-[10px] font-black hover:text-yellow-500 transition">中文</button>
                 </div>
                 <a id="nav-buy" href="#buy" class="btn-burnie !py-2 !px-4 !text-[9px]"></a>
             </div>
@@ -138,8 +139,8 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="p-6 card-glass"><p id="tk-1" class="text-xl font-black italic gold-text"></p><p id="tk-1-d" class="text-[10px] opacity-50 uppercase mt-1"></p></div>
                     <div class="p-6 card-glass"><p id="tk-2" class="text-xl font-black italic gold-text"></p><p id="tk-2-d" class="text-[10px] opacity-50 uppercase mt-1"></p></div>
-                    <div class="p-6 card-glass"><p id="tk-3" class="text-xl font-black italic gold-text"></p><p id="tk-3-d" class="text-[10px] opacity-50 uppercase mt-1"></p></div>
-                    <div class="p-6 card-glass border-yellow-500/50 bg-yellow-500/5"><p class="text-2xl font-black gold-text italic">0% TAX</p><p id="tk-tax" class="text-[10px] opacity-50 uppercase mt-1"></p></div>
+                    <div class="p-6 card-glass border-yellow-500/50 bg-yellow-500/5"><p id="tk-3" class="text-xl font-black italic gold-text"></p><p id="tk-3-d" class="text-[10px] opacity-50 uppercase mt-1"></p></div>
+                    <div class="p-6 card-glass"><p class="text-2xl font-black gold-text italic">0% TAX</p><p id="tk-tax" class="text-[10px] opacity-50 uppercase mt-1"></p></div>
                 </div>
             </div>
         </div>
@@ -153,13 +154,19 @@
         <div id="roadmap-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"></div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 reveal">
-            <div class="p-10 card-glass border-yellow-500/20 text-center">
-                <p id="p2-t" class="text-2xl font-black uppercase italic mb-2 gold-text"></p>
-                <p id="p2-d" class="text-sm font-bold opacity-80 leading-relaxed"></p>
+            <div class="p-10 card-glass phase-locked flex flex-col items-center justify-center text-center gap-4">
+                <i data-lucide="lock" class="text-yellow-500 w-12 h-12"></i>
+                <div>
+                    <p id="p2-t" class="text-2xl font-black uppercase italic mb-2 gold-text"></p>
+                    <p id="p2-d" class="text-sm font-bold opacity-80 leading-relaxed"></p>
+                </div>
             </div>
-            <div class="p-10 card-glass border-white/10 opacity-60 text-center">
-                <p id="p3-t" class="text-2xl font-black uppercase italic mb-2"></p>
-                <p id="p3-d" class="text-sm font-bold opacity-80 leading-relaxed"></p>
+            <div class="p-10 card-glass phase-locked flex flex-col items-center justify-center text-center gap-4">
+                <i data-lucide="lock" class="text-yellow-500 w-12 h-12"></i>
+                <div>
+                    <p id="p3-t" class="text-2xl font-black uppercase italic mb-2"></p>
+                    <p id="p3-d" class="text-sm font-bold opacity-80 leading-relaxed"></p>
+                </div>
             </div>
         </div>
     </section>
@@ -221,18 +228,18 @@
                      <p>Most projects in this space are built on fragile foundations. They fear the heat of the market. We embrace it. We are the architects of a new era on BNBChain.</p>
                      <p><strong>$BURNIE</strong> is more than a token; it is a community-led fortress forged through strategic sacrifice. Every burn is a brick laid in our eternal monument.</p>
                      <p>Our vision is absolute: <strong>Scarcity by design. Scrutiny by fire. Strength by community.</strong></p>
-                     <p>We've allocated 40,000,000 tokens for our 'Controlled Demolition' strategy—systematic burns that increase structural value at every milestone. We don't wait for the future. We build it, brick by brick, burn by burn. Welcome to the construction site of the decade.</p>`,
+                     <p>The <strong>Architect's Vault (5%)</strong> is the fuel for our evolution. This reserve is strictly dedicated to the project's structural integrity. It will be utilized for Strategic Incinerations, Community Rewards, and Reinforcements as we hit our milestones. The specific Blueprint for this vault is revealed level by level, as the building rises. Trust the process. Trust the Architect.</p>`,
                 char_title: "Meet $BURNIE",
                 char_bio: "While others are building sandcastles, <span class='text-white underline decoration-yellow-500'>$BURNIE</span> is forging monuments in the fire of the BNBChain. We don't just wait for the future; <span class='gold-text'>we build our own legacy.</span> Pick up a brick and let's burn our way to the top!",
                 m_text: "BNBChain is evolving. <br> We are not just a token. <br> We are a <span class='underline decoration-yellow-500 italic'>Monument</span> built by the people.",
                 t_title: "Tokenomics", tk_supply_label: "Total Supply",
-                tk_1: "76% Fair Launch", tk_1_d: "Released via four.meme protocol",
+                tk_1: "75% Fair Launch", tk_1_d: "Released via four.meme protocol",
                 tk_2: "20% Liquidity Pool", tk_2_d: "Bonding curve & PancakeSwap LP",
-                tk_3: "4% Architect Vault", tk_3_d: "40M: Strategic Goal-Based Burns",
+                tk_3: "5% Architect Vault", tk_3_d: "50M: Strategic Milestone Events",
                 tk_tax: "No transaction fees for the community",
                 b_title: "Roadmap", b_subtitle: "Phase 1: 20,000,000 $BURNIE Burn Target",
-                p2_t: "Phase 2: Structural Framing", p2_d: "Unlocking at $1M Market Cap. Recruiting global contractors (KOLs) and expanding the infrastructure. Utility revealed.",
-                p3_t: "Phase 3: The Grand Opening", p3_d: "Unlocking at $11M Market Cap. Global dominance, CEX listings, and the inauguration of the Burnie Legacy.",
+                p2_t: "Phase 2: Structural Framing", p2_d: "Locked. Reveals at $1M Market Cap. New burn protocols and community incentives will be unrolled.",
+                p3_t: "Phase 3: The Grand Landmark", p3_d: "Locked. Reveals at $10M Market Cap. Global expansion and final legacy burns.",
                 buy_title: "How to Build <br> With Us?",
                 s1_t: "The Groundwork", s1_p: "Install MetaMask. Fund with BNB to fuel your build.",
                 s2_t: "The Search", s2_p: "Connect to four.meme. Find $BURNIE and verify the blueprint.",
@@ -246,7 +253,7 @@
                     {mc: "$250k MC", t: "The Pillars", b: "3,000,000", s: "Support structures are forged. Foundation set."},
                     {mc: "$500k MC", t: "The Skyline", b: "3,000,000", s: "$BURNIE begins to dominate the horizon."},
                     {mc: "$750k MC", t: "The Inferno", b: "4,000,000", s: "A roaring fire of community strength."},
-                    {mc: "$1M MC", t: "The Monument", b: "4,000,000", s: "20M BURNED. Phase 1 complete. Phase 2 unlocks."}
+                    {mc: "$1M MC", t: "The Monument", b: "4,000,000", s: "20M BURNED. Phase 1 complete. Level 2 Unlocked."}
                 ]
             },
             cn: {
@@ -258,18 +265,18 @@
                      <p>在这个领域，大多数项目都建立在脆弱的基础上。他们畏惧市场的热度，而我们拥抱它。我们是 BNB 链新时代的架构师。</p>
                      <p><strong>$BURNIE</strong> 不仅仅是一个代币；它是一个由社区主导、通过战略性牺牲铸就的堡垒。每一次销毁都是在我们永恒丰碑上铺就的一块砖。</p>
                      <p>我们的愿景是绝对的：<strong>设计上的稀缺，烈火中的审视，社区铸就的力量。</strong></p>
-                     <p>我们分配了4000万个代币用于我们的“可控拆除”策略——在每个里程碑进行系统性销毁，以增加结构价值。我们不等待未来。我们一砖一瓦、一燃一烧地创造未来。</p>`,
+                     <p><strong>建筑师金库 (5%)</strong> 是我们进化的燃料。该储备严格用于项目的结构完整性。随着里程碑的达成，它将用于战略性销毁、社区奖励和加固。随着建筑的升起，金库的蓝图将逐级揭晓。信任过程，信任架构师。</p>`,
                 char_title: "认识 $BURNIE",
                 char_bio: "当他人在沙滩建堡垒时，<span class='text-white underline decoration-yellow-500'>$BURNIE</span> 正在 BNBChain 的烈火中锻造丰碑。我们不只是等待未来；<span class='gold-text'>我们在亲手书写传奇。</span> 拿起砖块，让我们一路燃烧至顶峰！",
                 m_text: "BNBChain 正在进化。<br> 我们不只是一个代币。<br> 我们是人民亲手建造的 <span class='underline decoration-yellow-500 italic'>丰碑</span>。",
                 t_title: "代币经济学", tk_supply_label: "发行总量",
-                tk_1: "76% 公平发射", tk_1_d: "通过 four.meme 协议发行",
+                tk_1: "75% 公平发射", tk_1_d: "通过 four.meme 协议发行",
                 tk_2: "20% 流动性池", tk_2_d: "联合曲线与 PancakeSwap LP",
-                tk_3: "4% 架构师金库", tk_3_d: "4000万：基于目标的战略销毁",
+                tk_3: "5% 建筑师金库", tk_3_d: "5000万：战略里程碑事件",
                 tk_tax: "社区交易零手续费",
                 b_title: "发展蓝图", b_subtitle: "第一阶段：20,000,000 $BURNIE 销毁目标",
-                p2_t: "第二阶段：结构框架", p2_d: "在100万美元市值时解锁。招募全球承包商（KOL）并扩大基础设施。实用功能揭示。",
-                p3_t: "第三阶段：盛大开幕", p3_d: "在1100万美元市值时解锁。全球主宰，CEX上市，以及Burnie传奇的落成。",
+                p2_t: "第二阶段：结构框架", p2_d: "已锁定。市值达到 100 万美元时揭晓。届时将推出新的销毁协议和社区激励机制。",
+                p3_t: "第三阶段：宏伟地标", p3_d: "已锁定。市值达到 1000 万美元时揭晓。全球扩张及最终传奇销毁。",
                 buy_title: "如何参与 <br> 建设？",
                 s1_t: "地基准备", s1_p: "安装 MetaMask。充值 BNB 作为建设燃料。",
                 s2_t: "寻找图纸", s2_p: "连接至 four.meme 寻找 $BURNIE 官方蓝图。",
@@ -283,7 +290,7 @@
                     {mc: "$250k 市值", t: "支柱", b: "3,000,000", s: "支撑结构铸就。地基变得不可动摇。"},
                     {mc: "$500k 市值", t: "天际线", b: "3,000,000", s: "$BURNIE 开始主宰 BNB 链的地平线。"},
                     {mc: "$750k 市值", t: "地狱火", b: "4,000,000", s: "社区力量熊熊燃烧，势不可挡。"},
-                    {mc: "$1M 市值", t: "丰碑落成", b: "4,000,000", s: "累计销毁 2000万。第一阶段完成，解锁第二阶段。"}
+                    {mc: "$1M 市值", t: "丰碑落成", b: "4,000,000", s: "累计销毁 2000万。第一阶段完成，解锁第二级。"}
                 ]
             }
         };
@@ -315,6 +322,9 @@
             document.getElementById('s3-t').innerText = d.s3_t; document.getElementById('s3-p').innerText = d.s3_p;
             document.getElementById('s4-t').innerText = d.s4_t; document.getElementById('s4-p').innerText = d.s4_p;
             document.getElementById('footer-text').innerHTML = d.footer_text;
+            
+            // Botão Chinês na barra de navegação
+            document.getElementById('btn-lang-cn').innerText = (l === 'cn') ? '中文' : 'CN';
 
             const grid = document.getElementById('roadmap-grid');
             grid.innerHTML = d.roadmap.map(s => `
@@ -328,6 +338,7 @@
                     </div>
                 </div>
             `).join('');
+            
             document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
             lucide.createIcons();
         }
