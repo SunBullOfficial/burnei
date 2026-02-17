@@ -12,7 +12,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
         :root { --brand: #F3BA2F; --gold-glow: rgba(243, 186, 47, 0.6); }
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; background-color: #000; color: #fff; overflow-x: hidden; width: 100%; }
+        body { font-family: 'Inter', sans-serif; background-color: #050505; color: #fff; overflow-x: hidden; width: 100%; }
         
         .bg-grid { 
             background-image: radial-gradient(circle, #222 1px, transparent 1px); 
@@ -46,44 +46,47 @@
             padding: 0.8rem 1.5rem; border-radius: 99px; text-transform: uppercase;
             box-shadow: 0 0 20px rgba(243, 186, 47, 0.4); transition: 0.4s;
             display: inline-flex; align-items: center; justify-content: center;
-            font-size: clamp(0.7rem, 2vw, 0.9rem);
+            font-size: clamp(0.7rem, 2vw, 0.9rem); letter-spacing: 0.05em;
         }
         .btn-burnie:hover { transform: scale(1.05); box-shadow: 0 0 40px var(--brand); }
 
         .card-glass { 
-            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
             backdrop-filter: blur(15px); border-radius: clamp(20px, 5vw, 35px); transition: 0.5s;
             position: relative; overflow: hidden;
         }
-        .card-glass:hover { border-color: var(--brand); background: rgba(243, 186, 47, 0.05); }
+        .card-glass:hover { border-color: rgba(243, 186, 47, 0.3); background: rgba(243, 186, 47, 0.03); }
 
-        .phase-locked { filter: grayscale(1); opacity: 0.5; border-style: dashed !important; border-width: 2px; }
+        .phase-locked { filter: grayscale(1); opacity: 0.4; border-style: dashed !important; border-width: 2px; }
 
-        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+        .reveal { opacity: 0; transform: translateY(40px); transition: 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         .animate-float { animation: float 6s ease-in-out infinite; }
         .break-words { overflow-wrap: break-word; word-wrap: break-word; hyphens: auto; }
+        
+        .staking-input-sim { background: rgba(0,0,0,0.5); box-shadow: inset 0 2px 10px rgba(0,0,0,0.8); }
     </style>
 </head>
 <body class="bg-grid">
 
     <div id="fire-container" class="fixed inset-0 pointer-events-none z-0"></div>
 
-    <nav class="fixed top-0 w-full z-[60] bg-black/80 backdrop-blur-xl border-b border-white/10 px-4 py-4">
+    <nav class="fixed top-0 w-full z-[60] bg-black/90 backdrop-blur-xl border-b border-white/5 px-4 py-4">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-2 group cursor-pointer" onclick="window.scrollTo(0,0)">
-                <img src="logo-nav.png" alt="Logo" class="w-8 h-8 group-hover:rotate-12 transition">
+                <img src="logo-nav.png" alt="Logo" class="w-8 h-8 group-hover:rotate-12 transition" onerror="this.style.display='none'">
                 <span class="font-[1000] text-lg md:text-2xl gold-text italic tracking-tighter">$BURNIE</span>
             </div>
-            <div class="flex gap-3 md:gap-6 items-center">
-                <button id="nav-bp" onclick="toggleBlueprint()" class="text-[9px] md:text-[10px] font-black hover:text-yellow-500 transition uppercase tracking-widest"></button>
-                <div class="flex gap-2">
+            <div class="flex gap-4 md:gap-8 items-center">
+                <button id="nav-bp" onclick="toggleBlueprint()" class="text-[9px] md:text-xs font-black hover:text-yellow-500 transition uppercase tracking-[0.2em]"></button>
+                <div class="flex gap-3 bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
                     <button onclick="changeLang('en')" class="text-[10px] font-black hover:text-yellow-500 transition">EN</button>
+                    <span class="text-white/20">|</span>
                     <button id="btn-lang-cn" onclick="changeLang('cn')" class="text-[10px] font-black hover:text-yellow-500 transition">中文</button>
                 </div>
-                <a id="nav-buy" href="#buy" class="btn-burnie !py-2 !px-4 !text-[9px]"></a>
+                <a id="nav-buy" href="#buy" class="btn-burnie !py-2 !px-5 !text-[10px]"></a>
             </div>
         </div>
     </nav>
@@ -91,148 +94,183 @@
     <header class="min-h-screen flex flex-col items-center justify-center pt-24 px-4 text-center relative overflow-hidden">
         <h1 class="text-[15vw] md:text-[12vw] font-[1000] italic leading-none mb-[-2vw] z-10 opacity-90 tracking-tighter gold-text">BURNIE</h1>
         <div class="relative w-full max-w-[300px] md:max-w-[500px]">
-            <img src="hero-burnie.png" class="w-full hero-glow animate-float z-20 relative">
+            <img src="hero-burnie.png" class="w-full hero-glow animate-float z-20 relative" alt="Burnie Mascot">
         </div>
-        <h2 id="h-title" class="text-3xl md:text-7xl font-[1000] uppercase mt-8 italic leading-tight reveal break-words"></h2>
+        <h2 id="h-title" class="text-3xl md:text-6xl font-[1000] uppercase mt-12 italic leading-tight reveal break-words"></h2>
         
-        <div class="flex flex-col sm:flex-row justify-center gap-4 mt-10 w-full max-w-2xl reveal px-4">
-            <a id="btn-main" href="#buy" class="btn-burnie text-lg w-full sm:w-auto"></a>
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mt-12 w-full max-w-2xl reveal px-4">
+            <a id="btn-main" href="#buy" class="btn-burnie text-lg w-full sm:w-auto px-8 py-4"></a>
             <div class="flex justify-center gap-3">
-                <a href="#" class="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:border-yellow-500 transition-all text-yellow-500" title="DexScreener"><i data-lucide="bar-chart-3" size="24"></i></a>
-                <a href="#" class="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:border-yellow-500 transition-all"><i data-lucide="send" size="20"></i></a>
-                <a href="#" class="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:border-yellow-500 transition-all"><i data-lucide="twitter" size="20"></i></a>
+                <a href="#" class="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:border-yellow-500 hover:bg-yellow-500/10 transition-all text-yellow-500" title="DexScreener"><i data-lucide="bar-chart-3" size="26"></i></a>
+                <a href="#" class="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:border-yellow-500 hover:bg-yellow-500/10 transition-all text-white"><i data-lucide="send" size="24"></i></a>
+                <a href="#" class="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:border-blue-400 hover:bg-blue-400/10 transition-all text-white"><i data-lucide="twitter" size="24"></i></a>
             </div>
         </div>
     </header>
 
     <div id="blueprint-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/95 backdrop-blur-md" onclick="toggleBlueprint()"></div>
-        <div class="card-glass max-w-2xl w-full max-h-[85vh] overflow-y-auto p-8 md:p-12 relative z-10 border-2 border-yellow-500/50">
-            <button onclick="toggleBlueprint()" class="absolute top-6 right-6 text-white/50 hover:text-white"><i data-lucide="x"></i></button>
-            <h3 id="bp-title" class="text-3xl md:text-5xl font-[1000] gold-text italic mb-8 uppercase tracking-tighter"></h3>
-            <div id="bp-content" class="space-y-6 text-sm md:text-lg text-white/80 leading-relaxed font-bold"></div>
+        <div class="card-glass max-w-3xl w-full max-h-[85vh] overflow-y-auto p-8 md:p-14 relative z-10 border-2 border-yellow-500/40 shadow-[0_0_50px_rgba(243,186,47,0.15)]">
+            <button onclick="toggleBlueprint()" class="absolute top-6 right-6 text-white/50 hover:text-white transition-transform hover:rotate-90"><i data-lucide="x" size="32"></i></button>
+            <h3 id="bp-title" class="text-4xl md:text-6xl font-[1000] gold-text italic mb-10 uppercase tracking-tighter"></h3>
+            <div id="bp-content" class="space-y-8 text-base md:text-xl text-white/80 leading-loose font-bold tracking-wide"></div>
         </div>
     </div>
 
-    <section id="about" class="max-w-6xl mx-auto py-20 px-4 reveal">
-        <div class="card-glass p-8 md:p-20 border-t-2 border-yellow-500/30">
-            <h3 id="char-title" class="text-4xl md:text-7xl font-[1000] gold-text italic uppercase mb-6 tracking-tighter"></h3>
-            <p id="char-bio" class="text-lg md:text-3xl font-bold leading-relaxed text-white/90 break-words"></p>
+    <section id="about" class="max-w-6xl mx-auto py-24 px-4 reveal">
+        <div class="card-glass p-10 md:p-24 border-t-4 border-yellow-500/40 text-center">
+            <h3 id="char-title" class="text-4xl md:text-7xl font-[1000] gold-text italic uppercase mb-10 tracking-tighter"></h3>
+            <p id="char-bio" class="text-xl md:text-3xl font-bold leading-loose text-white/90 break-words max-w-4xl mx-auto"></p>
         </div>
     </section>
 
-    <section class="max-w-6xl mx-auto py-12 px-4 text-center reveal">
-        <div id="m-text" class="text-2xl md:text-6xl font-[1000] leading-tight tracking-tighter uppercase italic break-words"></div>
+    <section class="max-w-6xl mx-auto py-16 px-4 text-center reveal">
+        <div id="m-text" class="text-3xl md:text-6xl font-[1000] leading-tight tracking-tighter uppercase italic break-words"></div>
     </section>
 
-    <section class="max-w-7xl mx-auto py-20 px-4 reveal">
-        <div class="flex flex-col lg:flex-row items-center justify-center gap-12 md:gap-16">
+    <section class="max-w-7xl mx-auto py-24 px-4 reveal">
+        <div class="flex flex-col lg:flex-row items-center justify-center gap-12 md:gap-20">
             <div class="relative flex-shrink-0">
-                <div class="absolute inset-0 bg-yellow-500 blur-[60px] opacity-20 animate-pulse"></div>
-                <div class="w-56 h-56 md:w-72 md:h-72 rounded-full border-4 border-yellow-500/20 flex flex-col items-center justify-center p-6 text-center relative z-10 bg-black">
-                    <p id="tk-supply-label" class="text-[10px] font-black opacity-30 uppercase tracking-widest"></p>
-                    <p class="text-3xl md:text-4xl font-black gold-text italic">1,000,000,000</p>
+                <div class="absolute inset-0 bg-yellow-500 blur-[80px] opacity-20 animate-pulse"></div>
+                <div class="w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-yellow-500/20 flex flex-col items-center justify-center p-6 text-center relative z-10 bg-[#0a0a0a] shadow-inner">
+                    <p id="tk-supply-label" class="text-xs font-black opacity-40 uppercase tracking-[0.3em] mb-2"></p>
+                    <p class="text-4xl md:text-5xl font-black gold-text italic">1,000,000,000</p>
                 </div>
             </div>
-            <div class="w-full max-w-3xl space-y-6">
+            <div class="w-full max-w-3xl space-y-8">
                 <h3 id="t-title" class="text-5xl md:text-7xl font-[1000] italic gold-text uppercase"></h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div class="p-5 card-glass"><p id="tk-1" class="text-lg md:text-xl font-black italic gold-text"></p><p id="tk-1-d" class="text-[10px] opacity-50 uppercase mt-1"></p></div>
-                    <div class="p-5 card-glass"><p id="tk-2" class="text-lg md:text-xl font-black italic gold-text"></p><p id="tk-2-d" class="text-[10px] opacity-50 uppercase mt-1"></p></div>
-                    <div class="p-5 card-glass border-yellow-500/50 bg-yellow-500/10"><p id="tk-3" class="text-lg md:text-xl font-black italic gold-text"></p><p id="tk-3-d" class="text-[10px] opacity-50 uppercase mt-1"></p></div>
-                    <div class="p-5 card-glass border-blue-500/30 bg-blue-500/5"><p id="tk-4" class="text-lg md:text-xl font-black italic text-blue-400"></p><p id="tk-4-d" class="text-[10px] opacity-50 uppercase mt-1"></p></div>
-                    <div class="p-5 card-glass sm:col-span-2 lg:col-span-2 flex flex-col justify-center"><p class="text-xl md:text-2xl font-black gold-text italic">0% TAX</p><p id="tk-tax" class="text-[10px] opacity-50 uppercase mt-1"></p></div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5">
+                    <div class="p-6 card-glass"><p id="tk-1" class="text-xl md:text-2xl font-black italic gold-text mb-2"></p><p id="tk-1-d" class="text-xs opacity-60 uppercase leading-relaxed"></p></div>
+                    <div class="p-6 card-glass"><p id="tk-2" class="text-xl md:text-2xl font-black italic gold-text mb-2"></p><p id="tk-2-d" class="text-xs opacity-60 uppercase leading-relaxed"></p></div>
+                    <div class="p-6 card-glass border-l-4 border-yellow-500 bg-yellow-500/5"><p id="tk-3" class="text-xl md:text-2xl font-black italic gold-text mb-2"></p><p id="tk-3-d" class="text-xs opacity-60 uppercase leading-relaxed"></p></div>
+                    <div class="p-6 card-glass border-l-4 border-blue-500/50 bg-blue-500/5"><p id="tk-4" class="text-xl md:text-2xl font-black italic text-blue-400 mb-2"></p><p id="tk-4-d" class="text-xs opacity-60 uppercase leading-relaxed"></p></div>
+                    <div class="p-6 card-glass sm:col-span-2 text-center bg-white/5"><p class="text-2xl md:text-3xl font-black gold-text italic mb-2">0% TAX</p><p id="tk-tax" class="text-xs opacity-60 uppercase tracking-widest"></p></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="staking" class="max-w-6xl mx-auto py-20 px-4 reveal">
-        <div class="card-glass p-8 md:p-16 border-t-2 border-yellow-500 text-center relative overflow-hidden">
-            <div class="absolute inset-0 bg-yellow-500/5 opacity-20"></div>
-            <h3 id="st-title" class="text-4xl md:text-6xl font-[1000] italic gold-text uppercase mb-4 relative z-10"></h3>
-            <p id="st-desc" class="text-lg opacity-80 mb-10 max-w-2xl mx-auto font-bold relative z-10"></p>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10 relative z-10">
-                <div class="p-6 bg-black/60 rounded-2xl border border-white/10">
-                    <p id="st-apy-l" class="text-xs uppercase opacity-50 font-black tracking-widest mb-1"></p>
-                    <p id="st-apy-v" class="text-2xl font-black gold-text italic"></p>
-                </div>
-                <div class="p-6 bg-black/60 rounded-2xl border border-white/10">
-                    <p id="st-lock-l" class="text-xs uppercase opacity-50 font-black tracking-widest mb-1"></p>
-                    <p id="st-lock-v" class="text-2xl font-black gold-text italic"></p>
-                </div>
-                <div class="p-6 bg-black/60 rounded-2xl border border-red-500/30">
-                    <p id="st-pen-l" class="text-xs uppercase text-red-400 opacity-80 font-black tracking-widest mb-1"></p>
-                    <p id="st-pen-v" class="text-2xl font-black text-red-500 italic"></p>
-                </div>
-            </div>
-
-            <div class="relative z-10 inline-block w-full sm:w-auto">
-                <button class="w-full sm:w-auto px-8 py-4 rounded-full bg-white/5 border border-white/10 text-white/40 font-black text-[10px] md:text-xs uppercase tracking-widest cursor-not-allowed flex items-center justify-center gap-3 backdrop-blur-md" disabled>
-                    <i data-lucide="lock" class="w-4 h-4"></i>
-                    <span id="st-btn"></span>
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <section id="roadmap" class="max-w-7xl mx-auto py-20 px-4">
-        <div class="text-center mb-16 reveal">
+    <section id="roadmap" class="max-w-7xl mx-auto py-24 px-4">
+        <div class="text-center mb-20 reveal">
             <h4 id="b-title" class="text-6xl md:text-8xl font-[1000] italic gold-text uppercase"></h4>
-            <p id="b-subtitle" class="text-lg md:text-2xl font-black uppercase mt-4 italic opacity-50"></p>
+            <p id="b-subtitle" class="text-xl md:text-3xl font-black uppercase mt-6 italic opacity-60 tracking-wide"></p>
         </div>
-        <div id="roadmap-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"></div>
+        <div id="roadmap-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16"></div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 reveal">
-            <div class="p-10 card-glass phase-locked flex flex-col items-center justify-center text-center gap-4">
-                <i data-lucide="lock" class="text-yellow-500 w-12 h-12"></i>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal">
+            <div class="p-12 card-glass phase-locked flex flex-col items-center justify-center text-center gap-6">
+                <div class="w-16 h-16 rounded-full bg-yellow-500/10 flex items-center justify-center border border-yellow-500/30"><i data-lucide="lock" class="text-yellow-500 w-8 h-8"></i></div>
                 <div>
-                    <p id="p2-t" class="text-2xl font-black uppercase italic mb-2 gold-text"></p>
-                    <p id="p2-d" class="text-sm font-bold opacity-80 leading-relaxed"></p>
+                    <p id="p2-t" class="text-3xl font-black uppercase italic mb-4 gold-text"></p>
+                    <p id="p2-d" class="text-base md:text-lg font-bold opacity-70 leading-relaxed"></p>
                 </div>
             </div>
-            <div class="p-10 card-glass phase-locked flex flex-col items-center justify-center text-center gap-4">
-                <i data-lucide="lock" class="text-yellow-500 w-12 h-12"></i>
+            <div class="p-12 card-glass phase-locked flex flex-col items-center justify-center text-center gap-6">
+                <div class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center border border-white/10"><i data-lucide="lock" class="text-white/50 w-8 h-8"></i></div>
                 <div>
-                    <p id="p3-t" class="text-2xl font-black uppercase italic mb-2"></p>
-                    <p id="p3-d" class="text-sm font-bold opacity-80 leading-relaxed"></p>
+                    <p id="p3-t" class="text-3xl font-black uppercase italic mb-4"></p>
+                    <p id="p3-d" class="text-base md:text-lg font-bold opacity-70 leading-relaxed"></p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="buy" class="max-w-5xl mx-auto py-20 px-4 reveal">
-        <h3 id="buy-title" class="text-4xl md:text-7xl font-[1000] italic gold-text text-center mb-16 uppercase"></h3>
-        <div class="grid grid-cols-1 gap-6">
-            <div class="p-8 card-glass border-l-[8px] border-yellow-500 flex gap-6 items-center">
-                <div class="text-4xl font-black opacity-20 italic">01</div>
-                <div><h5 id="s1-t" class="text-xl md:text-2xl font-black uppercase italic gold-text"></h5><p id="s1-p" class="opacity-70 mt-2 text-sm md:text-base font-bold"></p></div>
-            </div>
-            <div class="p-8 card-glass border-l-[8px] border-yellow-500 flex gap-6 items-center">
-                <div class="text-4xl font-black opacity-20 italic">02</div>
-                <div><h5 id="s2-t" class="text-xl md:text-2xl font-black uppercase italic gold-text"></h5><p id="s2-p" class="opacity-70 mt-2 text-sm md:text-base font-bold"></p></div>
-            </div>
-            <div class="p-8 card-glass border-l-[8px] border-yellow-500 flex gap-6 items-center">
-                <div class="text-4xl font-black opacity-20 italic">03</div>
-                <div><h5 id="s3-t" class="text-xl md:text-2xl font-black uppercase italic gold-text"></h5><p id="s3-p" class="opacity-70 mt-2 text-sm md:text-base font-bold"></p></div>
-            </div>
-            <div class="p-8 card-glass border-l-[8px] border-white/10 opacity-40 flex gap-6 items-center">
-                <div class="text-4xl font-black opacity-20 italic">04</div>
-                <div><h5 id="s4-t" class="text-xl md:text-2xl font-black uppercase italic"></h5><p id="s4-p" class="opacity-70 mt-2 text-sm md:text-base font-bold"></p></div>
+    <section id="staking" class="max-w-5xl mx-auto py-24 px-4 reveal relative">
+        <div class="absolute inset-0 bg-yellow-500/5 blur-[100px] z-0 pointer-events-none"></div>
+        <div class="text-center mb-12 relative z-10">
+            <h3 id="st-title" class="text-5xl md:text-7xl font-[1000] italic gold-text uppercase mb-6"></h3>
+            <p id="st-desc" class="text-lg md:text-xl opacity-80 max-w-3xl mx-auto font-bold leading-relaxed"></p>
+        </div>
+
+        <div class="card-glass border-2 border-yellow-500/30 p-1 relative z-10 shadow-[0_0_30px_rgba(243,186,47,0.1)]">
+            <div class="bg-[#0a0a0a] rounded-[28px] p-6 md:p-10">
+                
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
+                    <div class="p-5 bg-white/5 rounded-2xl border border-white/5">
+                        <p id="st-apy-l" class="text-[10px] md:text-xs uppercase opacity-50 font-black tracking-widest mb-2"></p>
+                        <p id="st-apy-v" class="text-2xl md:text-3xl font-black text-green-400 italic">1,240%</p>
+                    </div>
+                    <div class="p-5 bg-white/5 rounded-2xl border border-white/5">
+                        <p id="st-tvl-l" class="text-[10px] md:text-xs uppercase opacity-50 font-black tracking-widest mb-2">Total Staked</p>
+                        <p class="text-xl md:text-2xl font-black text-white italic">0 <span class="text-sm">BURNIE</span></p>
+                    </div>
+                    <div class="p-5 bg-white/5 rounded-2xl border border-white/5">
+                        <p id="st-lock-l" class="text-[10px] md:text-xs uppercase opacity-50 font-black tracking-widest mb-2"></p>
+                        <p id="st-lock-v" class="text-xl md:text-2xl font-black text-white italic"></p>
+                    </div>
+                    <div class="p-5 bg-red-500/5 rounded-2xl border border-red-500/20">
+                        <p id="st-pen-l" class="text-[10px] md:text-xs uppercase text-red-400 opacity-80 font-black tracking-widest mb-2"></p>
+                        <p id="st-pen-v" class="text-xl md:text-2xl font-black text-red-500 italic"></p>
+                    </div>
+                </div>
+
+                <div class="max-w-xl mx-auto">
+                    <div class="flex gap-2 mb-4">
+                        <div class="flex-1 py-3 text-center rounded-xl bg-yellow-500 text-black font-black text-sm uppercase cursor-not-allowed">Stake</div>
+                        <div class="flex-1 py-3 text-center rounded-xl bg-white/5 text-white/50 font-black text-sm uppercase cursor-not-allowed border border-white/5">Unstake</div>
+                    </div>
+                    
+                    <div class="staking-input-sim rounded-2xl p-4 flex justify-between items-center mb-6 border border-white/10">
+                        <input type="text" placeholder="0.00" class="bg-transparent text-3xl font-black text-white/50 outline-none w-full pl-2 pointer-events-none" disabled>
+                        <div class="flex items-center gap-3">
+                            <span class="text-white/30 font-bold text-sm">BURNIE</span>
+                            <button class="bg-white/10 hover:bg-white/20 text-white font-black text-[10px] px-3 py-1.5 rounded-lg transition-colors cursor-not-allowed">MAX</button>
+                        </div>
+                    </div>
+
+                    <button class="w-full py-5 rounded-2xl bg-white/5 border-2 border-dashed border-yellow-500/30 text-yellow-500/50 font-black text-xs md:text-sm uppercase tracking-[0.2em] cursor-not-allowed flex items-center justify-center gap-3 hover:bg-yellow-500/5 transition-colors" disabled>
+                        <i data-lucide="lock" class="w-5 h-5"></i>
+                        <span id="st-btn"></span>
+                    </button>
+                </div>
+                
             </div>
         </div>
     </section>
 
-    <footer class="py-32 text-center px-4 relative">
-        <h2 id="footer-text" class="text-4xl md:text-8xl font-[1000] italic gold-text mb-12 uppercase leading-none reveal"></h2>
-        <p class="text-[10px] font-bold opacity-10 uppercase tracking-[1em]">Architect Protocol 2026</p>
+    <section id="buy" class="max-w-6xl mx-auto py-24 px-4 reveal">
+        <h3 id="buy-title" class="text-5xl md:text-7xl font-[1000] italic gold-text text-center mb-20 uppercase"></h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="p-10 card-glass border-t-4 border-yellow-500 flex flex-col gap-6">
+                <div class="flex items-center gap-4">
+                    <div class="text-5xl font-black opacity-20 italic gold-text">01</div>
+                    <h5 id="s1-t" class="text-2xl md:text-3xl font-black uppercase italic text-white"></h5>
+                </div>
+                <p id="s1-p" class="opacity-80 text-base md:text-lg font-bold leading-relaxed"></p>
+            </div>
+            <div class="p-10 card-glass border-t-4 border-yellow-500 flex flex-col gap-6">
+                <div class="flex items-center gap-4">
+                    <div class="text-5xl font-black opacity-20 italic gold-text">02</div>
+                    <h5 id="s2-t" class="text-2xl md:text-3xl font-black uppercase italic text-white"></h5>
+                </div>
+                <p id="s2-p" class="opacity-80 text-base md:text-lg font-bold leading-relaxed"></p>
+            </div>
+            <div class="p-10 card-glass border-t-4 border-yellow-500 flex flex-col gap-6">
+                <div class="flex items-center gap-4">
+                    <div class="text-5xl font-black opacity-20 italic gold-text">03</div>
+                    <h5 id="s3-t" class="text-2xl md:text-3xl font-black uppercase italic text-white"></h5>
+                </div>
+                <p id="s3-p" class="opacity-80 text-base md:text-lg font-bold leading-relaxed"></p>
+            </div>
+            <div class="p-10 card-glass border-t-4 border-white/10 opacity-60 flex flex-col gap-6 bg-white/5">
+                <div class="flex items-center gap-4">
+                    <div class="text-5xl font-black opacity-20 italic">04</div>
+                    <h5 id="s4-t" class="text-2xl md:text-3xl font-black uppercase italic text-white"></h5>
+                </div>
+                <p id="s4-p" class="opacity-80 text-base md:text-lg font-bold leading-relaxed"></p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-24 text-center px-4 relative border-t border-white/5 mt-20">
+        <h2 id="footer-text" class="text-5xl md:text-8xl font-[1000] italic gold-text mb-12 uppercase leading-none reveal tracking-tighter"></h2>
+        <p class="text-[10px] font-black opacity-20 uppercase tracking-[1em]">Architect Protocol 2026</p>
     </footer>
 
     <script>
         lucide.createIcons();
         const container = document.getElementById('fire-container');
-        for(let i=0; i<20; i++) {
+        for(let i=0; i<25; i++) {
             const p = document.createElement('div');
             p.className = 'fire-particle';
             p.style.left = Math.random() * 100 + 'vw';
@@ -255,43 +293,44 @@
                 h_title: "The Architect <br> <span class='gold-text'>of BNBChain!</span>",
                 btn_main: "Ignite Your Trade",
                 bp_title: "The Golden Blueprint",
-                bp: `<p class="text-yellow-500 italic">"Sandcastles wash away. Monuments remain."</p>
+                bp: `<p class="text-yellow-500 italic text-2xl font-[1000]">"Sandcastles wash away. Monuments remain."</p>
                      <p>Most projects in this space are built on fragile foundations. They fear the heat of the market. We embrace it. We are the architects of a new era on BNBChain.</p>
                      <p><strong>$BURNIE</strong> is more than a token; it is a community-led fortress forged through strategic sacrifice. Every burn is a brick laid in our eternal monument.</p>
-                     <p>Our vision is absolute: <strong>Scarcity by design. Scrutiny by fire. Strength by community.</strong></p>
-                     <p>The <strong>Furnace Reserve (5%)</strong> is the fuel for our evolution. This Dev wallet is strictly dedicated to the project's structural integrity. It will be utilized for Strategic Incinerations as we hit our milestones. Additionally, a separate <strong>Mining Pool (3%)</strong> will be acquired post-launch to fuel the Phase 2 Furnace Staking Protocol. The specific Blueprint is revealed level by level, as the building rises. Trust the process. Trust the Architect.</p>`,
+                     <p>Our vision is absolute: <br><span class="gold-text uppercase tracking-widest text-sm">Scarcity by design. Scrutiny by fire. Strength by community.</span></p>
+                     <p>The <span class="text-yellow-500 font-black">Furnace Reserve (5%)</span> is the fuel for our evolution. This Dev wallet is strictly dedicated to the project's structural integrity. It will be utilized for <span class="text-yellow-500">Strategic Incinerations</span> as we hit our milestones.</p>
+                     <p>Additionally, a separate <span class="text-blue-400 font-black">Mining Pool (3%)</span> will be acquired post-launch to fuel the Phase 2 Furnace Staking Protocol. The specific Blueprint is revealed level by level, as the building rises. Trust the process. Trust the Architect.</p>`,
                 char_title: "Meet $BURNIE",
-                char_bio: "While others are building sandcastles, <span class='text-white underline decoration-yellow-500'>$BURNIE</span> is forging monuments in the fire of the BNBChain. We don't just wait for the future; <span class='gold-text'>we build our own legacy.</span> Pick up a brick and let's burn our way to the top!",
+                char_bio: "While others are building sandcastles, <span class='text-white underline decoration-yellow-500 underline-offset-8'>$BURNIE</span> is forging monuments in the fire of the BNBChain.<br><br>We don't just wait for the future; <span class='gold-text'>we build our own legacy.</span> Pick up a brick and let's burn our way to the top!",
                 m_text: "BNBChain is evolving. <br> We are not just a token. <br> We are a <span class='underline decoration-yellow-500 italic'>Monument</span> built by the people.",
                 t_title: "Tokenomics", tk_supply_label: "Total Supply",
-                tk_1: "75% Fair Launch", tk_1_d: "Released via four.meme protocol",
-                tk_2: "20% Liquidity Pool", tk_2_d: "Bonding curve & PancakeSwap LP",
-                tk_3: "5% Furnace Reserve", tk_3_d: "Dev Wallet: Strictly for Blueprint Burns",
-                tk_4: "3% Mining Pool", tk_4_d: "Acquired post-launch for Staking Rewards",
-                tk_tax: "No transaction fees for the community",
+                tk_1: "75% Fair Launch", tk_1_d: "Released via four.meme protocol. Pure community distribution.",
+                tk_2: "20% Liquidity Pool", tk_2_d: "Bonding curve & PancakeSwap LP for a rock-solid trading floor.",
+                tk_3: "5% Furnace Reserve", tk_3_d: "Dev Wallet: Strictly locked for Blueprint Milestone Burns.",
+                tk_4: "3% Mining Pool", tk_4_d: "Acquired post-launch on the open market for Staking Rewards.",
+                tk_tax: "Zero transaction fees. Free trade for the community.",
                 st_title: "Phase 2: Furnace Mining",
-                st_desc: "Earn $BURNIE by fueling the monument. The impatient pay the patient. Staking utility will be deployed after successful bonding curve migration.",
-                st_apy_l: "Dynamic APY", st_apy_v: "TBD",
-                st_lock_l: "Lock-up Period", st_lock_v: "7-14 Days",
+                st_desc: "Earn <span class='gold-text'>$BURNIE</span> by fueling the monument. The impatient pay the patient. The Staking DApp will be fully activated after our successful PancakeSwap migration.",
+                st_apy_l: "Dynamic APY",
+                st_lock_l: "Lock-up Period", st_lock_v: "14 Days",
                 st_pen_l: "Early Unstake Fee", st_pen_v: "15% Penalty",
-                st_btn: "IGNITING SOON - Unlocks after Bonding Curve completion",
+                st_btn: "PROTOCOL LOCKED - IGNITES AFTER BONDING CURVE",
                 b_title: "Roadmap", b_subtitle: "Phase 1: 20,000,000 $BURNIE Burn Target",
-                p2_t: "Phase 2: Structural Framing", p2_d: "Locked. Reveals at $1M Market Cap. Furnace Mining (Staking) and community incentives will be unrolled.",
-                p3_t: "Phase 3: The Grand Landmark", p3_d: "Locked. Reveals at $10M Market Cap. Global expansion and final legacy burns.",
+                p2_t: "Phase 2: Structural Framing", p2_d: "Locked. Reveals at $1M Market Cap. Furnace Mining (Staking) and heavy community incentives will be unrolled.",
+                p3_t: "Phase 3: The Grand Landmark", p3_d: "Locked. Reveals at $10M Market Cap. Global expansion, Tier-1 partnerships, and final legacy burns.",
                 buy_title: "How to Build <br> With Us?",
-                s1_t: "The Groundwork", s1_p: "Install MetaMask. Fund with BNB to fuel your build.",
-                s2_t: "The Search", s2_p: "Connect to four.meme. Find $BURNIE and verify the blueprint.",
-                s3_t: "Construction", s3_p: "Swap BNB for $BURNIE. As the curve fills, the monument grows.",
-                s4_t: "Eternal Legacy", s4_p: "100% curve hit triggers PancakeSwap migration and instant burn.",
+                s1_t: "The Groundwork", s1_p: "Download a reliable Web3 wallet like <span class='text-yellow-500'>Trust Wallet</span>, <span class='text-yellow-500'>Binance Web3 Wallet</span>, or <span class='text-yellow-500'>MetaMask</span>. Fund it with BNB to fuel your construction.",
+                s2_t: "The Search", s2_p: "Open your wallet's DApp browser and navigate to <span class='text-white font-black'>four.meme</span>. Search for $BURNIE and verify you have the official Blueprint contract.",
+                s3_t: "Construction", s3_p: "Swap your BNB for $BURNIE. As the bonding curve fills, our monument grows stronger. Secure your bag before the curve completes.",
+                s4_t: "Eternal Legacy", s4_p: "Upon hitting 100% of the curve, liquidity automatically migrates to PancakeSwap, trading goes live, and the initial Phase 1 burn is instantly triggered.",
                 footer_text: "Keep the fire <br> $BURNIE!",
                 sacrifice: "Controlled Demolition",
                 roadmap: [
-                    {mc: "IMMEDIATE", t: "The Ignition", b: "4,000,000", s: "Immediately after Bonding Curve hits 100%, tokens are sacrificed."},
-                    {mc: "$100k MC", t: "The Spark", b: "2,000,000", s: "The heat rises as the community ignites growth."},
-                    {mc: "$250k MC", t: "The Pillars", b: "3,000,000", s: "Support structures are forged. Foundation set."},
-                    {mc: "$500k MC", t: "The Skyline", b: "3,000,000", s: "$BURNIE begins to dominate the horizon."},
-                    {mc: "$750k MC", t: "The Inferno", b: "4,000,000", s: "A roaring fire of community strength."},
-                    {mc: "$1M MC", t: "The Monument", b: "4,000,000", s: "20M BURNED. Phase 1 complete. Level 2 Unlocked."}
+                    {mc: "IMMEDIATE", t: "The Ignition", b: "4,000,000", s: "Immediately after Bonding Curve hits 100%, tokens are sacrificed to establish the baseline."},
+                    {mc: "$100k MC", t: "The Spark", b: "2,000,000", s: "The heat rises rapidly as the community ignites the first wave of growth."},
+                    {mc: "$250k MC", t: "The Pillars", b: "3,000,000", s: "Support structures are forged. The foundation becomes unshakable."},
+                    {mc: "$500k MC", t: "The Skyline", b: "3,000,000", s: "$BURNIE volume begins to dominate the BNBChain horizon."},
+                    {mc: "$750k MC", t: "The Inferno", b: "4,000,000", s: "A roaring fire of community strength and diamond hands."},
+                    {mc: "$1M MC", t: "The Monument", b: "4,000,000", s: "20M TOTAL BURNED. Phase 1 complete. Level 2 Unlocked."}
                 ]
             },
             cn: {
@@ -299,42 +338,43 @@
                 h_title: "BNB链的 <br> <span class='gold-text'>首席架构师!</span>",
                 btn_main: "点燃你的交易",
                 bp_title: "黄金蓝图",
-                bp: `<p class="text-yellow-500 italic">“沙堡终将消逝，唯有丰碑永存。”</p>
+                bp: `<p class="text-yellow-500 italic text-2xl font-[1000]">“沙堡终将消逝，唯有丰碑永存。”</p>
                      <p>在这个领域，大多数项目都建立在脆弱的基础上。他们畏惧市场的热度，而我们拥抱它。我们是 BNB 链新时代的架构师。</p>
                      <p><strong>$BURNIE</strong> 不仅仅是一个代币；它是一个由社区主导、通过战略性牺牲铸就的堡垒。每一次销毁都是在我们永恒丰碑上铺就的一块砖。</p>
-                     <p>我们的愿景是绝对的：<strong>设计上的稀缺，烈火中的审视，社区铸就的力量。</strong></p>
-                     <p><strong>熔炉储备金 (5%)</strong> 是我们进化的燃料。该开发钱包严格用于项目的结构完整性，将随着里程碑的达成用于战略性销毁。此外，我们将在发行后购入独立的 <strong>矿池储备 (3%)</strong>，专门用于支持第二阶段的熔炉质押协议。金库的蓝图将逐级揭晓。信任过程，信任架构师。</p>`,
+                     <p>我们的愿景是绝对的：<br><span class="gold-text uppercase tracking-widest text-sm">设计上的稀缺。烈火中的审视。社区铸就的力量。</span></p>
+                     <p><span class="text-yellow-500 font-black">熔炉储备金 (5%)</span> 是我们进化的燃料。该开发钱包严格用于项目的结构完整性，将随着里程碑的达成用于<span class="text-yellow-500">战略性销毁</span>。</p>
+                     <p>此外，我们将在发行后于公开市场购入独立的 <span class="text-blue-400 font-black">矿池储备 (3%)</span>，专门用于支持第二阶段的熔炉质押协议。金库的蓝图将逐级揭晓。信任过程，信任架构师。</p>`,
                 char_title: "认识 $BURNIE",
-                char_bio: "当他人在沙滩建堡垒时，<span class='text-white underline decoration-yellow-500'>$BURNIE</span> 正在 BNBChain 的烈火中锻造丰碑。我们不只是等待未来；<span class='gold-text'>我们在亲手书写传奇。</span> 拿起砖块，让我们一路燃烧至顶峰！",
+                char_bio: "当他人在沙滩建堡垒时，<span class='text-white underline decoration-yellow-500 underline-offset-8'>$BURNIE</span> 正在 BNBChain 的烈火中锻造丰碑。<br><br>我们不只是等待未来；<span class='gold-text'>我们在亲手书写传奇。</span> 拿起砖块，让我们一路燃烧至顶峰！",
                 m_text: "BNBChain 正在进化。<br> 我们不只是一个代币。<br> 我们是人民亲手建造的 <span class='underline decoration-yellow-500 italic'>丰碑</span>。",
                 t_title: "代币经济学", tk_supply_label: "发行总量",
-                tk_1: "75% 公平发射", tk_1_d: "通过 four.meme 协议发行",
-                tk_2: "20% 流动性池", tk_2_d: "联合曲线与 PancakeSwap LP",
-                tk_3: "5% 熔炉储备金", tk_3_d: "开发钱包：严格用于蓝图销毁",
-                tk_4: "3% 矿池储备", tk_4_d: "发行后购入，专用于质押奖励",
-                tk_tax: "社区交易零手续费",
+                tk_1: "75% 公平发射", tk_1_d: "通过 four.meme 协议发行。纯粹的社区分配。",
+                tk_2: "20% 流动性池", tk_2_d: "联合曲线与 PancakeSwap LP，打造坚如磐石的交易底座。",
+                tk_3: "5% 熔炉储备金", tk_3_d: "开发钱包：严格锁定，仅用于蓝图里程碑销毁。",
+                tk_4: "3% 矿池储备", tk_4_d: "发行后在公开市场购入，专用于质押奖励。",
+                tk_tax: "社区交易零手续费。自由流通。",
                 st_title: "第二阶段：熔炉挖矿",
-                st_desc: "为丰碑添加燃料以赚取 $BURNIE。缺乏耐心者的惩罚将成为坚定者的奖励。质押功能将在联合曲线迁移成功后部署。",
-                st_apy_l: "动态年化收益率 (APY)", st_apy_v: "待定",
-                st_lock_l: "锁定期", st_lock_v: "7-14 天",
+                st_desc: "为丰碑添加燃料以赚取 <span class='gold-text'>$BURNIE</span>。缺乏耐心者的惩罚将成为坚定者的奖励。质押 DApp 将在 PancakeSwap 迁移成功后全面激活。",
+                st_apy_l: "动态年化收益率",
+                st_lock_l: "锁定期", st_lock_v: "14 天",
                 st_pen_l: "提前解锁惩罚", st_pen_v: "扣除 15%",
-                st_btn: "即将点燃 - 在 four.meme 联合曲线完成后解锁",
+                st_btn: "协议已锁定 - 在联合曲线完成后点燃",
                 b_title: "发展蓝图", b_subtitle: "第一阶段：20,000,000 $BURNIE 销毁目标",
-                p2_t: "第二阶段：结构框架", p2_d: "已锁定。市值达到 100 万美元时揭晓。届时将推出熔炉挖矿 (质押) 和社区激励机制。",
-                p3_t: "第三阶段：宏伟地标", p3_d: "已锁定。市值达到 1000 万美元时揭晓。全球扩张及最终传奇销毁。",
+                p2_t: "第二阶段：结构框架", p2_d: "已锁定。市值达到 100 万美元时揭晓。届时将全面推出熔炉挖矿 (质押) 和社区激励机制。",
+                p3_t: "第三阶段：宏伟地标", p3_d: "已锁定。市值达到 1000 万美元时揭晓。全球扩张、顶级合作及最终传奇销毁。",
                 buy_title: "如何参与 <br> 建设？",
-                s1_t: "地基准备", s1_p: "安装 MetaMask。充值 BNB 作为建设燃料。",
-                s2_t: "寻找图纸", s2_p: "连接至 four.meme 寻找 $BURNIE 官方蓝图。",
-                s3_t: "开启施工", s3_p: "兑换 $BURNIE。见证丰碑随联合曲线拔地而起。",
-                s4_t: "永恒传奇", s4_p: "曲线 100% 后自动迁移并立即触发首次销毁。",
+                s1_t: "地基准备", s1_p: "下载可靠的 Web3 钱包，如 <span class='text-yellow-500'>Trust Wallet</span>、<span class='text-yellow-500'>Binance Web3 Wallet</span> 或 <span class='text-yellow-500'>MetaMask</span>。充值 BNB 作为你的建设燃料。",
+                s2_t: "寻找图纸", s2_p: "打开钱包的 DApp 浏览器，前往 <span class='text-white font-black'>four.meme</span>。搜索 $BURNIE 并验证是否为官方蓝图合约。",
+                s3_t: "开启施工", s3_p: "用 BNB 兑换 $BURNIE。随着联合曲线被填满，我们的丰碑将变得更强大。在曲线完成前锁定你的筹码。",
+                s4_t: "永恒传奇", s4_p: "一旦曲线达到 100%，流动性将自动迁移至 PancakeSwap，交易正式开启，并立即触发第一阶段的首次销毁。",
                 footer_text: "保持热火 <br> $BURNIE!",
                 sacrifice: "可控拆除",
                 roadmap: [
-                    {mc: "立即执行", t: "点火仪式", b: "4,000,000", s: "关键：联合曲线 100% 完成后，代币将立即被焚毁。"},
-                    {mc: "$100k 市值", t: "星火", b: "2,000,000", s: "热度上升，社区点燃第一阶段的成长。"},
+                    {mc: "立即执行", t: "点火仪式", b: "4,000,000", s: "关键：联合曲线 100% 完成后，代币将立即被焚毁，确立基准线。"},
+                    {mc: "$100k 市值", t: "星火", b: "2,000,000", s: "热度急剧上升，社区点燃第一波疯狂增长。"},
                     {mc: "$250k 市值", t: "支柱", b: "3,000,000", s: "支撑结构铸就。地基变得不可动摇。"},
-                    {mc: "$500k 市值", t: "天际线", b: "3,000,000", s: "$BURNIE 开始主宰 BNB 链的地平线。"},
-                    {mc: "$750k 市值", t: "地狱火", b: "4,000,000", s: "社区力量熊熊燃烧，势不可挡。"},
+                    {mc: "$500k 市值", t: "天际线", b: "3,000,000", s: "$BURNIE 的交易量开始主宰 BNB 链的地平线。"},
+                    {mc: "$750k 市值", t: "地狱火", b: "4,000,000", s: "社区钻石手力量熊熊燃烧，势不可挡。"},
                     {mc: "$1M 市值", t: "丰碑落成", b: "4,000,000", s: "累计销毁 2000万。第一阶段完成，解锁第二级。"}
                 ]
             }
@@ -360,8 +400,9 @@
             document.getElementById('tk-tax').innerText = d.tk_tax;
             
             document.getElementById('st-title').innerText = d.st_title;
-            document.getElementById('st-desc').innerText = d.st_desc;
-            document.getElementById('st-apy-l').innerText = d.st_apy_l; document.getElementById('st-apy-v').innerText = d.st_apy_v;
+            document.getElementById('st-desc').innerHTML = d.st_desc;
+            document.getElementById('st-apy-l').innerText = d.st_apy_l; 
+            document.getElementById('st-tvl-l').innerText = (l === 'cn') ? '总质押量' : 'Total Staked';
             document.getElementById('st-lock-l').innerText = d.st_lock_l; document.getElementById('st-lock-v').innerText = d.st_lock_v;
             document.getElementById('st-pen-l').innerText = d.st_pen_l; document.getElementById('st-pen-v').innerText = d.st_pen_v;
             document.getElementById('st-btn').innerText = d.st_btn;
@@ -371,30 +412,38 @@
             document.getElementById('p2-t').innerText = d.p2_t; document.getElementById('p2-d').innerText = d.p2_d;
             document.getElementById('p3-t').innerText = d.p3_t; document.getElementById('p3-d').innerText = d.p3_d;
             document.getElementById('buy-title').innerHTML = d.buy_title;
-            document.getElementById('s1-t').innerText = d.s1_t; document.getElementById('s1-p').innerText = d.s1_p;
-            document.getElementById('s2-t').innerText = d.s2_t; document.getElementById('s2-p').innerText = d.s2_p;
-            document.getElementById('s3-t').innerText = d.s3_t; document.getElementById('s3-p').innerText = d.s3_p;
-            document.getElementById('s4-t').innerText = d.s4_t; document.getElementById('s4-p').innerText = d.s4_p;
+            document.getElementById('s1-t').innerText = d.s1_t; document.getElementById('s1-p').innerHTML = d.s1_p;
+            document.getElementById('s2-t').innerText = d.s2_t; document.getElementById('s2-p').innerHTML = d.s2_p;
+            document.getElementById('s3-t').innerText = d.s3_t; document.getElementById('s3-p').innerHTML = d.s3_p;
+            document.getElementById('s4-t').innerText = d.s4_t; document.getElementById('s4-p').innerHTML = d.s4_p;
             document.getElementById('footer-text').innerHTML = d.footer_text;
             
-            // Botão Chinês na barra de navegação
             document.getElementById('btn-lang-cn').innerText = (l === 'cn') ? '中文' : 'CN';
 
             const grid = document.getElementById('roadmap-grid');
             grid.innerHTML = d.roadmap.map(s => `
-                <div class="p-6 md:p-8 card-glass border-b-4 border-yellow-500 reveal">
-                    <p class="text-[10px] font-black text-yellow-500 uppercase tracking-[0.3em]">${s.mc}</p>
-                    <p class="text-2xl md:text-3xl font-[1000] italic mt-2 uppercase gold-text leading-none">${s.t}</p>
-                    <p class="text-xs opacity-70 mt-4 font-bold leading-relaxed">${s.s}</p>
-                    <div class="mt-6 pt-4 border-t border-white/10">
-                        <p class="text-[9px] font-black opacity-30 uppercase italic">${d.sacrifice}</p>
-                        <p class="text-2xl md:text-3xl font-black gold-text italic">${s.b} <span class="text-sm">BURNED</span></p>
+                <div class="p-8 md:p-10 card-glass border-b-4 border-yellow-500 reveal bg-gradient-to-b from-transparent to-yellow-500/5">
+                    <p class="text-xs font-black text-yellow-500 uppercase tracking-[0.3em]">${s.mc}</p>
+                    <p class="text-3xl md:text-4xl font-[1000] italic mt-3 uppercase gold-text leading-tight">${s.t}</p>
+                    <p class="text-sm opacity-80 mt-5 font-bold leading-relaxed text-white/90">${s.s}</p>
+                    <div class="mt-8 pt-6 border-t border-white/10">
+                        <p class="text-[10px] font-black opacity-40 uppercase italic mb-1">${d.sacrifice}</p>
+                        <p class="text-3xl md:text-4xl font-black gold-text italic">${s.b} <span class="text-sm">BURNED</span></p>
                     </div>
                 </div>
             `).join('');
             
             document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
             lucide.createIcons();
+            
+            // Simulação de alteração do botão Stake para CN
+            document.querySelectorAll('.staking-input-sim button').forEach(b => {
+                if(b.innerText === 'MAX' && l === 'cn') b.innerText = '最大';
+                if((b.innerText === '最大' || b.innerText === 'MAX') && l === 'en') b.innerText = 'MAX';
+            });
+            document.querySelectorAll('.staking-input-sim .text-white\\/30').forEach(s => {
+               s.innerText = 'BURNIE'; 
+            });
         }
         changeLang('en');
     </script>
