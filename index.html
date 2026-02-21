@@ -16,10 +16,10 @@
         
         .bg-grid { 
             background-image: linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
+            background-size: 50px 50px;
             animation: gridMove 30s linear infinite;
         }
-        @keyframes gridMove { from { background-position: 0 0; } to { background-position: 40px 40px; } }
+        @keyframes gridMove { from { background-position: 0 0; } to { background-position: 50px 50px; } }
 
         .fire-particle {
             position: absolute; width: 3px; height: 3px; background: var(--brand);
@@ -39,8 +39,8 @@
         @keyframes shine { to { background-position: 200% center; } }
 
         .hero-glow { filter: drop-shadow(0 0 30px var(--gold-glow)); animation: pulseGlow 4s infinite ease-in-out; }
-        .image-glow { filter: drop-shadow(0 0 20px rgba(243, 186, 47, 0.2)); transition: filter 0.5s; }
-        .image-glow:hover { filter: drop-shadow(0 0 40px rgba(243, 186, 47, 0.5)); }
+        .image-glow { filter: drop-shadow(0 0 25px rgba(243, 186, 47, 0.15)); transition: filter 0.5s; }
+        .image-glow:hover { filter: drop-shadow(0 0 50px rgba(243, 186, 47, 0.4)); }
         @keyframes pulseGlow { 0%, 100% { filter: drop-shadow(0 0 30px var(--gold-glow)); } 50% { filter: drop-shadow(0 0 60px var(--brand)); } }
         
         .btn-burnie {
@@ -62,14 +62,14 @@
 
         .phase-locked { filter: grayscale(1); opacity: 0.4; border: 2px dashed rgba(255,255,255,0.1) !important; }
 
-        .reveal { opacity: 0; transform: translateY(40px); transition: 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .reveal { opacity: 0; transform: translateY(50px); transition: 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
         .animate-float { animation: float 6s ease-in-out infinite; }
         
-        .staking-input-sim { background: rgba(0,0,0,0.6); box-shadow: inset 0 2px 15px rgba(0,0,0,0.9); }
-        .highlight-box { border-left: 4px solid var(--brand); padding-left: 1.5rem; }
+        .staking-input-sim { background: rgba(0,0,0,0.7); box-shadow: inset 0 2px 20px rgba(0,0,0,0.9); }
+        .highlight-box { border-left: 5px solid var(--brand); padding-left: 1.5rem; background: linear-gradient(90deg, rgba(243,186,47,0.1) 0%, transparent 100%); padding-top: 10px; padding-bottom: 10px;}
     </style>
 </head>
 <body class="bg-grid">
@@ -97,12 +97,12 @@
     <header class="min-h-screen flex flex-col items-center justify-center pt-32 px-4 text-center relative overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-b from-yellow-500/5 to-transparent z-0"></div>
         <h1 class="text-[18vw] md:text-[14vw] font-[1000] italic leading-none mb-[-3vw] z-10 opacity-90 tracking-tighter gold-text drop-shadow-2xl">BURNIE</h1>
-        <div class="relative w-full max-w-[320px] md:max-w-[550px]">
-            <img src="hero-burnie.png" class="w-full hero-glow animate-float z-20 relative" alt="Burnie Mascot">
+        <div class="relative w-full max-w-[350px] md:max-w-[600px] z-20">
+            <img src="hero-burnie.png" class="w-full hero-glow animate-float relative" alt="Burnie Mascot">
         </div>
-        <h2 id="h-title" class="text-4xl md:text-7xl font-[1000] uppercase mt-12 italic leading-tight reveal max-w-5xl mx-auto drop-shadow-lg"></h2>
+        <h2 id="h-title" class="text-4xl md:text-7xl font-[1000] uppercase mt-8 italic leading-tight reveal max-w-5xl mx-auto drop-shadow-lg z-30"></h2>
         
-        <div class="flex flex-col sm:flex-row justify-center items-center gap-6 mt-14 w-full max-w-2xl reveal px-4 z-20">
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-6 mt-14 w-full max-w-2xl reveal px-4 z-30">
             <a id="btn-main" href="#buy" class="btn-burnie text-lg w-full sm:w-auto px-10 py-5"></a>
             <div class="flex justify-center gap-4">
                 <a href="#" class="w-16 h-16 md:w-16 md:h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-yellow-500 hover:bg-yellow-500/10 transition-all text-yellow-500 shadow-lg backdrop-blur-md"><i data-lucide="bar-chart-3" size="28"></i></a>
@@ -114,21 +114,32 @@
 
     <div id="blueprint-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/95 backdrop-blur-xl" onclick="toggleBlueprint()"></div>
-        <div class="card-glass max-w-4xl w-full max-h-[90vh] overflow-y-auto p-10 md:p-16 relative z-10 border-2 border-yellow-500/40 shadow-[0_0_80px_rgba(243,186,47,0.15)] rounded-3xl">
+        <div class="card-glass max-w-5xl w-full max-h-[90vh] overflow-y-auto p-10 md:p-16 relative z-10 border-2 border-yellow-500/40 shadow-[0_0_80px_rgba(243,186,47,0.15)] rounded-3xl">
             <button onclick="toggleBlueprint()" class="absolute top-8 right-8 text-white/40 hover:text-white transition-transform hover:rotate-90 bg-white/5 p-2 rounded-full"><i data-lucide="x" size="28"></i></button>
             <h3 id="bp-title" class="text-4xl md:text-6xl font-[1000] gold-text italic mb-12 uppercase tracking-tighter border-b border-white/10 pb-8"></h3>
             <div id="bp-content" class="space-y-10 text-base md:text-xl text-white/80 leading-loose font-medium tracking-wide"></div>
         </div>
     </div>
 
+    <section class="max-w-6xl mx-auto py-16 px-4 text-center reveal border-b border-white/5">
+        <div id="m-text" class="text-3xl md:text-6xl font-[1000] leading-tight tracking-tighter uppercase italic break-words text-white/90"></div>
+    </section>
+
     <section id="about" class="max-w-7xl mx-auto py-32 px-4 reveal">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center card-glass p-12 md:p-20 relative overflow-hidden bg-gradient-to-b from-yellow-500/5 to-transparent border-t-4 border-yellow-500">
-            <div class="relative z-10 w-full flex justify-center order-2 lg:order-1">
-                <img src="Burniework.png" alt="Burnie Working" class="w-full max-w-md animate-float image-glow relative z-20">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+            <div class="lg:col-span-5 relative z-10 w-full flex justify-center lg:justify-start">
+                <div class="absolute inset-0 bg-yellow-500 blur-[100px] opacity-10 rounded-full z-0"></div>
+                <img src="Burniework.png" alt="Burnie Working" class="w-full max-w-lg md:max-w-xl animate-float image-glow relative z-20 transform lg:-translate-x-8 lg:scale-110">
             </div>
-            <div class="relative z-10 order-1 lg:order-2">
+            <div class="lg:col-span-7 relative z-10 card-glass p-10 md:p-14 border-l-4 border-yellow-500">
                 <h3 id="char-title" class="text-5xl md:text-7xl font-[1000] text-white italic uppercase mb-10 tracking-tighter"></h3>
-                <div id="char-bio" class="text-lg md:text-2xl font-light leading-relaxed text-white/90 space-y-6"></div>
+                <div id="char-bio" class="text-lg md:text-xl font-light leading-relaxed text-white/90 space-y-6"></div>
+                
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 border-t border-white/10 pt-10">
+                    <div class="text-center"><i data-lucide="shield-check" class="w-10 h-10 text-yellow-500 mx-auto mb-3"></i><p id="feat-1" class="font-bold text-sm uppercase tracking-widest text-white/70"></p></div>
+                    <div class="text-center"><i data-lucide="users" class="w-10 h-10 text-yellow-500 mx-auto mb-3"></i><p id="feat-2" class="font-bold text-sm uppercase tracking-widest text-white/70"></p></div>
+                    <div class="text-center"><i data-lucide="flame" class="w-10 h-10 text-yellow-500 mx-auto mb-3"></i><p id="feat-3" class="font-bold text-sm uppercase tracking-widest text-white/70"></p></div>
+                </div>
             </div>
         </div>
     </section>
@@ -139,54 +150,61 @@
             <p id="t-sub" class="mt-6 text-xl md:text-2xl opacity-60 font-medium max-w-3xl mx-auto"></p>
         </div>
         
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div class="lg:col-span-5 relative flex flex-col items-center justify-center group">
-                <div class="absolute inset-0 bg-yellow-500 blur-[100px] opacity-20 group-hover:opacity-40 transition-opacity duration-700 z-0"></div>
-                <img src="closedVault.png" alt="Burnie Vault Closed" class="w-full max-w-xs md:max-w-sm animate-float image-glow relative z-10 mb-8">
-                <div class="w-full max-w-sm rounded-full border border-yellow-500/30 flex flex-col items-center justify-center p-8 text-center relative z-10 bg-[#050505] shadow-[inset_0_0_50px_rgba(243,186,47,0.1)]">
-                    <p id="tk-supply-label" class="text-xs font-black opacity-40 uppercase tracking-[0.4em] mb-4"></p>
-                    <p class="text-4xl md:text-5xl font-[1000] gold-text italic leading-none">1,000,000,000</p>
-                </div>
-            </div>
-            
-            <div class="lg:col-span-7 space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+            <div class="lg:col-span-7 space-y-6 order-2 lg:order-1">
                 <div class="p-8 card-glass border-l-4 border-white/20 hover:border-white transition-colors">
                     <div class="flex justify-between items-start mb-2">
                         <p id="tk-1" class="text-2xl md:text-3xl font-black italic text-white"></p>
-                        <span class="text-xl font-black opacity-20">92%</span>
+                        <span class="text-2xl font-black opacity-20">92%</span>
                     </div>
-                    <p id="tk-1-d" class="text-sm opacity-70 leading-relaxed font-medium"></p>
+                    <p id="tk-1-d" class="text-base opacity-70 leading-relaxed font-medium"></p>
                 </div>
                 <div class="p-8 card-glass border-l-4 border-yellow-500 bg-yellow-500/5">
                     <div class="flex justify-between items-start mb-2">
                         <p id="tk-2" class="text-2xl md:text-3xl font-black italic gold-text"></p>
-                        <span class="text-xl font-black text-yellow-500/30">5%</span>
+                        <span class="text-2xl font-black text-yellow-500/30">5%</span>
                     </div>
-                    <p id="tk-2-d" class="text-sm opacity-80 leading-relaxed font-medium"></p>
+                    <p id="tk-2-d" class="text-base opacity-80 leading-relaxed font-medium"></p>
                 </div>
                 <div class="p-8 card-glass border-l-4 border-blue-500 bg-blue-500/5">
                     <div class="flex justify-between items-start mb-2">
                         <p id="tk-3" class="text-2xl md:text-3xl font-black italic text-blue-400"></p>
-                        <span class="text-xl font-black text-blue-400/30">3%</span>
+                        <span class="text-2xl font-black text-blue-400/30">3%</span>
                     </div>
-                    <p id="tk-3-d" class="text-sm opacity-80 leading-relaxed font-medium text-blue-100/70"></p>
+                    <p id="tk-3-d" class="text-base opacity-80 leading-relaxed font-medium text-blue-100/70"></p>
                 </div>
                 <div class="p-6 text-center mt-8">
-                    <p class="text-3xl font-[1000] text-white italic mb-2 tracking-widest">0% TAX</p>
-                    <p id="tk-tax" class="text-xs opacity-50 uppercase tracking-[0.2em]"></p>
+                    <p class="text-4xl font-[1000] text-white italic mb-2 tracking-widest">0% TAX</p>
+                    <p id="tk-tax" class="text-sm opacity-50 uppercase tracking-[0.2em]"></p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 relative flex flex-col items-center justify-center group order-1 lg:order-2">
+                <div class="absolute inset-0 bg-yellow-500 blur-[120px] opacity-20 group-hover:opacity-40 transition-opacity duration-700 z-0"></div>
+                <img src="closedVault.png" alt="Burnie Vault Closed" class="w-full max-w-md lg:max-w-xl animate-float image-glow relative z-10 transform lg:translate-x-8 lg:scale-110 mb-8">
+                <div class="w-full max-w-sm rounded-full border border-yellow-500/30 flex flex-col items-center justify-center p-6 text-center relative z-10 bg-[#050505] shadow-[inset_0_0_50px_rgba(243,186,47,0.1)]">
+                    <p id="tk-supply-label" class="text-[10px] font-black opacity-40 uppercase tracking-[0.4em] mb-2"></p>
+                    <p class="text-4xl font-[1000] gold-text italic leading-none">1,000,000,000</p>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="roadmap" class="max-w-7xl mx-auto py-32 px-4 border-t border-white/5 mt-16">
-        <div class="text-center mb-24 reveal">
-            <h4 id="b-title" class="text-6xl md:text-8xl font-[1000] italic gold-text uppercase tracking-tighter"></h4>
-            <p id="b-subtitle" class="text-xl md:text-2xl font-bold uppercase mt-6 opacity-60 tracking-widest"></p>
+        <div class="flex flex-col lg:flex-row items-center justify-between mb-24 reveal gap-12">
+            <div class="text-center lg:text-left lg:w-1/2 z-20">
+                <h4 id="b-title" class="text-6xl md:text-8xl font-[1000] italic gold-text uppercase tracking-tighter"></h4>
+                <p id="b-subtitle" class="text-xl md:text-3xl font-bold uppercase mt-6 opacity-80 tracking-widest text-white"></p>
+            </div>
+            <div class="lg:w-1/2 flex justify-center lg:justify-end relative z-10">
+                <div class="absolute inset-0 bg-orange-500 blur-[120px] opacity-30 z-0 animate-pulse"></div>
+                <img src="Vault.png" alt="Open Burning Vault" class="w-full max-w-md lg:max-w-2xl image-glow relative z-10 transform lg:translate-x-12 scale-110">
+            </div>
         </div>
-        <div id="roadmap-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20"></div>
+
+        <div id="roadmap-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20 relative z-20"></div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 reveal">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 reveal relative z-20">
             <div class="p-14 card-glass phase-locked flex flex-col items-center justify-center text-center gap-8 relative overflow-hidden">
                 <div class="absolute inset-0 bg-yellow-500/5"></div>
                 <div class="w-20 h-20 rounded-full bg-black flex items-center justify-center border-2 border-yellow-500/30 shadow-[0_0_30px_rgba(243,186,47,0.2)] z-10"><i data-lucide="lock" class="text-yellow-500 w-10 h-10"></i></div>
@@ -205,73 +223,68 @@
         </div>
     </section>
 
-    <section id="staking" class="max-w-7xl mx-auto py-24 px-4 reveal relative">
-        <div class="absolute inset-0 bg-gradient-to-t from-yellow-500/5 to-transparent z-0 pointer-events-none"></div>
+    <section id="staking" class="max-w-6xl mx-auto py-24 px-4 reveal relative">
+        <div class="absolute inset-0 bg-gradient-to-t from-yellow-500/10 to-transparent z-0 pointer-events-none"></div>
         
         <div class="text-center mb-16 relative z-10">
-            <div class="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-yellow-500/10 border border-yellow-500/30 mb-8">
+            <div class="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-yellow-500/10 border border-yellow-500/30 mb-8 shadow-lg">
                 <span class="w-2 h-2 rounded-full bg-yellow-500 animate-pulse"></span>
                 <span id="st-badge" class="text-xs font-black text-yellow-500 uppercase tracking-widest"></span>
             </div>
             <h3 id="st-title" class="text-5xl md:text-7xl font-[1000] italic text-white uppercase mb-8 tracking-tighter"></h3>
-            <p id="st-desc" class="text-lg md:text-xl opacity-80 max-w-4xl mx-auto font-light leading-relaxed"></p>
+            <p id="st-desc" class="text-lg md:text-2xl opacity-80 max-w-4xl mx-auto font-light leading-relaxed"></p>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
-            <div class="lg:col-span-5 flex justify-center order-2 lg:order-1 relative">
-                <div class="absolute inset-0 bg-orange-500 blur-[120px] opacity-30 z-0 animate-pulse"></div>
-                <img src="Vault.png" alt="Open Burning Vault" class="w-full max-w-sm animate-float image-glow relative z-10">
-            </div>
-
-            <div class="lg:col-span-7 order-1 lg:order-2">
-                <div class="card-glass border border-white/10 p-2 shadow-[0_30px_60px_rgba(0,0,0,0.5)]">
-                    <div class="bg-[#080808] rounded-[24px] p-8 md:p-12 relative overflow-hidden">
-                        
-                        <div class="flex justify-between items-center mb-10 border-b border-white/10 pb-6">
-                            <div class="flex items-center gap-3">
+        <div class="relative z-10 w-full max-w-4xl mx-auto">
+            <div class="card-glass border border-white/10 p-2 shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform hover:scale-[1.01] transition-transform duration-500">
+                <div class="bg-[#080808] rounded-[24px] p-8 md:p-16 relative overflow-hidden">
+                    
+                    <div class="flex flex-col sm:flex-row justify-between items-center gap-6 mb-12 border-b border-white/10 pb-8">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-yellow-500/20 flex items-center justify-center border border-yellow-500/50">
                                 <i data-lucide="flame" class="text-yellow-500 w-6 h-6"></i>
-                                <span class="font-black text-lg tracking-widest text-white/80">FURNACE DAPP</span>
                             </div>
-                            <button class="bg-yellow-500 hover:bg-yellow-400 text-black font-black text-xs px-6 py-3 rounded-xl uppercase tracking-widest transition-colors shadow-[0_0_15px_rgba(243,186,47,0.4)]" id="st-connect">Connect Wallet</button>
+                            <span class="font-black text-xl md:text-2xl tracking-widest text-white/90">FURNACE DAPP</span>
                         </div>
-
-                        <div class="grid grid-cols-2 gap-6 mb-10">
-                            <div class="p-6 bg-white/5 rounded-2xl border border-white/5 hover:border-yellow-500/30 transition-colors text-center">
-                                <p id="st-apy-l" class="text-xs uppercase opacity-40 font-black tracking-widest mb-3"></p>
-                                <p id="st-apy-v" class="text-3xl font-[1000] text-green-400 italic drop-shadow-[0_0_15px_rgba(74,222,128,0.2)]">1,240%</p>
-                            </div>
-                            <div class="p-6 bg-white/5 rounded-2xl border border-white/5 text-center">
-                                <p id="st-tvl-l" class="text-xs uppercase opacity-40 font-black tracking-widest mb-3">Total Staked</p>
-                                <p class="text-3xl font-[1000] text-white italic">0</p>
-                            </div>
-                            <div class="p-6 bg-white/5 rounded-2xl border border-white/5 text-center">
-                                <p id="st-lock-l" class="text-xs uppercase opacity-40 font-black tracking-widest mb-3"></p>
-                                <p id="st-lock-v" class="text-3xl font-[1000] text-white italic"></p>
-                            </div>
-                            <div class="p-6 bg-red-500/5 rounded-2xl border border-red-500/20 text-center">
-                                <p id="st-pen-l" class="text-xs uppercase text-red-400 opacity-80 font-black tracking-widest mb-3"></p>
-                                <p id="st-pen-v" class="text-3xl font-[1000] text-red-500 italic"></p>
-                            </div>
-                        </div>
-
-                        <div class="flex gap-4 mb-6 opacity-50 grayscale pointer-events-none">
-                            <div class="flex-1 py-4 text-center rounded-xl bg-yellow-500 text-black font-[1000] text-sm uppercase tracking-widest">Stake</div>
-                            <div class="flex-1 py-4 text-center rounded-xl bg-transparent text-white/50 font-[1000] text-sm uppercase border-2 border-white/10 tracking-widest">Unstake</div>
-                        </div>
-                        
-                        <div class="staking-input-sim rounded-2xl p-6 flex justify-between items-center mb-8 border border-white/5 opacity-50 grayscale pointer-events-none">
-                            <input type="text" placeholder="0.0" class="bg-transparent text-4xl font-[1000] text-white/30 outline-none w-full pl-2" disabled>
-                            <div class="flex items-center gap-4">
-                                <span class="text-white/40 font-black text-sm tracking-widest">BURNIE</span>
-                                <button class="bg-white/10 text-white font-black text-xs px-4 py-2 rounded-lg">MAX</button>
-                            </div>
-                        </div>
-
-                        <button class="w-full py-6 rounded-2xl bg-[#030303] border border-yellow-500/30 text-yellow-500/50 font-black text-sm md:text-base uppercase tracking-[0.2em] cursor-not-allowed flex items-center justify-center gap-4 hover:bg-yellow-500/5 transition-colors" disabled>
-                            <i data-lucide="lock" class="w-6 h-6"></i>
-                            <span id="st-btn"></span>
-                        </button>
+                        <button class="bg-yellow-500 hover:bg-yellow-400 text-black font-black text-sm px-8 py-4 rounded-xl uppercase tracking-widest transition-colors shadow-[0_0_20px_rgba(243,186,47,0.4)] w-full sm:w-auto" id="st-connect">Connect Wallet</button>
                     </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+                        <div class="p-6 bg-white/5 rounded-2xl border border-white/5 hover:border-yellow-500/30 transition-colors text-center">
+                            <p id="st-apy-l" class="text-xs uppercase opacity-40 font-black tracking-widest mb-3"></p>
+                            <p id="st-apy-v" class="text-3xl font-[1000] text-green-400 italic drop-shadow-[0_0_15px_rgba(74,222,128,0.2)]">1,240%</p>
+                        </div>
+                        <div class="p-6 bg-white/5 rounded-2xl border border-white/5 text-center">
+                            <p id="st-tvl-l" class="text-xs uppercase opacity-40 font-black tracking-widest mb-3">Total Staked</p>
+                            <p class="text-3xl font-[1000] text-white italic">0</p>
+                        </div>
+                        <div class="p-6 bg-white/5 rounded-2xl border border-white/5 text-center">
+                            <p id="st-lock-l" class="text-xs uppercase opacity-40 font-black tracking-widest mb-3"></p>
+                            <p id="st-lock-v" class="text-3xl font-[1000] text-white italic"></p>
+                        </div>
+                        <div class="p-6 bg-red-500/5 rounded-2xl border border-red-500/20 text-center">
+                            <p id="st-pen-l" class="text-xs uppercase text-red-400 opacity-80 font-black tracking-widest mb-3"></p>
+                            <p id="st-pen-v" class="text-3xl font-[1000] text-red-500 italic"></p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 mb-8 opacity-40 grayscale pointer-events-none">
+                        <div class="flex-1 py-5 text-center rounded-xl bg-yellow-500 text-black font-[1000] text-base uppercase tracking-widest">Stake</div>
+                        <div class="flex-1 py-5 text-center rounded-xl bg-transparent text-white/50 font-[1000] text-base uppercase border-2 border-white/10 tracking-widest">Unstake</div>
+                    </div>
+                    
+                    <div class="staking-input-sim rounded-2xl p-8 flex justify-between items-center mb-10 border border-white/5 opacity-40 grayscale pointer-events-none">
+                        <input type="text" placeholder="0.0" class="bg-transparent text-5xl font-[1000] text-white/30 outline-none w-full pl-2" disabled>
+                        <div class="flex items-center gap-6">
+                            <span class="text-white/40 font-black text-lg tracking-widest">BURNIE</span>
+                            <button class="bg-white/10 text-white font-black text-sm px-6 py-3 rounded-lg">MAX</button>
+                        </div>
+                    </div>
+
+                    <button class="w-full py-6 rounded-2xl bg-[#030303] border border-yellow-500/30 text-yellow-500/50 font-black text-base uppercase tracking-[0.2em] cursor-not-allowed flex items-center justify-center gap-4 hover:bg-yellow-500/5 transition-colors" disabled>
+                        <i data-lucide="lock" class="w-6 h-6"></i>
+                        <span id="st-btn"></span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -303,12 +316,12 @@
         </div>
     </section>
 
-    <section class="max-w-5xl mx-auto pt-20 pb-10 px-4 reveal text-center flex flex-col items-center">
-        <img src="keepthefireburnie.png" alt="Burnie Army" class="w-full max-w-2xl animate-float image-glow mb-10">
-        <h2 id="footer-text" class="text-5xl md:text-8xl font-[1000] italic gold-text uppercase leading-none tracking-tighter"></h2>
+    <section class="max-w-7xl mx-auto pt-32 pb-16 px-4 reveal text-center flex flex-col items-center border-t border-white/5 mt-10">
+        <img src="keepthefireburnie.png" alt="Burnie Army" class="w-full max-w-5xl animate-float image-glow mb-16 rounded-3xl">
+        <h2 id="footer-text" class="text-6xl md:text-8xl font-[1000] italic gold-text uppercase leading-none tracking-tighter drop-shadow-xl"></h2>
     </section>
 
-    <footer class="py-16 text-center px-4 relative border-t border-white/5 bg-[#020202]">
+    <footer class="py-16 text-center px-4 relative bg-[#020202]">
         <p class="text-[10px] md:text-xs font-black opacity-30 uppercase tracking-[0.8em] mb-12">Architect Protocol 2026</p>
         
         <div class="max-w-4xl mx-auto border-t border-white/5 pt-10 px-4">
@@ -341,6 +354,7 @@
                 nav_bp: "The Blueprint", nav_buy: "Build Now",
                 h_title: "We Don't Follow Trends. <br> <span class='gold-text'>We Build Monuments.</span>",
                 btn_main: "Join the Blueprint",
+                m_text: "BNBChain is evolving. <br> We are not just a token. <br> We are a <span class='underline decoration-yellow-500 italic'>Monument</span> built by the people.",
                 bp_title: "The Golden Blueprint",
                 bp: `<div class="highlight-box"><p class="text-white italic text-2xl md:text-3xl font-[1000] leading-tight">"This is not just another token. This is THE project. Built from scratch. No VCs. No ghost investors. No hidden agendas."</p></div>
                      <p>The modern crypto space is plagued by fragile foundations and scam-ridden launches. We reject that reality. <strong>$BURNIE</strong> is engineered to be a community-led fortress, forged through transparency and strategic sacrifice.</p>
@@ -350,8 +364,9 @@
                      <p>The <span class="text-blue-400 font-black">Mining Pool (3%)</span> is designated strictly to fuel the Phase 2 Staking Protocol, ensuring those who hold the line are heavily rewarded. The Blueprint is our law. Trust the process. Trust the community.</p>`,
                 char_title: "Forged in Fire",
                 char_bio: `<p>Born from the ashes of shattered charts, rugged tokens, and abandoned contracts, <span class='text-yellow-500 font-black'>$BURNIE</span> watched the BNBChain get flooded with fleeting hype and broken promises.</p>
-                           <p>He realized that to survive the heat of this market, you cannot be made of paper. You must be forged in the fire.</p>
-                           <p>He put on his hard hat, grabbed his incendiary hammer, and began drafting The Blueprint. We rely on zero outside capital. <strong>We depend entirely on us.</strong> Pick up a brick and let's construct a legacy that cannot be ignored.</p>`,
+                           <p>He realized that to survive the heat of this market, you cannot be made of paper. You must be forged in the fire. While others are building fragile sandcastles destined to wash away, he is forging eternal monuments.</p>
+                           <p>He put on his hard hat, grabbed his incendiary hammer, and began drafting The Blueprint. We don't just wait for the future; <span class='gold-text font-black'>we build our own legacy.</span> We rely on zero outside capital. <strong>We depend entirely on us.</strong> Pick up a brick and let's construct a legacy that cannot be ignored!</p>`,
+                feat_1: "Zero Ghost VCs", feat_2: "Community Owned", feat_3: "Strategic Burns",
                 t_title: "Tokenomics", 
                 t_sub: "Strictly allocated capital. No hidden wallets. No inflation.",
                 tk_supply_label: "Maximum Supply",
@@ -391,6 +406,7 @@
                 nav_bp: "黄金蓝图", nav_buy: "参与建设",
                 h_title: "我们不追随趋势。<br> <span class='gold-text'>我们建造丰碑。</span>",
                 btn_main: "加入蓝图",
+                m_text: "BNB 链正在进化。<br> 我们不只是一个代币。<br> 我们是人民亲手建造的 <span class='underline decoration-yellow-500 italic'>丰碑</span>。",
                 bp_title: "黄金蓝图",
                 bp: `<div class="highlight-box"><p class="text-white italic text-2xl md:text-3xl font-[1000] leading-tight">“这不仅仅是另一个代币。这就是那个‘终极项目’。从零开始构建。没有风投。没有幽灵投资者。没有隐藏议程。”</p></div>
                      <p>现代加密空间充斥着脆弱的基础和充满骗局的发行。我们拒绝这种现实。<strong>$BURNIE</strong> 被设计为一个由社区主导的堡垒，通过透明度和战略性牺牲铸就。</p>
@@ -400,8 +416,9 @@
                      <p><span class="text-blue-400 font-black">矿池储备 (3%)</span> 严格指定用于支持第二阶段的质押协议，确保那些坚守阵地的人获得丰厚回报。蓝图就是我们的法律。信任过程。信任社区。</p>`,
                 char_title: "烈火中锻造",
                 char_bio: `<p>诞生于破碎的K线、跑路的代币和被遗弃的合约灰烬中，<span class='text-yellow-500 font-black'>$BURNIE</span> 目睹了 BNB 链充斥着转瞬即逝的炒作和破碎的承诺。</p>
-                           <p>他意识到，要在这个市场的高温中生存，你不能用纸做。你必须在烈火中锻造。</p>
-                           <p>他戴上安全帽，拿起燃烧的巨锤，开始起草《蓝图》。我们不依赖任何外部资本。<strong>我们完全依靠自己。</strong> 拿起一块砖，让我们共同构建一个不容忽视的传奇。</p>`,
+                           <p>他意识到，要在这个市场的高温中生存，你不能用纸做。你必须在烈火中锻造。当他人在沙滩建堡垒时，他正在锻造永恒的丰碑。</p>
+                           <p>他戴上安全帽，拿起燃烧的巨锤，开始起草《蓝图》。我们不只是等待未来；<span class='gold-text font-black'>我们在亲手书写传奇。</span> 我们不依赖任何外部资本。<strong>我们完全依靠自己。</strong> 拿起一块砖，让我们共同构建一个不容忽视的传奇！</p>`,
+                feat_1: "零机构风投", feat_2: "完全社区所有", feat_3: "战略性销毁",
                 t_title: "代币经济学", 
                 t_sub: "严格分配的资本。没有隐藏钱包。没有通货膨胀。",
                 tk_supply_label: "最大供应量",
@@ -445,10 +462,14 @@
             document.getElementById('nav-buy').innerText = d.nav_buy;
             document.getElementById('h-title').innerHTML = d.h_title;
             document.getElementById('btn-main').innerText = d.btn_main;
+            document.getElementById('m-text').innerHTML = d.m_text;
             document.getElementById('bp-title').innerText = d.bp_title;
             document.getElementById('bp-content').innerHTML = d.bp;
             document.getElementById('char-title').innerText = d.char_title;
             document.getElementById('char-bio').innerHTML = d.char_bio;
+            document.getElementById('feat-1').innerText = d.feat_1;
+            document.getElementById('feat-2').innerText = d.feat_2;
+            document.getElementById('feat-3').innerText = d.feat_3;
             document.getElementById('t-title').innerText = d.t_title;
             document.getElementById('t-sub').innerText = d.t_sub;
             document.getElementById('tk-supply-label').innerText = d.tk_supply_label;
