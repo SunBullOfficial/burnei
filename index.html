@@ -45,287 +45,293 @@
         
         .btn-burnie {
             background: var(--brand); color: #000; font-weight: 900;
-            padding: 1rem 2rem; border-radius: 99px; text-transform: uppercase;
+            padding: 0.8rem 1.5rem; border-radius: 99px; text-transform: uppercase;
             box-shadow: 0 0 20px rgba(243, 186, 47, 0.3); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-flex; align-items: center; justify-content: center;
-            font-size: clamp(0.8rem, 2vw, 1rem); letter-spacing: 0.1em;
+            font-size: clamp(0.7rem, 2vw, 1rem); letter-spacing: 0.1em;
         }
+        @media (min-width: 768px) { .btn-burnie { padding: 1rem 2rem; } }
         .btn-burnie:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 10px 40px rgba(243, 186, 47, 0.6); }
 
         .card-glass { 
             background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
             border: 1px solid rgba(255,255,255,0.05);
-            backdrop-filter: blur(20px); border-radius: clamp(20px, 5vw, 30px); transition: 0.5s;
+            backdrop-filter: blur(20px); border-radius: clamp(15px, 5vw, 30px); transition: 0.5s;
             position: relative; overflow: hidden;
         }
         .card-glass:hover { border-color: rgba(243, 186, 47, 0.4); background: rgba(243, 186, 47, 0.02); box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
 
         .phase-locked { filter: grayscale(1); opacity: 0.4; border: 2px dashed rgba(255,255,255,0.1) !important; }
 
-        .reveal { opacity: 0; transform: translateY(50px); transition: 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .reveal { opacity: 0; transform: translateY(40px); transition: 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         .animate-float { animation: float 6s ease-in-out infinite; }
         
         .staking-input-sim { background: rgba(0,0,0,0.7); box-shadow: inset 0 2px 20px rgba(0,0,0,0.9); }
-        .highlight-box { border-left: 5px solid var(--brand); padding-left: 1.5rem; background: linear-gradient(90deg, rgba(243,186,47,0.1) 0%, transparent 100%); padding-top: 10px; padding-bottom: 10px;}
+        .highlight-box { border-left: 4px solid var(--brand); padding-left: 1rem; background: linear-gradient(90deg, rgba(243,186,47,0.1) 0%, transparent 100%); padding-top: 10px; padding-bottom: 10px;}
+        @media (min-width: 768px) { .highlight-box { border-left: 5px solid var(--brand); padding-left: 1.5rem; } }
+        
+        /* Utility for consistent text-breaking on mobile */
+        .mobile-break { overflow-wrap: break-word; word-wrap: break-word; hyphens: auto; }
     </style>
 </head>
 <body class="bg-grid">
 
     <div id="fire-container" class="fixed inset-0 pointer-events-none z-0"></div>
 
-    <nav class="fixed top-0 w-full z-[60] bg-black/80 backdrop-blur-2xl border-b border-white/5 px-4 py-4 transition-all duration-300">
+    <nav class="fixed top-0 w-full z-[60] bg-black/80 backdrop-blur-2xl border-b border-white/5 px-4 py-3 md:py-4 transition-all duration-300">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-3 group cursor-pointer" onclick="window.scrollTo(0,0)">
-                <img src="logo-nav.png" alt="Logo" class="w-8 h-8 md:w-10 md:h-10 group-hover:rotate-12 transition-transform duration-500" onerror="this.style.display='none'">
-                <span class="font-[1000] text-xl md:text-3xl gold-text italic tracking-tighter">$BURNIE</span>
+            <div class="flex items-center gap-2 md:gap-3 group cursor-pointer" onclick="window.scrollTo(0,0)">
+                <img src="logo-nav.png" alt="Logo" class="w-7 h-7 md:w-10 md:h-10 group-hover:rotate-12 transition-transform duration-500" onerror="this.style.display='none'">
+                <span class="font-[1000] text-lg md:text-3xl gold-text italic tracking-tighter">$BURNIE</span>
             </div>
-            <div class="flex gap-4 md:gap-8 items-center">
-                <button id="nav-bp" onclick="toggleBlueprint()" class="text-[10px] md:text-xs font-black hover:text-yellow-500 transition-colors uppercase tracking-[0.2em] flex items-center gap-2"><i data-lucide="book-open" class="w-4 h-4 hidden md:block"></i><span></span></button>
-                <div class="flex gap-3 bg-white/5 px-4 py-2 rounded-full border border-white/10 backdrop-blur-md">
-                    <button onclick="changeLang('en')" class="text-[10px] md:text-xs font-black hover:text-yellow-500 transition-colors">EN</button>
+            <div class="flex gap-2 md:gap-8 items-center">
+                <button id="nav-bp" onclick="toggleBlueprint()" class="text-[9px] md:text-xs font-black hover:text-yellow-500 transition-colors uppercase tracking-widest md:tracking-[0.2em] flex items-center gap-1 md:gap-2"><i data-lucide="book-open" class="w-3 h-3 md:w-4 md:h-4"></i><span></span></button>
+                <div class="flex gap-2 md:gap-3 bg-white/5 px-2 md:px-4 py-1.5 md:py-2 rounded-full border border-white/10 backdrop-blur-md">
+                    <button onclick="changeLang('en')" class="text-[9px] md:text-xs font-black hover:text-yellow-500 transition-colors">EN</button>
                     <span class="text-white/20">|</span>
-                    <button id="btn-lang-cn" onclick="changeLang('cn')" class="text-[10px] md:text-xs font-black hover:text-yellow-500 transition-colors">中文</button>
+                    <button id="btn-lang-cn" onclick="changeLang('cn')" class="text-[9px] md:text-xs font-black hover:text-yellow-500 transition-colors">中文</button>
                 </div>
-                <a id="nav-buy" href="#buy" class="btn-burnie !py-2.5 !px-6 !text-[10px] md:!text-xs hidden sm:inline-flex"></a>
+                <a id="nav-buy" href="#buy" class="btn-burnie !py-2 !px-4 !text-[9px] md:!text-xs hidden sm:inline-flex"></a>
             </div>
         </div>
     </nav>
 
-    <header class="min-h-screen flex flex-col items-center justify-center pt-32 px-4 text-center relative overflow-hidden">
+    <header class="min-h-screen flex flex-col items-center justify-center pt-28 md:pt-32 px-4 text-center relative overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-b from-yellow-500/5 to-transparent z-0"></div>
-        <h1 class="text-[18vw] md:text-[14vw] font-[1000] italic leading-none mb-[-3vw] z-10 opacity-90 tracking-tighter gold-text drop-shadow-2xl">BURNIE</h1>
-        <div class="relative w-full max-w-[350px] md:max-w-[600px] z-20">
+        <h1 class="text-[20vw] md:text-[14vw] font-[1000] italic leading-none mb-[-4vw] md:mb-[-3vw] z-10 opacity-90 tracking-tighter gold-text drop-shadow-2xl">BURNIE</h1>
+        <div class="relative w-full max-w-[280px] sm:max-w-[350px] md:max-w-[600px] z-20">
             <img src="hero-burnie.png" class="w-full hero-glow animate-float relative" alt="Burnie Mascot">
         </div>
-        <h2 id="h-title" class="text-4xl md:text-7xl font-[1000] uppercase mt-8 italic leading-tight reveal max-w-5xl mx-auto drop-shadow-lg z-30"></h2>
+        <h2 id="h-title" class="text-3xl sm:text-4xl md:text-7xl font-[1000] uppercase mt-6 md:mt-8 italic leading-tight reveal max-w-5xl mx-auto drop-shadow-lg z-30 mobile-break"></h2>
         
-        <div class="flex flex-col sm:flex-row justify-center items-center gap-6 mt-14 w-full max-w-2xl reveal px-4 z-30">
-            <a id="btn-main" href="#buy" class="btn-burnie text-lg w-full sm:w-auto px-10 py-5"></a>
-            <div class="flex justify-center gap-4">
-                <a href="#" class="w-16 h-16 md:w-16 md:h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-yellow-500 hover:bg-yellow-500/10 transition-all text-yellow-500 shadow-lg backdrop-blur-md"><i data-lucide="bar-chart-3" size="28"></i></a>
-                <a href="#" class="w-16 h-16 md:w-16 md:h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-yellow-500 hover:bg-yellow-500/10 transition-all text-white shadow-lg backdrop-blur-md"><i data-lucide="send" size="26"></i></a>
-                <a href="#" class="w-16 h-16 md:w-16 md:h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-blue-400 hover:bg-blue-400/10 transition-all text-white shadow-lg backdrop-blur-md"><i data-lucide="twitter" size="26"></i></a>
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-4 md:gap-6 mt-10 md:mt-14 w-full max-w-2xl reveal px-4 z-30">
+            <a id="btn-main" href="#buy" class="btn-burnie text-base md:text-lg w-full sm:w-auto px-8 md:px-10 py-4 md:py-5"></a>
+            <div class="flex justify-center gap-3 md:gap-4">
+                <a href="#" class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-yellow-500 hover:bg-yellow-500/10 transition-all text-yellow-500 shadow-lg backdrop-blur-md"><i data-lucide="bar-chart-3" class="w-6 h-6 md:w-7 md:h-7"></i></a>
+                <a href="#" class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-yellow-500 hover:bg-yellow-500/10 transition-all text-white shadow-lg backdrop-blur-md"><i data-lucide="send" class="w-6 h-6 md:w-7 md:h-7"></i></a>
+                <a href="#" class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-blue-400 hover:bg-blue-400/10 transition-all text-white shadow-lg backdrop-blur-md"><i data-lucide="twitter" class="w-6 h-6 md:w-7 md:h-7"></i></a>
             </div>
         </div>
     </header>
 
-    <div id="blueprint-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
+    <div id="blueprint-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-2 md:p-4">
         <div class="absolute inset-0 bg-black/95 backdrop-blur-xl" onclick="toggleBlueprint()"></div>
-        <div class="card-glass max-w-5xl w-full max-h-[90vh] overflow-y-auto p-10 md:p-16 relative z-10 border-2 border-yellow-500/40 shadow-[0_0_80px_rgba(243,186,47,0.15)] rounded-3xl">
-            <button onclick="toggleBlueprint()" class="absolute top-8 right-8 text-white/40 hover:text-white transition-transform hover:rotate-90 bg-white/5 p-2 rounded-full"><i data-lucide="x" size="28"></i></button>
-            <h3 id="bp-title" class="text-4xl md:text-6xl font-[1000] gold-text italic mb-12 uppercase tracking-tighter border-b border-white/10 pb-8"></h3>
-            <div id="bp-content" class="space-y-10 text-base md:text-xl text-white/80 leading-loose font-medium tracking-wide"></div>
+        <div class="card-glass max-w-5xl w-full max-h-[90vh] overflow-y-auto p-6 md:p-16 relative z-10 border-2 border-yellow-500/40 shadow-[0_0_80px_rgba(243,186,47,0.15)] rounded-[20px] md:rounded-3xl">
+            <button onclick="toggleBlueprint()" class="absolute top-4 right-4 md:top-8 md:right-8 text-white/40 hover:text-white transition-transform hover:rotate-90 bg-white/5 p-2 rounded-full"><i data-lucide="x" class="w-5 h-5 md:w-7 md:h-7"></i></button>
+            <h3 id="bp-title" class="text-3xl md:text-6xl font-[1000] gold-text italic mb-8 md:mb-12 uppercase tracking-tighter border-b border-white/10 pb-6 md:pb-8"></h3>
+            <div id="bp-content" class="space-y-6 md:space-y-10 text-sm md:text-xl text-white/80 leading-relaxed md:leading-loose font-medium tracking-wide"></div>
         </div>
     </div>
 
-    <section class="max-w-6xl mx-auto py-16 px-4 text-center reveal border-b border-white/5">
-        <div id="m-text" class="text-3xl md:text-6xl font-[1000] leading-tight tracking-tighter uppercase italic break-words text-white/90"></div>
+    <section class="max-w-6xl mx-auto py-12 md:py-16 px-4 text-center reveal border-b border-white/5">
+        <div id="m-text" class="text-2xl md:text-6xl font-[1000] leading-tight tracking-tighter uppercase italic break-words text-white/90"></div>
     </section>
 
-    <section id="about" class="max-w-7xl mx-auto py-32 px-4 reveal">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
-            <div class="lg:col-span-5 relative z-10 w-full flex justify-center lg:justify-start">
-                <div class="absolute inset-0 bg-yellow-500 blur-[100px] opacity-10 rounded-full z-0"></div>
-                <img src="Burniework.png" alt="Burnie Working" class="w-full max-w-lg md:max-w-xl animate-float image-glow relative z-20 transform lg:-translate-x-8 lg:scale-110">
+    <section id="about" class="max-w-7xl mx-auto py-20 md:py-32 px-4 reveal">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-20 items-center">
+            <div class="lg:col-span-5 relative z-10 w-full flex justify-center lg:justify-start order-2 lg:order-1">
+                <div class="absolute inset-0 bg-yellow-500 blur-[60px] md:blur-[100px] opacity-10 rounded-full z-0"></div>
+                <img src="Burniework.png" alt="Burnie Working" class="w-full max-w-[280px] sm:max-w-md md:max-w-xl animate-float image-glow relative z-20 transform lg:-translate-x-8 lg:scale-110">
             </div>
-            <div class="lg:col-span-7 relative z-10 card-glass p-10 md:p-14 border-l-4 border-yellow-500">
-                <h3 id="char-title" class="text-5xl md:text-7xl font-[1000] text-white italic uppercase mb-10 tracking-tighter"></h3>
-                <div id="char-bio" class="text-lg md:text-xl font-light leading-relaxed text-white/90 space-y-6"></div>
+            <div class="lg:col-span-7 relative z-10 card-glass p-6 md:p-14 border-t-4 lg:border-t-0 lg:border-l-4 border-yellow-500 order-1 lg:order-2">
+                <h3 id="char-title" class="text-4xl md:text-7xl font-[1000] text-white italic uppercase mb-6 md:mb-10 tracking-tighter mobile-break"></h3>
+                <div id="char-bio" class="text-base md:text-xl font-light leading-relaxed text-white/90 space-y-4 md:space-y-6"></div>
                 
-                <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 border-t border-white/10 pt-10">
-                    <div class="text-center"><i data-lucide="shield-check" class="w-10 h-10 text-yellow-500 mx-auto mb-3"></i><p id="feat-1" class="font-bold text-sm uppercase tracking-widest text-white/70"></p></div>
-                    <div class="text-center"><i data-lucide="users" class="w-10 h-10 text-yellow-500 mx-auto mb-3"></i><p id="feat-2" class="font-bold text-sm uppercase tracking-widest text-white/70"></p></div>
-                    <div class="text-center"><i data-lucide="flame" class="w-10 h-10 text-yellow-500 mx-auto mb-3"></i><p id="feat-3" class="font-bold text-sm uppercase tracking-widest text-white/70"></p></div>
+                <div class="mt-8 md:mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 border-t border-white/10 pt-8 md:pt-10">
+                    <div class="text-center"><i data-lucide="shield-check" class="w-8 h-8 md:w-10 md:h-10 text-yellow-500 mx-auto mb-2 md:mb-3"></i><p id="feat-1" class="font-bold text-xs md:text-sm uppercase tracking-widest text-white/70"></p></div>
+                    <div class="text-center"><i data-lucide="users" class="w-8 h-8 md:w-10 md:h-10 text-yellow-500 mx-auto mb-2 md:mb-3"></i><p id="feat-2" class="font-bold text-xs md:text-sm uppercase tracking-widest text-white/70"></p></div>
+                    <div class="text-center"><i data-lucide="flame" class="w-8 h-8 md:w-10 md:h-10 text-yellow-500 mx-auto mb-2 md:mb-3"></i><p id="feat-3" class="font-bold text-xs md:text-sm uppercase tracking-widest text-white/70"></p></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="max-w-7xl mx-auto py-24 px-4 reveal relative border-t border-white/5 mt-16">
-        <div class="text-center mb-24">
-            <h3 id="t-title" class="text-6xl md:text-8xl font-[1000] italic gold-text uppercase"></h3>
-            <p id="t-sub" class="mt-6 text-xl md:text-2xl opacity-60 font-medium max-w-3xl mx-auto"></p>
+    <section class="max-w-7xl mx-auto py-20 md:py-24 px-4 reveal relative border-t border-white/5 mt-8 md:mt-16">
+        <div class="text-center mb-16 md:mb-24">
+            <h3 id="t-title" class="text-5xl md:text-8xl font-[1000] italic gold-text uppercase"></h3>
+            <p id="t-sub" class="mt-4 md:mt-6 text-lg md:text-2xl opacity-60 font-medium max-w-3xl mx-auto"></p>
         </div>
         
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
-            <div class="lg:col-span-7 space-y-6 order-2 lg:order-1">
-                <div class="p-8 card-glass border-l-4 border-white/20 hover:border-white transition-colors">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-20 items-center">
+            <div class="lg:col-span-7 space-y-4 md:space-y-6 order-2 lg:order-1">
+                <div class="p-6 md:p-8 card-glass border-l-4 border-white/20 hover:border-white transition-colors">
                     <div class="flex justify-between items-start mb-2">
-                        <p id="tk-1" class="text-2xl md:text-3xl font-black italic text-white"></p>
-                        <span class="text-2xl font-black opacity-20">92%</span>
+                        <p id="tk-1" class="text-xl md:text-3xl font-black italic text-white"></p>
+                        <span class="text-xl md:text-2xl font-black opacity-20">92%</span>
                     </div>
-                    <p id="tk-1-d" class="text-base opacity-70 leading-relaxed font-medium"></p>
+                    <p id="tk-1-d" class="text-sm md:text-base opacity-70 leading-relaxed font-medium"></p>
                 </div>
-                <div class="p-8 card-glass border-l-4 border-yellow-500 bg-yellow-500/5">
+                <div class="p-6 md:p-8 card-glass border-l-4 border-yellow-500 bg-yellow-500/5">
                     <div class="flex justify-between items-start mb-2">
-                        <p id="tk-2" class="text-2xl md:text-3xl font-black italic gold-text"></p>
-                        <span class="text-2xl font-black text-yellow-500/30">5%</span>
+                        <p id="tk-2" class="text-xl md:text-3xl font-black italic gold-text"></p>
+                        <span class="text-xl md:text-2xl font-black text-yellow-500/30">5%</span>
                     </div>
-                    <p id="tk-2-d" class="text-base opacity-80 leading-relaxed font-medium"></p>
+                    <p id="tk-2-d" class="text-sm md:text-base opacity-80 leading-relaxed font-medium"></p>
                 </div>
-                <div class="p-8 card-glass border-l-4 border-blue-500 bg-blue-500/5">
+                <div class="p-6 md:p-8 card-glass border-l-4 border-blue-500 bg-blue-500/5">
                     <div class="flex justify-between items-start mb-2">
-                        <p id="tk-3" class="text-2xl md:text-3xl font-black italic text-blue-400"></p>
-                        <span class="text-2xl font-black text-blue-400/30">3%</span>
+                        <p id="tk-3" class="text-xl md:text-3xl font-black italic text-blue-400"></p>
+                        <span class="text-xl md:text-2xl font-black text-blue-400/30">3%</span>
                     </div>
-                    <p id="tk-3-d" class="text-base opacity-80 leading-relaxed font-medium text-blue-100/70"></p>
+                    <p id="tk-3-d" class="text-sm md:text-base opacity-80 leading-relaxed font-medium text-blue-100/70"></p>
                 </div>
-                <div class="p-6 text-center mt-8">
-                    <p class="text-4xl font-[1000] text-white italic mb-2 tracking-widest">0% TAX</p>
-                    <p id="tk-tax" class="text-sm opacity-50 uppercase tracking-[0.2em]"></p>
+                <div class="p-4 md:p-6 text-center mt-6 md:mt-8">
+                    <p class="text-2xl md:text-4xl font-[1000] text-white italic mb-1 md:mb-2 tracking-widest">0% TAX</p>
+                    <p id="tk-tax" class="text-[10px] md:text-sm opacity-50 uppercase tracking-[0.2em]"></p>
                 </div>
             </div>
 
             <div class="lg:col-span-5 relative flex flex-col items-center justify-center group order-1 lg:order-2">
-                <div class="absolute inset-0 bg-yellow-500 blur-[120px] opacity-20 group-hover:opacity-40 transition-opacity duration-700 z-0"></div>
-                <img src="closedVault.png" alt="Burnie Vault Closed" class="w-full max-w-md lg:max-w-xl animate-float image-glow relative z-10 transform lg:translate-x-8 lg:scale-110 mb-8">
-                <div class="w-full max-w-sm rounded-full border border-yellow-500/30 flex flex-col items-center justify-center p-6 text-center relative z-10 bg-[#050505] shadow-[inset_0_0_50px_rgba(243,186,47,0.1)]">
-                    <p id="tk-supply-label" class="text-[10px] font-black opacity-40 uppercase tracking-[0.4em] mb-2"></p>
-                    <p class="text-4xl font-[1000] gold-text italic leading-none">1,000,000,000</p>
+                <div class="absolute inset-0 bg-yellow-500 blur-[80px] md:blur-[120px] opacity-20 group-hover:opacity-40 transition-opacity duration-700 z-0"></div>
+                <img src="closedVault.png" alt="Burnie Vault Closed" class="w-full max-w-[250px] md:max-w-md lg:max-w-xl animate-float image-glow relative z-10 transform lg:translate-x-8 lg:scale-110 mb-6 md:mb-8">
+                
+                <div class="w-64 h-64 sm:w-72 sm:h-72 md:w-full md:max-w-sm md:h-auto md:aspect-square rounded-full border border-yellow-500/30 flex flex-col items-center justify-center p-4 md:p-6 text-center relative z-10 bg-[#050505] shadow-[inset_0_0_50px_rgba(243,186,47,0.1)] mx-auto">
+                    <p id="tk-supply-label" class="text-[9px] md:text-[10px] font-black opacity-40 uppercase tracking-[0.3em] mb-1 md:mb-2"></p>
+                    <p class="text-2xl sm:text-3xl md:text-4xl font-[1000] gold-text italic leading-tight">1,000,000,000</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="roadmap" class="max-w-7xl mx-auto py-32 px-4 border-t border-white/5 mt-16">
-        <div class="flex flex-col lg:flex-row items-center justify-between mb-24 reveal gap-12">
-            <div class="text-center lg:text-left lg:w-1/2 z-20">
-                <h4 id="b-title" class="text-6xl md:text-8xl font-[1000] italic gold-text uppercase tracking-tighter"></h4>
-                <p id="b-subtitle" class="text-xl md:text-3xl font-bold uppercase mt-6 opacity-80 tracking-widest text-white"></p>
+    <section id="roadmap" class="max-w-7xl mx-auto py-20 md:py-32 px-4 border-t border-white/5 mt-8 md:mt-16">
+        <div class="flex flex-col lg:flex-row items-center justify-between mb-16 md:mb-24 reveal gap-8 md:gap-12">
+            <div class="text-center lg:text-left lg:w-1/2 z-20 order-2 lg:order-1">
+                <h4 id="b-title" class="text-5xl md:text-8xl font-[1000] italic gold-text uppercase tracking-tighter"></h4>
+                <p id="b-subtitle" class="text-lg md:text-3xl font-bold uppercase mt-4 md:mt-6 opacity-80 tracking-widest text-white"></p>
             </div>
-            <div class="lg:w-1/2 flex justify-center lg:justify-end relative z-10">
-                <div class="absolute inset-0 bg-orange-500 blur-[120px] opacity-30 z-0 animate-pulse"></div>
-                <img src="Vault.png" alt="Open Burning Vault" class="w-full max-w-md lg:max-w-2xl image-glow relative z-10 transform lg:translate-x-12 scale-110">
+            <div class="w-full lg:w-1/2 flex justify-center lg:justify-end relative z-10 order-1 lg:order-2">
+                <div class="absolute inset-0 bg-orange-500 blur-[80px] md:blur-[120px] opacity-30 z-0 animate-pulse"></div>
+                <img src="Vault.png" alt="Open Burning Vault" class="w-full max-w-[250px] sm:max-w-md lg:max-w-2xl image-glow relative z-10 transform lg:translate-x-12 lg:scale-110">
             </div>
         </div>
 
-        <div id="roadmap-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20 relative z-20"></div>
+        <div id="roadmap-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-16 md:mb-20 relative z-20"></div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 reveal relative z-20">
-            <div class="p-14 card-glass phase-locked flex flex-col items-center justify-center text-center gap-8 relative overflow-hidden">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 reveal relative z-20">
+            <div class="p-8 md:p-14 card-glass phase-locked flex flex-col items-center justify-center text-center gap-6 md:gap-8 relative overflow-hidden">
                 <div class="absolute inset-0 bg-yellow-500/5"></div>
-                <div class="w-20 h-20 rounded-full bg-black flex items-center justify-center border-2 border-yellow-500/30 shadow-[0_0_30px_rgba(243,186,47,0.2)] z-10"><i data-lucide="lock" class="text-yellow-500 w-10 h-10"></i></div>
+                <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-black flex items-center justify-center border-2 border-yellow-500/30 shadow-[0_0_30px_rgba(243,186,47,0.2)] z-10"><i data-lucide="lock" class="text-yellow-500 w-8 h-8 md:w-10 md:h-10"></i></div>
                 <div class="z-10">
-                    <p id="p2-t" class="text-3xl md:text-4xl font-black uppercase italic mb-4 gold-text"></p>
-                    <p id="p2-d" class="text-lg font-medium opacity-80 leading-relaxed max-w-md mx-auto"></p>
+                    <p id="p2-t" class="text-2xl md:text-4xl font-black uppercase italic mb-3 md:mb-4 gold-text mobile-break"></p>
+                    <p id="p2-d" class="text-sm md:text-lg font-medium opacity-80 leading-relaxed max-w-md mx-auto"></p>
                 </div>
             </div>
-            <div class="p-14 card-glass phase-locked flex flex-col items-center justify-center text-center gap-8 relative overflow-hidden">
-                <div class="w-20 h-20 rounded-full bg-black flex items-center justify-center border-2 border-white/10 z-10"><i data-lucide="lock" class="text-white/30 w-10 h-10"></i></div>
+            <div class="p-8 md:p-14 card-glass phase-locked flex flex-col items-center justify-center text-center gap-6 md:gap-8 relative overflow-hidden">
+                <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-black flex items-center justify-center border-2 border-white/10 z-10"><i data-lucide="lock" class="text-white/30 w-8 h-8 md:w-10 md:h-10"></i></div>
                 <div class="z-10">
-                    <p id="p3-t" class="text-3xl md:text-4xl font-black uppercase italic mb-4"></p>
-                    <p id="p3-d" class="text-lg font-medium opacity-80 leading-relaxed max-w-md mx-auto"></p>
+                    <p id="p3-t" class="text-2xl md:text-4xl font-black uppercase italic mb-3 md:mb-4 mobile-break"></p>
+                    <p id="p3-d" class="text-sm md:text-lg font-medium opacity-80 leading-relaxed max-w-md mx-auto"></p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="staking" class="max-w-6xl mx-auto py-24 px-4 reveal relative">
+    <section id="staking" class="max-w-6xl mx-auto py-20 md:py-24 px-4 reveal relative">
         <div class="absolute inset-0 bg-gradient-to-t from-yellow-500/10 to-transparent z-0 pointer-events-none"></div>
         
-        <div class="text-center mb-16 relative z-10">
-            <div class="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-yellow-500/10 border border-yellow-500/30 mb-8 shadow-lg">
+        <div class="text-center mb-12 md:mb-16 relative z-10">
+            <div class="inline-flex items-center gap-2 md:gap-3 px-4 md:px-6 py-2 rounded-full bg-yellow-500/10 border border-yellow-500/30 mb-6 md:mb-8 shadow-lg">
                 <span class="w-2 h-2 rounded-full bg-yellow-500 animate-pulse"></span>
-                <span id="st-badge" class="text-xs font-black text-yellow-500 uppercase tracking-widest"></span>
+                <span id="st-badge" class="text-[10px] md:text-xs font-black text-yellow-500 uppercase tracking-widest"></span>
             </div>
-            <h3 id="st-title" class="text-5xl md:text-7xl font-[1000] italic text-white uppercase mb-8 tracking-tighter"></h3>
-            <p id="st-desc" class="text-lg md:text-2xl opacity-80 max-w-4xl mx-auto font-light leading-relaxed"></p>
+            <h3 id="st-title" class="text-4xl md:text-7xl font-[1000] italic text-white uppercase mb-6 md:mb-8 tracking-tighter mobile-break"></h3>
+            <p id="st-desc" class="text-base md:text-2xl opacity-80 max-w-4xl mx-auto font-light leading-relaxed"></p>
         </div>
 
         <div class="relative z-10 w-full max-w-4xl mx-auto">
-            <div class="card-glass border border-white/10 p-2 shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform hover:scale-[1.01] transition-transform duration-500">
-                <div class="bg-[#080808] rounded-[24px] p-8 md:p-16 relative overflow-hidden">
+            <div class="card-glass border border-white/10 p-1 md:p-2 shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform hover:scale-[1.01] transition-transform duration-500">
+                <div class="bg-[#080808] rounded-[20px] md:rounded-[24px] p-5 md:p-16 relative overflow-hidden">
                     
-                    <div class="flex flex-col sm:flex-row justify-between items-center gap-6 mb-12 border-b border-white/10 pb-8">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-full bg-yellow-500/20 flex items-center justify-center border border-yellow-500/50">
-                                <i data-lucide="flame" class="text-yellow-500 w-6 h-6"></i>
+                    <div class="flex flex-col sm:flex-row justify-between items-center gap-4 md:gap-6 mb-8 md:mb-12 border-b border-white/10 pb-6 md:pb-8">
+                        <div class="flex items-center gap-3 md:gap-4">
+                            <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-yellow-500/20 flex items-center justify-center border border-yellow-500/50 flex-shrink-0">
+                                <i data-lucide="flame" class="text-yellow-500 w-5 h-5 md:w-6 md:h-6"></i>
                             </div>
-                            <span class="font-black text-xl md:text-2xl tracking-widest text-white/90">FURNACE DAPP</span>
+                            <span class="font-black text-lg md:text-2xl tracking-widest text-white/90">FURNACE DAPP</span>
                         </div>
-                        <button class="bg-yellow-500 hover:bg-yellow-400 text-black font-black text-sm px-8 py-4 rounded-xl uppercase tracking-widest transition-colors shadow-[0_0_20px_rgba(243,186,47,0.4)] w-full sm:w-auto" id="st-connect">Connect Wallet</button>
+                        <button class="bg-yellow-500 hover:bg-yellow-400 text-black font-black text-[10px] md:text-sm px-4 md:px-8 py-3 md:py-4 rounded-xl uppercase tracking-widest transition-colors shadow-[0_0_20px_rgba(243,186,47,0.4)] w-full sm:w-auto" id="st-connect">Connect Wallet</button>
                     </div>
 
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-                        <div class="p-6 bg-white/5 rounded-2xl border border-white/5 hover:border-yellow-500/30 transition-colors text-center">
-                            <p id="st-apy-l" class="text-xs uppercase opacity-40 font-black tracking-widest mb-3"></p>
-                            <p id="st-apy-v" class="text-3xl font-[1000] text-green-400 italic drop-shadow-[0_0_15px_rgba(74,222,128,0.2)]">1,240%</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mb-8 md:mb-12">
+                        <div class="p-4 md:p-6 bg-white/5 rounded-xl md:rounded-2xl border border-white/5 hover:border-yellow-500/30 transition-colors text-center">
+                            <p id="st-apy-l" class="text-[9px] md:text-xs uppercase opacity-40 font-black tracking-widest mb-2 md:mb-3 mobile-break"></p>
+                            <p id="st-apy-v" class="text-xl md:text-3xl font-[1000] text-green-400 italic drop-shadow-[0_0_15px_rgba(74,222,128,0.2)]">1,240%</p>
                         </div>
-                        <div class="p-6 bg-white/5 rounded-2xl border border-white/5 text-center">
-                            <p id="st-tvl-l" class="text-xs uppercase opacity-40 font-black tracking-widest mb-3">Total Staked</p>
-                            <p class="text-3xl font-[1000] text-white italic">0</p>
+                        <div class="p-4 md:p-6 bg-white/5 rounded-xl md:rounded-2xl border border-white/5 text-center">
+                            <p id="st-tvl-l" class="text-[9px] md:text-xs uppercase opacity-40 font-black tracking-widest mb-2 md:mb-3 mobile-break">Total Staked</p>
+                            <p class="text-xl md:text-3xl font-[1000] text-white italic">0</p>
                         </div>
-                        <div class="p-6 bg-white/5 rounded-2xl border border-white/5 text-center">
-                            <p id="st-lock-l" class="text-xs uppercase opacity-40 font-black tracking-widest mb-3"></p>
-                            <p id="st-lock-v" class="text-3xl font-[1000] text-white italic"></p>
+                        <div class="p-4 md:p-6 bg-white/5 rounded-xl md:rounded-2xl border border-white/5 text-center">
+                            <p id="st-lock-l" class="text-[9px] md:text-xs uppercase opacity-40 font-black tracking-widest mb-2 md:mb-3 mobile-break"></p>
+                            <p id="st-lock-v" class="text-xl md:text-3xl font-[1000] text-white italic"></p>
                         </div>
-                        <div class="p-6 bg-red-500/5 rounded-2xl border border-red-500/20 text-center">
-                            <p id="st-pen-l" class="text-xs uppercase text-red-400 opacity-80 font-black tracking-widest mb-3"></p>
-                            <p id="st-pen-v" class="text-3xl font-[1000] text-red-500 italic"></p>
+                        <div class="p-4 md:p-6 bg-red-500/5 rounded-xl md:rounded-2xl border border-red-500/20 text-center">
+                            <p id="st-pen-l" class="text-[9px] md:text-xs uppercase text-red-400 opacity-80 font-black tracking-widest mb-2 md:mb-3 mobile-break"></p>
+                            <p id="st-pen-v" class="text-xl md:text-3xl font-[1000] text-red-500 italic"></p>
                         </div>
                     </div>
 
-                    <div class="flex gap-4 mb-8 opacity-40 grayscale pointer-events-none">
-                        <div class="flex-1 py-5 text-center rounded-xl bg-yellow-500 text-black font-[1000] text-base uppercase tracking-widest">Stake</div>
-                        <div class="flex-1 py-5 text-center rounded-xl bg-transparent text-white/50 font-[1000] text-base uppercase border-2 border-white/10 tracking-widest">Unstake</div>
+                    <div class="flex gap-2 md:gap-4 mb-6 md:mb-8 opacity-40 grayscale pointer-events-none">
+                        <div class="flex-1 py-3 md:py-5 text-center rounded-xl bg-yellow-500 text-black font-[1000] text-xs md:text-base uppercase tracking-widest">Stake</div>
+                        <div class="flex-1 py-3 md:py-5 text-center rounded-xl bg-transparent text-white/50 font-[1000] text-xs md:text-base uppercase border-2 border-white/10 tracking-widest">Unstake</div>
                     </div>
                     
-                    <div class="staking-input-sim rounded-2xl p-8 flex justify-between items-center mb-10 border border-white/5 opacity-40 grayscale pointer-events-none">
-                        <input type="text" placeholder="0.0" class="bg-transparent text-5xl font-[1000] text-white/30 outline-none w-full pl-2" disabled>
-                        <div class="flex items-center gap-6">
-                            <span class="text-white/40 font-black text-lg tracking-widest">BURNIE</span>
-                            <button class="bg-white/10 text-white font-black text-sm px-6 py-3 rounded-lg">MAX</button>
+                    <div class="staking-input-sim rounded-xl md:rounded-2xl p-4 md:p-8 flex justify-between items-center mb-6 md:mb-10 border border-white/5 opacity-40 grayscale pointer-events-none">
+                        <input type="text" placeholder="0.0" class="bg-transparent text-3xl md:text-5xl font-[1000] text-white/30 outline-none w-full pl-1 md:pl-2" disabled>
+                        <div class="flex items-center gap-2 md:gap-6">
+                            <span class="text-white/40 font-black text-xs md:text-lg tracking-widest hidden sm:inline-block">BURNIE</span>
+                            <button class="bg-white/10 text-white font-black text-[10px] md:text-sm px-3 md:px-6 py-2 md:py-3 rounded-lg">MAX</button>
                         </div>
                     </div>
 
-                    <button class="w-full py-6 rounded-2xl bg-[#030303] border border-yellow-500/30 text-yellow-500/50 font-black text-base uppercase tracking-[0.2em] cursor-not-allowed flex items-center justify-center gap-4 hover:bg-yellow-500/5 transition-colors" disabled>
-                        <i data-lucide="lock" class="w-6 h-6"></i>
-                        <span id="st-btn"></span>
+                    <button class="w-full py-4 md:py-6 rounded-xl md:rounded-2xl bg-[#030303] border border-yellow-500/30 text-yellow-500/50 font-black text-xs md:text-base uppercase tracking-[0.1em] md:tracking-[0.2em] cursor-not-allowed flex items-center justify-center gap-2 md:gap-4 hover:bg-yellow-500/5 transition-colors" disabled>
+                        <i data-lucide="lock" class="w-4 h-4 md:w-6 md:h-6 flex-shrink-0"></i>
+                        <span id="st-btn" class="text-center"></span>
                     </button>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="buy" class="max-w-7xl mx-auto py-32 px-4 reveal">
-        <h3 id="buy-title" class="text-5xl md:text-7xl font-[1000] italic text-white text-center mb-24 uppercase tracking-tighter"></h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div class="p-12 card-glass border-t-4 border-yellow-500 flex flex-col gap-6 relative overflow-hidden group">
-                <div class="absolute -right-10 -top-10 text-[150px] font-black opacity-5 italic gold-text group-hover:scale-110 transition-transform duration-500">1</div>
-                <h5 id="s1-t" class="text-3xl font-[1000] uppercase italic text-white relative z-10"></h5>
-                <p id="s1-p" class="opacity-80 text-lg font-medium leading-relaxed relative z-10"></p>
+    <section id="buy" class="max-w-7xl mx-auto py-20 md:py-32 px-4 reveal">
+        <h3 id="buy-title" class="text-4xl md:text-7xl font-[1000] italic text-white text-center mb-16 md:mb-24 uppercase tracking-tighter mobile-break"></h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+            <div class="p-8 md:p-12 card-glass border-t-4 border-yellow-500 flex flex-col gap-4 md:gap-6 relative overflow-hidden group">
+                <div class="absolute -right-6 -top-6 md:-right-10 md:-top-10 text-[100px] md:text-[150px] font-black opacity-5 italic gold-text group-hover:scale-110 transition-transform duration-500">1</div>
+                <h5 id="s1-t" class="text-2xl md:text-3xl font-[1000] uppercase italic text-white relative z-10 mobile-break"></h5>
+                <p id="s1-p" class="opacity-80 text-sm md:text-lg font-medium leading-relaxed relative z-10"></p>
             </div>
-            <div class="p-12 card-glass border-t-4 border-yellow-500 flex flex-col gap-6 relative overflow-hidden group">
-                <div class="absolute -right-10 -top-10 text-[150px] font-black opacity-5 italic gold-text group-hover:scale-110 transition-transform duration-500">2</div>
-                <h5 id="s2-t" class="text-3xl font-[1000] uppercase italic text-white relative z-10"></h5>
-                <p id="s2-p" class="opacity-80 text-lg font-medium leading-relaxed relative z-10"></p>
+            <div class="p-8 md:p-12 card-glass border-t-4 border-yellow-500 flex flex-col gap-4 md:gap-6 relative overflow-hidden group">
+                <div class="absolute -right-6 -top-6 md:-right-10 md:-top-10 text-[100px] md:text-[150px] font-black opacity-5 italic gold-text group-hover:scale-110 transition-transform duration-500">2</div>
+                <h5 id="s2-t" class="text-2xl md:text-3xl font-[1000] uppercase italic text-white relative z-10 mobile-break"></h5>
+                <p id="s2-p" class="opacity-80 text-sm md:text-lg font-medium leading-relaxed relative z-10"></p>
             </div>
-            <div class="p-12 card-glass border-t-4 border-yellow-500 flex flex-col gap-6 relative overflow-hidden group">
-                <div class="absolute -right-10 -top-10 text-[150px] font-black opacity-5 italic gold-text group-hover:scale-110 transition-transform duration-500">3</div>
-                <h5 id="s3-t" class="text-3xl font-[1000] uppercase italic text-white relative z-10"></h5>
-                <p id="s3-p" class="opacity-80 text-lg font-medium leading-relaxed relative z-10"></p>
+            <div class="p-8 md:p-12 card-glass border-t-4 border-yellow-500 flex flex-col gap-4 md:gap-6 relative overflow-hidden group">
+                <div class="absolute -right-6 -top-6 md:-right-10 md:-top-10 text-[100px] md:text-[150px] font-black opacity-5 italic gold-text group-hover:scale-110 transition-transform duration-500">3</div>
+                <h5 id="s3-t" class="text-2xl md:text-3xl font-[1000] uppercase italic text-white relative z-10 mobile-break"></h5>
+                <p id="s3-p" class="opacity-80 text-sm md:text-lg font-medium leading-relaxed relative z-10"></p>
             </div>
-            <div class="p-12 card-glass border-t-4 border-white/20 opacity-80 flex flex-col gap-6 bg-white/5 relative overflow-hidden group">
-                <div class="absolute -right-10 -top-10 text-[150px] font-black opacity-5 italic text-white group-hover:scale-110 transition-transform duration-500">4</div>
-                <h5 id="s4-t" class="text-3xl font-[1000] uppercase italic text-white relative z-10"></h5>
-                <p id="s4-p" class="opacity-80 text-lg font-medium leading-relaxed relative z-10"></p>
+            <div class="p-8 md:p-12 card-glass border-t-4 border-white/20 opacity-80 flex flex-col gap-4 md:gap-6 bg-white/5 relative overflow-hidden group">
+                <div class="absolute -right-6 -top-6 md:-right-10 md:-top-10 text-[100px] md:text-[150px] font-black opacity-5 italic text-white group-hover:scale-110 transition-transform duration-500">4</div>
+                <h5 id="s4-t" class="text-2xl md:text-3xl font-[1000] uppercase italic text-white relative z-10 mobile-break"></h5>
+                <p id="s4-p" class="opacity-80 text-sm md:text-lg font-medium leading-relaxed relative z-10"></p>
             </div>
         </div>
     </section>
 
-    <section class="max-w-7xl mx-auto pt-32 pb-16 px-4 reveal text-center flex flex-col items-center border-t border-white/5 mt-10">
-        <img src="keepthefireburnie.png" alt="Burnie Army" class="w-full max-w-5xl animate-float image-glow mb-16 rounded-3xl">
-        <h2 id="footer-text" class="text-6xl md:text-8xl font-[1000] italic gold-text uppercase leading-none tracking-tighter drop-shadow-xl"></h2>
+    <section class="max-w-7xl mx-auto pt-20 md:pt-32 pb-10 md:pb-16 px-4 reveal text-center flex flex-col items-center border-t border-white/5 mt-6 md:mt-10">
+        <img src="keepthefireburnie.png" alt="Burnie Army" class="w-full max-w-[280px] sm:max-w-lg md:max-w-5xl animate-float image-glow mb-10 md:mb-16 rounded-2xl md:rounded-3xl">
+        <h2 id="footer-text" class="text-4xl sm:text-5xl md:text-8xl font-[1000] italic gold-text uppercase leading-none tracking-tighter drop-shadow-xl mobile-break"></h2>
     </section>
 
-    <footer class="py-16 text-center px-4 relative bg-[#020202]">
-        <p class="text-[10px] md:text-xs font-black opacity-30 uppercase tracking-[0.8em] mb-12">Architect Protocol 2026</p>
+    <footer class="py-10 md:py-16 text-center px-4 relative bg-[#020202]">
+        <p class="text-[9px] md:text-xs font-black opacity-30 uppercase tracking-[0.5em] md:tracking-[0.8em] mb-8 md:mb-12">Architect Protocol 2026</p>
         
-        <div class="max-w-4xl mx-auto border-t border-white/5 pt-10 px-4">
-            <p id="disclaimer" class="text-[10px] md:text-xs text-white/30 font-medium leading-relaxed text-justify md:text-center"></p>
+        <div class="max-w-4xl mx-auto border-t border-white/5 pt-8 md:pt-10 px-2 md:px-4">
+            <p id="disclaimer" class="text-[9px] md:text-xs text-white/30 font-medium leading-relaxed text-justify md:text-center"></p>
         </div>
     </footer>
 
@@ -356,10 +362,10 @@
                 btn_main: "Join the Blueprint",
                 m_text: "BNBChain is evolving. <br> We are not just a token. <br> We are a <span class='underline decoration-yellow-500 italic'>Monument</span> built by the people.",
                 bp_title: "The Golden Blueprint",
-                bp: `<div class="highlight-box"><p class="text-white italic text-2xl md:text-3xl font-[1000] leading-tight">"This is not just another token. This is THE project. Built from scratch. No VCs. No ghost investors. No hidden agendas."</p></div>
+                bp: `<div class="highlight-box"><p class="text-white italic text-xl md:text-3xl font-[1000] leading-tight">"This is not just another token. This is THE project. Built from scratch. No VCs. No ghost investors. No hidden agendas."</p></div>
                      <p>The modern crypto space is plagued by fragile foundations and scam-ridden launches. We reject that reality. <strong>$BURNIE</strong> is engineered to be a community-led fortress, forged through transparency and strategic sacrifice.</p>
                      <p>We rise and fall based entirely on the strength of our community. <strong>You are not merely an investor; you are a core Architect of this ecosystem.</strong></p>
-                     <p>Our mandate is absolute: <br><span class="gold-text uppercase tracking-widest text-sm font-black mt-2 block">100% Scarcity by design. Scrutiny by fire. Strength by community.</span></p>
+                     <p>Our mandate is absolute: <br><span class="gold-text uppercase tracking-widest text-xs md:text-sm font-black mt-2 block">100% Scarcity by design. Scrutiny by fire. Strength by community.</span></p>
                      <p>Every single token has a strict, publicly defined purpose. The <span class="text-yellow-500 font-black">Furnace Reserve (5%)</span> is mathematically locked and dedicated exclusively to the structural integrity of the project—triggered for strategic incinerations as we hit critical milestones.</p>
                      <p>The <span class="text-blue-400 font-black">Mining Pool (3%)</span> is designated strictly to fuel the Phase 2 Staking Protocol, ensuring those who hold the line are heavily rewarded. The Blueprint is our law. Trust the process. Trust the community.</p>`,
                 char_title: "Forged in Fire",
@@ -369,7 +375,7 @@
                 feat_1: "Zero Ghost VCs", feat_2: "Community Owned", feat_3: "Strategic Burns",
                 t_title: "Tokenomics", 
                 t_sub: "Strictly allocated capital. No hidden wallets. No inflation.",
-                tk_supply_label: "Maximum Supply",
+                tk_supply_label: "Max Supply",
                 tk_1: "Community & Liquidity", tk_1_d: "92% of the supply is dedicated to the public. Released via the four.meme bonding curve and securely migrated to PancakeSwap LP.",
                 tk_2: "Furnace Reserve", tk_2_d: "5% Developer Wallet. Strictly held for the scheduled Blueprint Milestone Burns. Never sold.",
                 tk_3: "Mining Pool", tk_3_d: "3% Dedicated Wallet. Fully locked to fund Phase 2 Staking Rewards for long-term holders.",
@@ -380,9 +386,9 @@
                 st_connect: "Connect Wallet",
                 st_apy_l: "Estimated APY",
                 st_lock_l: "Time Lock", st_lock_v: "7 Days",
-                st_pen_l: "Paper Hand Penalty", st_pen_v: "10% Fee",
+                st_pen_l: "Early Unstake Fee", st_pen_v: "10% Penalty",
                 st_btn: "PROTOCOL LOCKED - WAITING FOR BONDING CURVE",
-                b_title: "The Roadmap", b_subtitle: "Phase 1 Target: 20,000,000 $BURNIE Incinerated",
+                b_title: "The Roadmap", b_subtitle: "Phase 1 Target: 20M $BURNIE Incinerated",
                 p2_t: "Phase 2: The Framework", p2_d: "Reveals at $1M Market Cap. Furnace Mining Protocol goes live. Heavy community yield incentives and Tier-2 marketing push.",
                 p3_t: "Phase 3: The Landmark", p3_d: "Reveals at $10M Market Cap. Global expansion, CEX listings, utility expansion, and final legacy burn events.",
                 buy_title: "How to Build",
@@ -408,10 +414,10 @@
                 btn_main: "加入蓝图",
                 m_text: "BNB 链正在进化。<br> 我们不只是一个代币。<br> 我们是人民亲手建造的 <span class='underline decoration-yellow-500 italic'>丰碑</span>。",
                 bp_title: "黄金蓝图",
-                bp: `<div class="highlight-box"><p class="text-white italic text-2xl md:text-3xl font-[1000] leading-tight">“这不仅仅是另一个代币。这就是那个‘终极项目’。从零开始构建。没有风投。没有幽灵投资者。没有隐藏议程。”</p></div>
+                bp: `<div class="highlight-box"><p class="text-white italic text-xl md:text-3xl font-[1000] leading-tight">“这不仅仅是另一个代币。这就是那个‘终极项目’。从零开始构建。没有风投。没有幽灵投资者。没有隐藏议程。”</p></div>
                      <p>现代加密空间充斥着脆弱的基础和充满骗局的发行。我们拒绝这种现实。<strong>$BURNIE</strong> 被设计为一个由社区主导的堡垒，通过透明度和战略性牺牲铸就。</p>
                      <p>我们的兴衰完全取决于社区的力量。<strong>你不仅仅是一个投资者；你是这个生态系统的核心架构师。</strong></p>
-                     <p>我们的使命是绝对的：<br><span class="gold-text uppercase tracking-widest text-sm font-black mt-2 block">100% 设计上的稀缺。烈火中的审视。社区铸就的力量。</span></p>
+                     <p>我们的使命是绝对的：<br><span class="gold-text uppercase tracking-widest text-xs md:text-sm font-black mt-2 block">100% 设计上的稀缺。烈火中的审视。社区铸就的力量。</span></p>
                      <p>每一个代币都有严格、公开定义的目的。<span class="text-yellow-500 font-black">熔炉储备金 (5%)</span> 在数学上被锁定，专用于项目的结构完整性——当我们达到关键里程碑时，将触发战略性销毁。</p>
                      <p><span class="text-blue-400 font-black">矿池储备 (3%)</span> 严格指定用于支持第二阶段的质押协议，确保那些坚守阵地的人获得丰厚回报。蓝图就是我们的法律。信任过程。信任社区。</p>`,
                 char_title: "烈火中锻造",
@@ -504,13 +510,13 @@
 
             const grid = document.getElementById('roadmap-grid');
             grid.innerHTML = d.roadmap.map(s => `
-                <div class="p-8 md:p-12 card-glass border-b-4 border-yellow-500 reveal bg-gradient-to-b from-transparent to-yellow-500/5 hover:-translate-y-2 transition-transform duration-300">
-                    <p class="text-xs font-black text-yellow-500 uppercase tracking-[0.3em]">${s.mc}</p>
-                    <p class="text-3xl md:text-4xl font-[1000] italic mt-4 uppercase text-white leading-tight">${s.t}</p>
-                    <p class="text-sm opacity-70 mt-5 font-medium leading-relaxed text-white/90">${s.s}</p>
-                    <div class="mt-8 pt-6 border-t border-white/10">
-                        <p class="text-[10px] font-black opacity-40 uppercase italic mb-2 tracking-widest">${d.sacrifice}</p>
-                        <p class="text-3xl md:text-4xl font-black gold-text italic">${s.b} <span class="text-sm text-white/50">BURNED</span></p>
+                <div class="p-6 md:p-12 card-glass border-b-4 border-yellow-500 reveal bg-gradient-to-b from-transparent to-yellow-500/5 hover:-translate-y-2 transition-transform duration-300">
+                    <p class="text-[10px] md:text-xs font-black text-yellow-500 uppercase tracking-[0.3em]">${s.mc}</p>
+                    <p class="text-2xl md:text-4xl font-[1000] italic mt-2 md:mt-4 uppercase text-white leading-tight mobile-break">${s.t}</p>
+                    <p class="text-xs md:text-sm opacity-70 mt-3 md:mt-5 font-medium leading-relaxed text-white/90">${s.s}</p>
+                    <div class="mt-6 md:mt-8 pt-4 md:pt-6 border-t border-white/10">
+                        <p class="text-[9px] md:text-[10px] font-black opacity-40 uppercase italic mb-1 md:mb-2 tracking-widest">${d.sacrifice}</p>
+                        <p class="text-2xl md:text-4xl font-black gold-text italic">${s.b} <span class="text-xs md:text-sm text-white/50">BURNED</span></p>
                     </div>
                 </div>
             `).join('');
